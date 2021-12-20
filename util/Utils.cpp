@@ -31,6 +31,8 @@ string rsa_pri_decrypt(const string &in, const string &priKey) {
                                           (unsigned char *) (sub_text), pRsa, RSA_PKCS1_PADDING);
         if (out_len >= 0) {
             out.append(string(sub_text, out_len));
+        } else {
+            out.append(gen_random_str(DEFAULT_KEY_SIZE / 8 - 11));
         }
     }
 
@@ -160,7 +162,7 @@ string gen_random_str(const int &len, const bool &visible_char) {
 
 vector<int> str2int_vector(const string &in) {
     vector<int> res;
-    for (char c : in) {
+    for (char c: in) {
         res.push_back(c);
     }
     return res;
