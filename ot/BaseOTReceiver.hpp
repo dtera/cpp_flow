@@ -82,17 +82,24 @@ void BaseOTReceiver::init() {
 
 template<typename M, typename F>
 void BaseOTReceiver::get_messages(vector<string> &decrypted_y_ops, vector<M> &decrypted_ms, F f, bool only_chosen) {
-    auto len = decrypted_y_ops.size();
-    if (only_chosen) {
-        len = choices.size();
-    }
-
     auto y = ybs[0];
-    for (int i = 0; i < len; i++) {
-        auto j = only_chosen ? choices[i] : i;
-        auto t = str_xor(decrypted_y_ops[j], y);
-        M m = f == nullptr ? t : f(t);
-        decrypted_ms.push_back(m);
+    if (only_chosen) {
+        for (int choice : choices) {
+            auto t = str_xor(decrypted_y_ops[choice], y);
+            M m = f == nullptr ? t : f(t);
+            decrypted_ms.push_back(m);
+        }
+    } else {
+        for (int i = 0; i < decrypted_y_ops.size(); i++) {
+            string t;
+            if (binary_search(choices.begin(), choices.end(), i)) {
+                t = str_xor(decrypted_y_ops[i], y);
+            } else {
+                t = gen_random_str(random_size);
+            }
+            M m = f == nullptr ? t : f(t);
+            decrypted_ms.push_back(m);
+        }
     }
 
 }

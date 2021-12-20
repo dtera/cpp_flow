@@ -14,8 +14,9 @@
 
 
 string ot_test() {
-    string s1 = "abc", s2 = "def";
-    vector<StrMessage> str_ms = {StrMessage(s1), StrMessage(s2)};
+    string s1 = "abc", s2 = "def", s3 = "ghi", s4 = "jkl", s5 = "mno";
+    vector<StrMessage> str_ms = {StrMessage(s1), StrMessage(s2), StrMessage(s3),
+                                 StrMessage(s4), StrMessage(s5)};
     //for_each(str_ms.begin(), str_ms.end(), println<StrMessage>);
 
     KOutOfNForOTSender<StrMessage> otSender(str_ms);
@@ -24,7 +25,7 @@ string ot_test() {
     auto rs = otSender.get_rs();
     //cout << pk << endl;
     BaseOTReceiver::set_pub_key(pk);
-    vector<int> choices = {1};
+    vector<int> choices = {2};
     KOutOfNForOTReceiver otReceiver(choices);
     // 2. otReceiver encrypt key y with publicKey and random msg
     vector<string> encrypted_y_ops;
