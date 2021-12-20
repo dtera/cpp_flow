@@ -68,3 +68,16 @@ void println_vector(const vector<T> &vs, const string &name, const string &sep =
     }
     cout << "]" << endl;
 }
+
+template<typename T>
+string join_vector(const vector<T> &vs, const string &sep = ",", const string &start = "", const string &end = "") {
+    string res = start;
+    if (vs.size() != 0) {
+        res += vs[0];
+    }
+    for (int i = 1; i < vs.size(); i++) {
+        res += sep + vs[i];
+    }
+    res += end;
+    return res;
+}

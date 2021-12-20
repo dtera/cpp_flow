@@ -3,6 +3,8 @@
 //
 #pragma once
 #pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedStructInspection"
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #pragma ide diagnostic ignored "readability-convert-member-functions-to-static"
 
 #include <vector>
@@ -14,12 +16,25 @@ using namespace std;
 class DFMessage {
 private:
     vector<string> row;
+    const string sep = ":";
 public:
+
     byte *toByteArray() {
         return nullptr;
     }
 
+    string to_str() {
+        return join_vector(row, sep);
+    }
+
+    friend ostream &operator<<(ostream &out, DFMessage &dfMessage);
+
 };
+
+ostream &operator<<(ostream &out, DFMessage &dfMessage) {
+    out << dfMessage.to_str();
+    return out;
+}
 
 class StrMessage {
 private:
