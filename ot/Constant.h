@@ -19,6 +19,6 @@ const string RSA_KEYS_PATH = "rsa_keys";
 const string RSA_PUBLIC_KEY_FILE_NAME = "id_rsa.pub";
 const string RSA_PRIVATE_KEY_FILE_NAME = "id_rsa";
 
-typedef unsigned char byte;
+//typedef unsigned char byte;
 
 #pragma clang diagnostic pop
