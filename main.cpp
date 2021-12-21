@@ -1,6 +1,6 @@
 #include <ctime>
 
-#include "test/Test.h"
+#include "tests.h"
 
 int main() {
     //random_str_test();
