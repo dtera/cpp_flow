@@ -6,11 +6,11 @@
 #include <string>
 #include <functional>
 
-#include "ot/KOutOfNForOTSender.hpp"
-#include "ot/KOutOfNForOTReceiver.hpp"
-#include "ot/Message.hpp"
-#include "util/Utils.h"
-#include "util/Func.h"
+#include "../ot/KOutOfNForOTSender.hpp"
+#include "../ot/KOutOfNForOTReceiver.hpp"
+#include "../ot/Message.hpp"
+#include "../util/Utils.h"
+#include "../util/Func.h"
 
 
 string ot_test() {
