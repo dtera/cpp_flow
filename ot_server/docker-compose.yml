@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  web:
+    build:
+      context: ../
+      dockerfile: ./Dockerfile
+    container_name: ot_server
+    ports:
+      - '8000:8000/tcp'
+      - '8000:8000/udp'
+    restart: always

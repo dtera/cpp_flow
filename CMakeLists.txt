@@ -5,7 +5,9 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(INC_DIR /usr/local/opt/openssl/include)
 set(LINK_DIR /usr/local/opt/openssl/lib)
-set(LINK_LIB libcrypto.3.dylib libcrypto.a libcrypto.dylib libssl.3.dylib libssl.a libssl.dylib)
+set(LIB_SUFFIX dylib)
+#set(LIB_SUFFIX so)
+set(LINK_LIB libcrypto.${LIB_SUFFIX} libssl.${LIB_SUFFIX})
 
 set(SOURCE_FILES cpp_flow main.cpp)
 
@@ -26,7 +28,7 @@ add_executable(${PROJECT_NAME}-exe ${SOURCE_FILES})
 target_link_libraries(${PROJECT_NAME}-exe ${PROJECT_NAME}-lib)
 add_dependencies(${PROJECT_NAME}-exe ${PROJECT_NAME}-lib)
 
-target_include_directories(${PROJECT_NAME}-lib PUBLIC ot-server)
+target_include_directories(${PROJECT_NAME}-lib PUBLIC ot_server)
 
 
 
