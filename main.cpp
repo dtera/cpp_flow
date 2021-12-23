@@ -12,6 +12,8 @@ int main() {
     res = ot_test();
     } while(res == "def");*/
     ot_test();
+    /*BaseOTSender<string>::gen_keypair();
+    cout << BaseOTSender<string>::get_pub_key() << endl;*/
     clock_t end_time = clock();
     cout << "The run time is: " << (double) (end_time - start_time) / CLOCKS_PER_SEC * 1000 << "ms" << endl;
 }

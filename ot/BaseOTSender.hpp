@@ -49,6 +49,8 @@ public:
 
     static char *get_pub_key();
 
+    static void gen_keypair();
+
 };
 
 
@@ -101,6 +103,11 @@ char *BaseOTSender<M>::get_pub_key() {
     //return FileUtil.readUtf8String(getRsaKeyPath(RSA_PUBLIC_KEY_FILE_NAME));
     return pub_key;
 }
+
+template<class M>
+void BaseOTSender<M>::gen_keypair() {
+    gen_rsa_keypair(pub_key, pri_key, true);
+}
 //================public end==================
 
 
@@ -113,6 +120,6 @@ char *BaseOTSender<M>::pri_key = nullptr;
 
 template<class M>
 void BaseOTSender<M>::init() {
-    gen_rsa_keypair(pub_key, pri_key, true);
+    gen_keypair();
 }
 //================protected end==================
