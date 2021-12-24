@@ -22,7 +22,7 @@ void MyControllerTest::onRun() {
   oatpp::test::web::ClientServerTestRunner runner;
 
   /* Add OTServerController endpoints to the router of the test server */
-  runner.addController(std::make_shared<OTServerController>());
+  runner.addController(std::make_shared<OTClientController>());
 
   /* Run test */
   runner.run([this, &runner] {
@@ -47,7 +47,7 @@ void MyControllerTest::onRun() {
     OATPP_ASSERT(response->getStatusCode() == 200);
 
     /* Read response body as MessageDto */
-    auto message = response->readBodyToDto<oatpp::Object<CommonDTO<oatpp::String>>>(objectMapper.get());
+    auto message = response->readBodyToDto<oatpp::Object<ResponseDTO<oatpp::String>>>(objectMapper.get());
 
     /* Assert that received message is as expected */
     OATPP_ASSERT(message);
