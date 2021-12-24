@@ -4,7 +4,7 @@ services:
   web:
     build:
       context: ../
-      dockerfile: ./Dockerfile
+      dockerfile: ot_server/Dockerfile
     container_name: ot_server
     ports:
       - '8000:8000/tcp'

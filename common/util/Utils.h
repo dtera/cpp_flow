@@ -23,7 +23,7 @@
 #include <openssl/pem.h>
 #include <openssl/bio.h>
 
-#include "../ot/Constant.h"
+#include "../../ot/Constant.h"
 
 string rsa_pri_decrypt(const string &in, const string &priKey);
 

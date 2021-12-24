@@ -16,7 +16,7 @@ link_directories(${LINK_DIR})
 link_libraries(${LINK_LIB})
 
 add_library(${PROJECT_NAME}-lib
-        util/Utils.h util/Utils.cpp util/Func.h util/BitOp.hpp
+        common/util/Utils.h common/util/Utils.cpp common/util/Func.h common/util/BitOp.hpp
         ot/BaseOTSender.hpp ot/BaseOTReceiver.hpp ot/KOutOfNForOTSender.hpp ot/KOutOfNForOTReceiver.hpp
         ot/Constant.h ot/Message.hpp tests.h
         )

@@ -9,8 +9,8 @@
 
 #include "Constant.h"
 
-#include "../util/Utils.h"
-#include "../util/BitOp.hpp"
+#include "../common/util/Utils.h"
+#include "../common/util/BitOp.hpp"
 
 using namespace std;
 

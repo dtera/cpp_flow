@@ -2,10 +2,10 @@
 // Created by zhaohuiqiang on 2021/12/12.
 //
 #pragma once
+#pragma ide diagnostic ignored "OCUnusedStructInspection"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include "BaseOTReceiver.hpp"
-
 
 class KOutOfNForOTReceiver : public BaseOTReceiver {
 public:

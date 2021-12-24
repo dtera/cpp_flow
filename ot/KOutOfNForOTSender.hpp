@@ -5,7 +5,7 @@
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include "BaseOTSender.hpp"
-#include "../util/BitOp.hpp"
+#include "../common/util/BitOp.hpp"
 
 template<class M>
 class KOutOfNForOTSender : public BaseOTSender<M> {

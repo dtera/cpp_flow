@@ -2,9 +2,10 @@ FROM alpine
 MAINTAINER dterazhao (https://github.com/dtera)
 
 ADD . /service/
-WORKDIR /service/ot_server
+WORKDIR /service
 
-RUN rm -rf ../cmake-build-debug ../build ../CMakeLists.txt ../main.cpp ../tests.h ../README.md cmake-build-debug build
+RUN rm -rf ot_client cmake-build-debug build .gitignore CMakeLists.txt main.cpp README.md tests.h \
+    ot_server/cmake-build-debug ot_server/build
 
 RUN apk update && apk upgrade
 RUN apk add --no-cache git
@@ -13,7 +14,7 @@ RUN apk add --no-cache make
 RUN apk add --no-cache cmake
 RUN apk add --no-cache openssl && apk add --no-cache openssl-dev && rm -rf /var/cache/apk/*
 
-RUN sh -c ./install-oatpp-modules.sh
+RUN sh -c common/shell/install-oatpp-modules.sh
 
 WORKDIR /service/ot_server/build
 
