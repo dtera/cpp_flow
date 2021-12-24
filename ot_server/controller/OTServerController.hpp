@@ -46,10 +46,11 @@ public:
     }*/
 
     ENDPOINT("GET", "/getPublicKey", getPublicKey) {
-        auto resDto = ResponseDTO<String>::createShared();
+        //auto resDto = ResponseDTO<String>::createShared();
         String pk;
         otServerService.setPublicKey(pk);
-        return createDtoResponse(Status::CODE_200, success(resDto, pk));
+        return createDtoResponse(Status::CODE_200, pk);
+        //return createDtoResponse(Status::CODE_200, success(resDto, pk));
     }
 
     ENDPOINT("POST", "/getRandomMsgs", getRandomMsgs,

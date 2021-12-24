@@ -35,7 +35,7 @@ OTServerService::OTServerService() {
 
 void OTServerService::setPublicKey(String &publicKey) {
     publicKey = BaseOTSender<string>::get_pub_key();
-    //OATPP_LOGD("OTServerService", " publicKey \n%s", pk->data());
+    OATPP_LOGD("OTServerService", " publicKey \n%s", publicKey->data());
 }
 
 void OTServerService::setRandomMsgs(const Object <OTServerReqDTO> &reqDTO, Vector <String> &rms) {
