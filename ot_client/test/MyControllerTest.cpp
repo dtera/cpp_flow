@@ -3,7 +3,7 @@
 #pragma ide diagnostic ignored "EmptyDeclOrStmt"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
-#include "../controller/OTServerController.hpp"
+#include "../controller/OTClientController.hpp"
 
 #include "MyControllerTest.hpp"
 #include "app/MyApiTestClient.hpp"

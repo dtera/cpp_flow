@@ -12,6 +12,7 @@
 
 #include "../dto/DTOs.hpp"
 #include "../../ot/KOutOfNForOTSender.hpp"
+#include "../../ot/Message.hpp"
 
 using namespace oatpp;
 

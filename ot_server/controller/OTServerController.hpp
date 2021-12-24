@@ -11,8 +11,6 @@
 #include "oatpp/core/macro/codegen.hpp"
 #include "oatpp/core/macro/component.hpp"
 
-#include "../../ot/KOutOfNForOTSender.hpp"
-#include "../../ot/Message.hpp"
 #include "../../common/dto/DTOs.hpp"
 
 #include "../dto/DTOs.hpp"
