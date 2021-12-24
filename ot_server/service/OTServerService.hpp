@@ -10,7 +10,7 @@
 #include <map>
 #include <oatpp/core/Types.hpp>
 
-#include "../dto/DTOs.hpp"
+#include "../../common/dto/OTServerDTOs.hpp"
 #include "../../ot/KOutOfNForOTSender.hpp"
 #include "../../ot/Message.hpp"
 
