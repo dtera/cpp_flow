@@ -38,18 +38,18 @@ public:
     }
 
     ENDPOINT("POST", "/getMessages", getMessages,
-             BODY_DTO(Object<OTClientReqDTO>, reqDTO)) {
+             BODY_DTO(Fields<UInt8>, uinWithLabelMap)) {
         auto resDto = ResponseDTO<Vector<String>>::createShared();
         Vector<String> messages;
-        oTClientService.setMessages(reqDTO, messages, true);
+        oTClientService.setMessages(uinWithLabelMap, messages, true);
         return createDtoResponse(Status::CODE_200, success(resDto, messages));
     }
 
     ENDPOINT("POST", "/getMessagesOfChosen", getMessagesOfChosen,
-             BODY_DTO(Object<OTClientReqDTO>, reqDTO)) {
+             BODY_DTO(Fields<UInt8>, uinWithLabelMap)) {
         auto resDto = ResponseDTO<Vector<String>>::createShared();
         Vector<String> messages;
-        oTClientService.setMessages(reqDTO, messages, false);
+        oTClientService.setMessages(uinWithLabelMap, messages, false);
         return createDtoResponse(Status::CODE_200, success(resDto, messages));
     }
 

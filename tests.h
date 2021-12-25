@@ -9,8 +9,8 @@
 #include "ot/KOutOfNForOTSender.hpp"
 #include "ot/KOutOfNForOTReceiver.hpp"
 #include "ot/Message.hpp"
-#include "util/Utils.h"
-#include "util/Func.h"
+#include "common/util/Utils.h"
+#include "common/util/Func.h"
 
 
 string ot_test() {

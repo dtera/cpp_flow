@@ -21,7 +21,7 @@ class OTServerApiClient : public oatpp::web::client::ApiClient {
 
   API_CALL("POST", "/getRandomMsgs", getRandomMsgs, BODY_DTO(Object<OTServerReqDTO>, reqDTO))
 
-  API_CALL("POST", "/getDecryptedYXorMs", getDecryptedYXorMs, BODY_DTO(Object<OTServerReqDTO>, reqDTO))
+  API_CALL("POST", "/getDecryptedYOps", getDecryptedYOps, BODY_DTO(Object<OTServerReqDTO>, reqDTO))
 
 };
 

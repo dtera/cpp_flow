@@ -3,7 +3,9 @@
 //
 #pragma once
 #pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnusedParameter"
 #pragma ide diagnostic ignored "EmptyDeclOrStmt"
+#pragma ide diagnostic ignored "UnusedLocalVariable"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include <oatpp/network/ConnectionPool.hpp>
@@ -11,6 +13,7 @@
 #include <oatpp/parser/json/mapping/ObjectMapper.hpp>
 #include <oatpp/web/client/HttpRequestExecutor.hpp>
 
+using namespace oatpp;
 using namespace oatpp::network;
 using namespace oatpp::web;
 
@@ -33,4 +36,17 @@ createHttpRequestExecutor(const unsigned short &port = 80, const std::string &ho
     auto requestExecutor = client::HttpRequestExecutor::createShared(
             connectionProvider, retryPolicy);
     return requestExecutor;
+}
+
+struct pair_less {
+    bool operator()(const std::pair<String, UInt8> &p1, const std::pair<String, UInt8> &p2) {
+        return *(p1.first.get()) < *(p2.first.get());
+    }
+};
+
+template<typename T1, typename T2>
+void oatppVector_to_vector(Vector <T1> &v1, vector<T2> &v2) {
+    for (auto &t: v1) {
+        v2.push_back(t);
+    }
 }

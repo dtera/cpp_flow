@@ -61,7 +61,7 @@ public:
         return createDtoResponse(Status::CODE_200, success(resDto, rms));
     }
 
-    ENDPOINT("POST", "/getDecryptedYXorMs", getDecryptedYXorMs,
+    ENDPOINT("POST", "/getDecryptedYOps", getDecryptedYOps,
              BODY_DTO(Object<OTServerReqDTO>, reqDTO)) {
         auto resDto = ResponseDTO<Vector < String>>::createShared();
         try {

@@ -16,34 +16,73 @@
 #include "../../common/api/OTServerApiClient.hpp"
 #include "../../common/dto/OTClientDTOs.hpp"
 #include "../../common/util/OatppUtils.hpp"
+#include "../../common/util/Func.h"
 
 using namespace oatpp;
 
 
 class OTClientService {
 private:
-    string publicKey;
+    shared_ptr<oatpp::parser::json::mapping::ObjectMapper> objectMapper;
     shared_ptr<OTServerApiClient> otServer;
+    static const unsigned int tokenLen = 32;
 public:
     OTClientService();
 
-    void setMessages(const Object <OTClientReqDTO> &reqDTO, Vector <String> &messages, const bool &onlyGetChosen);
+    void setMessages(const Fields<UInt8> &uinWithLabelMap, Vector <String> &messages, const bool &onlyGetChosen);
 
 };
 
 OTClientService::OTClientService() {
     auto reqExecutor = createHttpRequestExecutor(8000);
-    /* Create ObjectMapper for serialization of DTOs  */
-    auto objectMapper = oatpp::parser::json::mapping::ObjectMapper::createShared();
-    /* create API client */
+    // Create ObjectMapper for serialization of DTOs
+    objectMapper = oatpp::parser::json::mapping::ObjectMapper::createShared();
+    // create API client
     otServer = OTServerApiClient::createShared(reqExecutor, objectMapper);
-    publicKey = otServer->getPublicKey()->readBodyToString();
+    // get public key and cache it
+    string publicKey = otServer->getPublicKey()->readBodyToString();
     publicKey = regex_replace(publicKey, regex("\""), "");
     publicKey = regex_replace(publicKey, regex("\\\\n"), "\n");
+    // set public key for ot receiver
+    BaseOTReceiver::set_pub_key(publicKey.data());
     OATPP_LOGD("OTClientService", " publicKey \n%s", publicKey.data());
 }
 
-void OTClientService::setMessages(const Object <OTClientReqDTO> &reqDTO, Vector <String> &messages,
+void OTClientService::setMessages(const Fields<UInt8> &uinWithLabelMap, Vector <String> &messages,
                                   const bool &onlyGetChosen) {
-    messages = {publicKey};
+    messages = {};
+    uinWithLabelMap->sort(pair_less());
+
+    auto otServerReqDTO = OTServerReqDTO::createShared();
+    otServerReqDTO->sessionToken = gen_random_str(tokenLen);
+    otServerReqDTO->params = {};
+    vector<int> choices;
+
+    int i = 0;
+    // set choices and dataKeys
+    for(auto &pair: *uinWithLabelMap) {
+        if(pair.second.getValue(-1) == 1) {
+            choices.push_back(i);
+        }
+        otServerReqDTO->params->push_back(pair.first);
+        i++;
+    }
+
+    // 1. get random messages from ot sender
+    auto randomMsgs = otServer->getRandomMsgs(otServerReqDTO)->
+            readBodyToDto<Vector<String>>(objectMapper);
+    vector<string> rms;
+    oatppVector_to_vector(randomMsgs, rms);
+    // 2. otReceiver encrypt key y with publicKey and random msg
+    vector<string> encrypted_y_ops;
+    KOutOfNForOTReceiver otReceiver(choices);
+    otReceiver.encrypt(rms, encrypted_y_ops);
+    // 3. otSender decrypt the encrypted key and send the decryptedYXorMs to otReceiver
+    auto decrypted_y_ops = otServer->getDecryptedYOps(otServerReqDTO);
+    // 4. otReceiver obtain the chosen message
+    vector<string> decrypted_ms;
+    str2str_fp f = nullptr;
+    //otReceiver.get_messages(decrypted_y_ops, decrypted_ms, f);
+    for_each(decrypted_ms.begin(), decrypted_ms.end(), println<string>);
+
 }
