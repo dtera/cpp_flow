@@ -7,11 +7,12 @@
 
 #include OATPP_CODEGEN_BEGIN(DTO)
 
+template<class T>
 class OTServerReqDTO : public oatpp::DTO {
     DTO_INIT(OTServerReqDTO, DTO)
 
     DTO_FIELD(String, sessionToken);
-    DTO_FIELD(Vector<String>, params);
+    DTO_FIELD(Vector<T>, params);
 };
 
 #include OATPP_CODEGEN_END(DTO)

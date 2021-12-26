@@ -6,6 +6,7 @@
 #pragma ide diagnostic ignored "UnusedParameter"
 #pragma ide diagnostic ignored "EmptyDeclOrStmt"
 #pragma ide diagnostic ignored "UnusedLocalVariable"
+#pragma ide diagnostic ignored "OCUnusedStructInspection"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include <oatpp/network/ConnectionPool.hpp>
@@ -45,8 +46,46 @@ struct pair_less {
 };
 
 template<typename T1, typename T2>
-void oatppVector_to_vector(Vector <T1> &v1, vector<T2> &v2) {
-    for (auto &t: v1) {
+void oatppVector_to_vector(Vector <T1> &v1, std::vector<T2> &v2) {
+    for (auto &t: *v1) {
         v2.push_back(t);
+    }
+}
+template<typename T1, typename T2>
+void vector_to_oatppVector(std::vector <T1> &v1, Vector<T2> &v2) {
+    v2 = {};
+    for (auto &t: v1) {
+        v2->push_back(t);
+    }
+}
+
+
+void str2int_Vector(const std::string &in, Vector<Int8> &res) {
+    res = {};
+    for (char c: in) {
+        res->push_back(c);
+    }
+}
+
+void int_Vector2str(const Vector<Int8> &in, std::string &res) {
+    for (char c: *in) {
+        res += c;
+    }
+}
+
+void vector_str2int_Vector_Vector(const std::vector<std::string> &in, Vector<Vector<Int8>> &res) {
+    res = {};
+    for (const std::string &s: in) {
+        Vector<Int8> t;
+        str2int_Vector(s, t);
+        res->push_back(t);
+    }
+}
+
+void int_Vector_Vector2vector_str(const Vector<Vector<Int8>> &in, std::vector<std::string> &res) {
+    for (const Vector<Int8> &v: *in) {
+        std::string t;
+        int_Vector2str(v, t);
+        res.push_back(t);
     }
 }

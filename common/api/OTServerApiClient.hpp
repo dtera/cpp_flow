@@ -6,6 +6,8 @@
 #include "oatpp/core/macro/codegen.hpp"
 #include "../dto/OTServerDTOs.hpp"
 
+using namespace oatpp;
+
 /* Begin Api Client code generation */
 #include OATPP_CODEGEN_BEGIN(ApiClient)
 
@@ -19,9 +21,9 @@ class OTServerApiClient : public oatpp::web::client::ApiClient {
 
   API_CALL("GET", "/getPublicKey", getPublicKey)
 
-  API_CALL("POST", "/getRandomMsgs", getRandomMsgs, BODY_DTO(Object<OTServerReqDTO>, reqDTO))
+  API_CALL("POST", "/getRandomMsgs", getRandomMsgs, BODY_DTO(Object<OTServerReqDTO<String>>, reqDTO))
 
-  API_CALL("POST", "/getDecryptedYOps", getDecryptedYOps, BODY_DTO(Object<OTServerReqDTO>, reqDTO))
+  API_CALL("POST", "/getDecryptedYOps", getDecryptedYOps, BODY_DTO(Object<OTServerReqDTO<Vector<Int8>>>, reqDTO))
 
 };
 

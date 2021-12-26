@@ -19,6 +19,7 @@ class ResponseDTO : public oatpp::DTO {
 
     DTO_FIELD(UInt16, code)= 200;
     DTO_FIELD(String, message)= "success";
+    DTO_FIELD(Float32, reqTimeMillis);
     DTO_FIELD(T, data);
 };
 

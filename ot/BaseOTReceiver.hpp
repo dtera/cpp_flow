@@ -70,7 +70,7 @@ void BaseOTReceiver::set_choices(vector<int> &cs) {
 }
 
 void BaseOTReceiver::init() {
-    auto len = choices.size();
+    auto len = 1; //choices.size();
     //ybs = new string[len];
     ybs.clear();
 

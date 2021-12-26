@@ -9,7 +9,7 @@ set(LIB_SUFFIX dylib)
 #set(LIB_SUFFIX so)
 set(LINK_LIB libcrypto.${LIB_SUFFIX} libssl.${LIB_SUFFIX})
 
-set(SOURCE_FILES cpp_flow main.cpp)
+set(SOURCE_FILES main.cpp)
 
 include_directories(${INC_DIR})
 link_directories(${LINK_DIR})

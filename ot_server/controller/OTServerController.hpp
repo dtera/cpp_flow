@@ -30,9 +30,9 @@ public:
      * Constructor with object mapper.
      * @param objectMapper - default object mapper used to serialize/deserialize DTOs.
      */
-    explicit OTServerController (OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper))
-    :oatpp::web::server::api::ApiController(objectMapper) {
-            BaseOTSender<string>::gen_keypair();
+    explicit OTServerController(OATPP_COMPONENT(std::shared_ptr<ObjectMapper>, objectMapper))
+            : oatpp::web::server::api::ApiController(objectMapper) {
+        BaseOTSender<string>::gen_keypair();
     }
 
     /*ENDPOINT("GET", "/", root) {
@@ -46,28 +46,30 @@ public:
     }*/
 
     ENDPOINT("GET", "/getPublicKey", getPublicKey) {
-        //auto resDto = ResponseDTO<String>::createShared();
+        auto resDto = ResponseDTO<String>::createShared();
         String pk;
         otServerService.setPublicKey(pk);
-        return createDtoResponse(Status::CODE_200, pk);
-        //return createDtoResponse(Status::CODE_200, success(resDto, pk));
+        //return createDtoResponse(Status::CODE_200, pk);
+        return createDtoResponse(Status::CODE_200, success(resDto, pk));
     }
 
     ENDPOINT("POST", "/getRandomMsgs", getRandomMsgs,
-             BODY_DTO(Object<OTServerReqDTO>, reqDTO)) {
-        auto resDto = ResponseDTO<Vector<String>>::createShared();
+             BODY_DTO(Object<OTServerReqDTO<String>>, reqDTO)) {
+        //auto resDto = ResponseDTO<Vector<String>>::createShared();
         Vector<String> rms;
         otServerService.setRandomMsgs(reqDTO, rms);
-        return createDtoResponse(Status::CODE_200, success(resDto, rms));
+        return createDtoResponse(Status::CODE_200, rms);
+        //return createDtoResponse(Status::CODE_200, success(resDto, rms));
     }
 
     ENDPOINT("POST", "/getDecryptedYOps", getDecryptedYOps,
-             BODY_DTO(Object<OTServerReqDTO>, reqDTO)) {
-        auto resDto = ResponseDTO<Vector < String>>::createShared();
+             BODY_DTO(Object<OTServerReqDTO<Vector<Int8>>>, reqDTO)) {
+        //auto resDto = ResponseDTO<Vector<Vector<Int8>>>::createShared();
         try {
-            Vector <String> decryptedYOps;
+            Vector<Vector<Int8>> decryptedYOps;
             otServerService.setDecryptedYOps(reqDTO, decryptedYOps);
-            return createDtoResponse(Status::CODE_200, success(resDto, decryptedYOps));
+            return createDtoResponse(Status::CODE_200, decryptedYOps);
+            //return createDtoResponse(Status::CODE_200, success(resDto, decryptedYOps));
         } catch (const logic_error &e) {
             String err = e.what();
             OATPP_LOGE("OTServerService", " logic_error ==> %s", err->data());
