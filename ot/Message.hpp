@@ -41,6 +41,8 @@ class StrMessage {
 private:
     string str;
 public:
+    explicit StrMessage() = default;
+
     explicit StrMessage(string &str) : str(str) {}
 
     byte *toByteArray() {

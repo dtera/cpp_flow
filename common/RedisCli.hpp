@@ -77,8 +77,11 @@ void RedisCli::mGet(oatpp::Vector<oatpp::String> &keys, vector<M> &values, F f) 
     this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, cmd.c_str());
     auto items = this->pRedisReply->element;
     for (int i = 0; i < this->pRedisReply->elements; ++i) {
-        string t = items[i]->str;
-        M m = f(t);
+        M m;
+        if (items[i]->str != nullptr) {
+            string t = items[i]->str;
+            m = f(t);
+        }
         values.emplace_back(m);
     }
     freeReplyObject(this->pRedisReply);
