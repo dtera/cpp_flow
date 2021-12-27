@@ -22,17 +22,20 @@
 #include <openssl/rsa.h>
 #include <openssl/pem.h>
 #include <openssl/bio.h>
+#include <oatpp/core/Types.hpp>
 
 #include "../../ot/Constant.h"
 
-string rsa_pri_decrypt(const string &in, const string &priKey);
+string rsa_pri_decrypt(const string &in, const string &pri_key);
 
-string rsa_pub_encrypt(const string &in, const string &pubKey);
+string rsa_pub_encrypt(const string &in, const string &pub_key);
 
-int gen_rsa_keypair(char *&pubKey, char *&priKey, const bool &writeToFile = false,
-                    const int &keySize = DEFAULT_KEY_SIZE, const char *const rsaKeysPath = RSA_KEYS_PATH.data(),
-                    const char *const pubKeyFileName = RSA_PUBLIC_KEY_FILE_NAME.data(),
-                    const char *const priKeyFileName = RSA_PRIVATE_KEY_FILE_NAME.data());
+int gen_rsa_keypair(char *&pub_key, char *&pri_key, const bool &write_to_file = false,
+                    const int &key_size = DEFAULT_KEY_SIZE, const char *const rsa_keys_path = RSA_KEYS_PATH.data(),
+                    const char *const pub_key_file_name = RSA_PUBLIC_KEY_FILE_NAME.data(),
+                    const char *const pri_key_file_name = RSA_PRIVATE_KEY_FILE_NAME.data());
+
+void fread_all(char *&out, FILE *p_file);
 
 string gen_random_str(const int &len, const bool &visible_char = true);
 
@@ -76,6 +79,20 @@ string join_vector(const vector<T> &vs, const string &sep = ",", const string &s
         res += vs[0];
     }
     for (int i = 1; i < vs.size(); i++) {
+        res += sep + vs[i];
+    }
+    res += end;
+    return res;
+}
+
+template<typename T>
+string join_Vector(const oatpp::Vector<T> &vs, const string &sep = ",",
+                   const string &start = "", const string &end = "") {
+    string res = start;
+    if (!vs->empty()) {
+        res += vs[0];
+    }
+    for (int i = 1; i < vs->size(); i++) {
         res += sep + vs[i];
     }
     res += end;

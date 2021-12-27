@@ -47,8 +47,7 @@ public:
 
     ENDPOINT("GET", "/getPublicKey", getPublicKey) {
         auto resDto = ResponseDTO<String>::createShared();
-        String pk;
-        otServerService.setPublicKey(pk);
+        String pk = otServerService.getPublicKey();
         //return createDtoResponse(Status::CODE_200, pk);
         return createDtoResponse(Status::CODE_200, success(resDto, pk));
     }

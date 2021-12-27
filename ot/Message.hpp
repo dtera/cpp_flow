@@ -60,3 +60,8 @@ ostream &operator<<(ostream &out, StrMessage &strMessage) {
     out << strMessage.toByteArray();
     return out;
 }
+
+StrMessage str2strMessage(string &t) {
+    StrMessage strMessage(t);
+    return strMessage;
+}

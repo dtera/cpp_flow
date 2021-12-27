@@ -10,9 +10,10 @@
 
 #include "Utils.h"
 
-string rsa_pri_decrypt(const string &in, const string &priKey) {
+
+string rsa_pri_decrypt(const string &in, const string &pri_key) {
     BIO *pub = BIO_new(BIO_s_mem());
-    BIO_write(pub, priKey.c_str(), priKey.length());
+    BIO_write(pub, pri_key.c_str(), pri_key.length());
     RSA *pRsa = PEM_read_bio_RSAPrivateKey(pub, nullptr, nullptr, nullptr);
     if (pRsa == nullptr) {
         RSA_free(pRsa);
@@ -43,9 +44,9 @@ string rsa_pri_decrypt(const string &in, const string &priKey) {
 
 }
 
-string rsa_pub_encrypt(const string &in, const string &pubKey) {
+string rsa_pub_encrypt(const string &in, const string &pub_key) {
     BIO *pub = BIO_new(BIO_s_mem());
-    BIO_write(pub, pubKey.c_str(), pubKey.length());
+    BIO_write(pub, pub_key.c_str(), pub_key.length());
     RSA *pRsa = PEM_read_bio_RSAPublicKey(pub, nullptr, nullptr, nullptr);
     if (pRsa == nullptr) {
         RSA_free(pRsa);
@@ -74,10 +75,24 @@ string rsa_pub_encrypt(const string &in, const string &pubKey) {
     return out;
 }
 
-int gen_rsa_keypair(char *&pubKey, char *&priKey, const bool &writeToFile, const int &keySize,
-                    const char *const rsaKeysPath,
-                    const char *const pubKeyFileName, const char *const priKeyFileName) {
-    RSA *pRsa = RSA_generate_key(keySize, RSA_F4, nullptr, nullptr);
+int gen_rsa_keypair(char *&pub_key, char *&pri_key, const bool &write_to_file, const int &key_size,
+                    const char *const rsa_keys_path,
+                    const char *const pub_key_file_name, const char *const pri_key_file_name) {
+    if (access(rsa_keys_path, F_OK)) {
+        mkdir(rsa_keys_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+    }
+    const char *pub_key_file_path = (string(rsa_keys_path) + "/" + pub_key_file_name).data();
+    const char *pri_key_file_path = (string(rsa_keys_path) + "/" + pri_key_file_name).data();
+    FILE *pub_file = fopen(pub_key_file_path, "r");
+    FILE *pri_file = fopen(pri_key_file_path, "r");
+    if (pub_file != nullptr && pri_file != nullptr) {
+        cout << "Read rsa_keypair from " << pub_key_file_path << " and " << pri_key_file_path << endl;
+        fread_all(pub_key, pub_file);
+        fread_all(pri_key, pri_file);
+        return 0;
+    }
+
+    RSA *pRsa = RSA_generate_key(key_size, RSA_F4, nullptr, nullptr);
     BIO *pub = BIO_new(BIO_s_mem());
     BIO *pri = BIO_new(BIO_s_mem());
 
@@ -97,34 +112,28 @@ int gen_rsa_keypair(char *&pubKey, char *&priKey, const bool &writeToFile, const
     size_t pubLen = BIO_pending(pub);
     size_t priLen = BIO_pending(pri);
 
-    pubKey = (char *) malloc(pubLen);
-    priKey = (char *) malloc(priLen);
+    pub_key = (char *) malloc(pubLen);
+    pri_key = (char *) malloc(priLen);
 
-    BIO_read(pub, pubKey, pubLen);
-    BIO_read(pri, priKey, priLen);
+    BIO_read(pub, pub_key, pubLen);
+    BIO_read(pri, pri_key, priLen);
 
-    if (writeToFile) {
-        if (access(rsaKeysPath, F_OK)) {
-            mkdir(rsaKeysPath, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
-        }
-        const char *pubKeyFilePath = (string(rsaKeysPath) + "/" + pubKeyFileName).data();
-        const char *priKeyFilePath = (string(rsaKeysPath) + "/" + priKeyFileName).data();
-
-        FILE *pubFile = fopen(pubKeyFilePath, "w");
-        if (pubFile == nullptr) {
-            cout << "BIO_new_file " << pubKeyFilePath << " error" << endl;
+    if (write_to_file) {
+        pub_file = fopen(pub_key_file_path, "w");
+        if (pub_file == nullptr) {
+            cout << "BIO_new_file " << pub_key_file_path << " error" << endl;
             return -4;
         }
-        fputs(pubKey, pubFile);
-        fclose(pubFile);
+        fputs(pub_key, pub_file);
+        fclose(pub_file);
 
-        FILE *priFile = fopen(priKeyFilePath, "w");
-        if (priFile == nullptr) {
-            cout << "BIO_new_file " << priKeyFilePath << " error" << endl;
+        pri_file = fopen(pri_key_file_path, "w");
+        if (pri_file == nullptr) {
+            cout << "BIO_new_file " << pri_key_file_path << " error" << endl;
             return -5;
         }
-        fputs(priKey, priFile);
-        fclose(priFile);
+        fputs(pri_key, pri_file);
+        fclose(pri_file);
     }
 
     RSA_free(pRsa);
@@ -132,6 +141,23 @@ int gen_rsa_keypair(char *&pubKey, char *&priKey, const bool &writeToFile, const
     BIO_free_all(pri);
 
     return 0;
+}
+
+void fread_all(char *&out, FILE *p_file) {
+    fseek(p_file, 0, SEEK_END);
+    auto len = ftell(p_file);
+    out = (char *) malloc(len);
+    rewind(p_file);
+
+    string buf;
+    char line[256];
+    while (!feof(p_file) && !ferror(p_file)) {
+        strcpy(line, "\n");
+        fgets(line, sizeof(line), p_file);
+        buf += line;
+    }
+    copy(buf.begin(), buf.end(), out);
+    fclose(p_file);
 }
 
 string gen_random_str(const int &len, const bool &visible_char) {

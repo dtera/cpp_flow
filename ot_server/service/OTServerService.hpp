@@ -12,6 +12,8 @@
 
 #include "../../common/dto/OTServerDTOs.hpp"
 #include "../../common/util/OatppUtils.hpp"
+#include "../../common/util/Func.h"
+#include "../../common/RedisCli.hpp"
 #include "../../ot/KOutOfNForOTSender.hpp"
 #include "../../ot/Message.hpp"
 
@@ -19,11 +21,13 @@ using namespace oatpp;
 
 class OTServerService {
 private:
+    String publicKey;
     map<string, KOutOfNForOTSender<StrMessage>> otSenderMap;
+    RedisCli redisCli;
 public:
     OTServerService();
 
-    void setPublicKey(String &publicKey);
+    String &getPublicKey();
 
     void setRandomMsgs(const Object<OTServerReqDTO<String>> &reqDTO, Vector<String> &rms);
 
@@ -32,17 +36,22 @@ public:
 
 OTServerService::OTServerService() {
     BaseOTSender<StrMessage>::gen_keypair();
-}
-
-void OTServerService::setPublicKey(String &publicKey) {
     publicKey = BaseOTSender<StrMessage>::get_pub_key();
     OATPP_LOGD("OTServerService", " publicKey \n%s", publicKey->data());
 }
 
+String &OTServerService::getPublicKey() {
+    return publicKey;
+}
+
 void OTServerService::setRandomMsgs(const Object<OTServerReqDTO<String>> &reqDTO, Vector<String> &rms) {
-    string s1 = "abc", s2 = "def", s3 = "ghi", s4 = "jkl", s5 = "mno";
+    /*string s1 = "abc", s2 = "def", s3 = "ghi", s4 = "jkl", s5 = "mno";
     vector<StrMessage> ms = {StrMessage(s1), StrMessage(s2), StrMessage(s3),
                              StrMessage(s4), StrMessage(s5)};
+    KOutOfNForOTSender<StrMessage> otSender(ms);*/
+    vector<StrMessage> ms;
+    str2str_message_fp f = str2strMessage;
+    redisCli.mGet(reqDTO->params, ms, f);
     KOutOfNForOTSender<StrMessage> otSender(ms);
     otSenderMap.insert(make_pair(reqDTO->sessionToken, otSender));
     vector_to_oatppVector(otSender.get_rs(), rms);
