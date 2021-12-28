@@ -23,4 +23,4 @@ RUN make
 
 EXPOSE 8001 8001
 
-ENTRYPOINT ["./ot_server-exe"]
+ENTRYPOINT ["./ot_client-exe"]
