@@ -22,7 +22,8 @@ using namespace oatpp;
 class OTServerService {
 private:
     String publicKey;
-    map<string, KOutOfNForOTSender<StrMessage>> otSenderMap;
+    //map<string, KOutOfNForOTSender<StrMessage>> otSenderMap;
+    map<string, KOutOfNForOTSender<FieldsMessage>> otSenderMap;
     RedisCli redisCli;
 public:
     OTServerService();
@@ -49,17 +50,21 @@ void OTServerService::setRandomMsgs(const Object<OTServerReqDTO<String>> &reqDTO
     vector<StrMessage> ms = {StrMessage(s1), StrMessage(s2), StrMessage(s3),
                              StrMessage(s4), StrMessage(s5)};
     KOutOfNForOTSender<StrMessage> otSender(ms);*/
-    vector<StrMessage> ms;
+    /*vector<StrMessage> ms;
     str2str_message_fp f = str2strMessage;
     redisCli.mGet(reqDTO->params, ms, f);
-    KOutOfNForOTSender<StrMessage> otSender(ms);
+    KOutOfNForOTSender<StrMessage> otSender(ms);*/
+    vector<FieldsMessage> ms;
+    redisCli.hGetAll(reqDTO->params, ms);
+    KOutOfNForOTSender<FieldsMessage> otSender(ms);
     otSenderMap.insert(make_pair(reqDTO->sessionToken, otSender));
     vector_to_oatppVector(otSender.get_rs(), rms);
 }
 
 void OTServerService::setDecryptedYOps(const Object<OTServerReqDTO<Vector<Int8>>> &reqDTO,
                                        Vector<Vector<Int8>> &decryptedYOps) {
-    KOutOfNForOTSender<StrMessage> otSender = otSenderMap.at(reqDTO->sessionToken);
+    //KOutOfNForOTSender<StrMessage> otSender = otSenderMap.at(reqDTO->sessionToken);
+    KOutOfNForOTSender<FieldsMessage> otSender = otSenderMap.at(reqDTO->sessionToken);
     vector<string> encrypted_y_ops, decrypted_y_ops;
 
     //oatppVector_to_vector(reqDTO->params, encrypted_y_ops);
@@ -70,4 +75,5 @@ void OTServerService::setDecryptedYOps(const Object<OTServerReqDTO<Vector<Int8>>
     vector_str2int_Vector_Vector(decrypted_y_ops, decryptedYOps);
 
     otSenderMap.erase(reqDTO->sessionToken);
+    cout << "debug" << endl;
 }

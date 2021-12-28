@@ -30,7 +30,9 @@ private:
 public:
     explicit OTClientService(shared_ptr<server::api::ApiController::ObjectMapper> &objectMapper);
 
-    void setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<String> &messages, const bool &onlyGetChosen);
+    //void setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<String> &messages, const bool &onlyGetChosen);
+
+    void setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<Fields<String>> &messages, const bool &onlyGetChosen);
 
 };
 
@@ -52,7 +54,7 @@ OTClientService::OTClientService(shared_ptr<server::api::ApiController::ObjectMa
     OATPP_LOGD("OTClientService", " publicKey \n%s", publicKey.get()->data());
 }
 
-void OTClientService::setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<String> &messages,
+void OTClientService::setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<Fields<String>> &messages,
                                   const bool &onlyGetChosen) {
     messages = {};
     uinWithLabelMap->sort(pair_less());
@@ -93,10 +95,16 @@ void OTClientService::setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<S
     //oatppVector_to_vector(decryptedYOps, decrypted_y_ops);
     int_Vector_Vector2vector_str(decryptedYOps, decrypted_y_ops);
     // 4. otReceiver obtain the chosen message
-    vector<string> decrypted_ms;
+    /*vector<string> decrypted_ms;
     str2str_fp f = nullptr;
     otReceiver.get_messages(decrypted_y_ops, decrypted_ms, f, onlyGetChosen);
-    vector_to_oatppVector(decrypted_ms, messages);
+    vector_to_oatppVector(decrypted_ms, messages);*/
+    vector<FieldsMessage> decrypted_ms;
+    str2fields_message_fp f = nullptr; // str2fieldsMessage;
+    otReceiver.get_messages(decrypted_y_ops, decrypted_ms, f, onlyGetChosen);
+    for (auto decrypted_m: decrypted_ms) {
+        messages->push_back(decrypted_m.getFields());
+    }
     //for_each(decrypted_ms.begin(), decrypted_ms.end(), println<string>);
 
 }

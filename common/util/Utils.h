@@ -98,3 +98,18 @@ string join_Vector(const oatpp::Vector<T> &vs, const string &sep = ",",
     res += end;
     return res;
 }
+
+template<typename T>
+string join_Fields(const oatpp::Fields<T> &fields, const string &fieldSep = ",", const string &kvSep = ":",
+                   const string &start = "", const string &end = "") {
+    string res = start;
+    if (!fields->empty()) {
+        res += fields[0].first + kvSep + fields[0].second;
+    }
+    for (int i = 1; i < fields->size(); i++) {
+        res += fieldSep + fields[i].first;
+        res += kvSep + fields[i].second;
+    }
+    res += end;
+    return res;
+}

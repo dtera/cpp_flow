@@ -45,8 +45,10 @@ public:
     ENDPOINT("POST", "/getMessages", getMessages,
              BODY_DTO(Fields<UInt8>, uinWithLabelMap)) {
         clock_t start_time = clock();
-        auto resDto = ResponseDTO<Vector<String>>::createShared();
-        Vector<String> messages;
+        /*auto resDto = ResponseDTO<Vector<String>>::createShared();
+        Vector<String> messages;*/
+        auto resDto = ResponseDTO<Vector<Fields<String>>>::createShared();
+        Vector<Fields<String>> messages;
         oTClientService->setMessages(uinWithLabelMap, messages, false);
         clock_t end_time = clock();
         auto reqTimeMillis = (float) (end_time - start_time) / CLOCKS_PER_SEC * 1000;
@@ -57,8 +59,10 @@ public:
     ENDPOINT("POST", "/getMessagesOfChosen", getMessagesOfChosen,
              BODY_DTO(Fields<UInt8>, uinWithLabelMap)) {
         clock_t start_time = clock();
-        auto resDto = ResponseDTO<Vector<String>>::createShared();
-        Vector<String> messages;
+        /*auto resDto = ResponseDTO<Vector<String>>::createShared();
+        Vector<String> messages;*/
+        auto resDto = ResponseDTO<Vector<Fields<String>>>::createShared();
+        Vector<Fields<String>> messages;
         oTClientService->setMessages(uinWithLabelMap, messages, true);
         clock_t end_time = clock();
         auto reqTimeMillis = (float) (end_time - start_time) / CLOCKS_PER_SEC * 1000;

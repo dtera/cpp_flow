@@ -30,6 +30,9 @@ public:
     template<typename M, typename F>
     void mGet(oatpp::Vector<oatpp::String> &keys, vector<M> &values, F f);
 
+    template<typename M>
+    void hGetAll(oatpp::Vector<oatpp::String> &keys, vector<M> &values);
+
     void set(string &key, string &value);
 
     void setEx(string &key, string &value, const int &expiredSeconds = 3600);
@@ -87,6 +90,33 @@ void RedisCli::mGet(oatpp::Vector<oatpp::String> &keys, vector<M> &values, F f) 
     freeReplyObject(this->pRedisReply);
 }
 
+template<typename M>
+void RedisCli::hGetAll(Vector<String> &keys, vector<M> &values) {
+    for (int i = 0; i < keys->size(); ++i) {
+        auto cmd = "HGETALL %s" + join_Vector(keys, " ");
+        this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, "HGETALL %s", keys[i]->c_str());
+        auto items = this->pRedisReply->element;
+        Fields<String> fs;
+        fs = {};
+        for (int j = 0; j < this->pRedisReply->elements / 2; ++j) {
+            if (items[2 * j]->str != nullptr) {
+                fs->push_back({items[2 * j]->str, items[2 * j + 1]->str});
+            }
+        }
+        freeReplyObject(this->pRedisReply);
+
+        string k = keys[i];
+        if (fs->empty()) {
+            string v;
+            get(k, v);
+            fs->push_back({"value", v});
+        }
+        fs->push_front({"key", k});
+        M m(fs);
+        values.emplace_back(m);
+    }
+}
+
 void RedisCli::set(string &key, string &value) {
     redisCommand(this->pRedisContext, "SET %s %s", key.c_str(), value.c_str());
 }
@@ -94,3 +124,4 @@ void RedisCli::set(string &key, string &value) {
 void RedisCli::setEx(string &key, string &value, const int &expiredSeconds) {
     redisCommand(this->pRedisContext, "SET %s %s EX %d", key.c_str(), value.c_str(), expiredSeconds);
 }
+

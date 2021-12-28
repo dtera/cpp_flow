@@ -13,4 +13,6 @@ using namespace std;
 
 typedef string (*str2str_fp)(string &t);
 
+typedef FieldsMessage (*str2fields_message_fp)(string &t);
+
 typedef StrMessage (*str2str_message_fp)(string &t);

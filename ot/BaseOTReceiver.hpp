@@ -86,7 +86,10 @@ void BaseOTReceiver::get_messages(vector<string> &decrypted_y_ops, vector<M> &de
     if (only_chosen) {
         for (int choice : choices) {
             auto t = str_xor(decrypted_y_ops[choice], y);
-            M m = f == nullptr ? t : f(t);
+            M m(t);
+            if (f != nullptr) {
+                m = f(t);
+            }
             decrypted_ms.push_back(m);
         }
     } else {
@@ -97,7 +100,10 @@ void BaseOTReceiver::get_messages(vector<string> &decrypted_y_ops, vector<M> &de
             } else {
                 t = gen_random_str(random_size);
             }
-            M m = f == nullptr ? t : f(t);
+            M m(t);
+            if (f != nullptr) {
+                m = f(t);
+            }
             decrypted_ms.push_back(m);
         }
     }
