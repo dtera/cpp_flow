@@ -1,4 +1,4 @@
-FROM alpine:3.14
+FROM alpine:3.13.7
 MAINTAINER dterazhao (https://github.com/dtera)
 
 ADD . /service/
