@@ -69,9 +69,9 @@ public:
             otServerService.setDecryptedYOps(reqDTO, decryptedYOps);
             return createDtoResponse(Status::CODE_200, decryptedYOps);
             //return createDtoResponse(Status::CODE_200, success(resDto, decryptedYOps));
-        } catch (const logic_error &e) {
+        } catch (const exception &e) {
             String err = e.what();
-            OATPP_LOGE("OTServerService", " logic_error ==> %s", err->data());
+            OATPP_LOGE("OTServerController", " logic_error ==> %s", err->data());
             auto errDto = ResponseDTO<String>::createShared();
             return createDtoResponse(Status::CODE_500, error(errDto, err));
         }

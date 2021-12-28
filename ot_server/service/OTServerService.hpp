@@ -75,5 +75,4 @@ void OTServerService::setDecryptedYOps(const Object<OTServerReqDTO<Vector<Int8>>
     vector_str2int_Vector_Vector(decrypted_y_ops, decryptedYOps);
 
     otSenderMap.erase(reqDTO->sessionToken);
-    cout << "debug" << endl;
 }
