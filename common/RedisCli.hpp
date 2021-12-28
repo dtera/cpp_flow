@@ -60,7 +60,9 @@ void RedisCli::connect(const string &host, const int &port) {
 
 void RedisCli::get(string &key, string &value) {
     this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, "GET %s", key.c_str());
-    value = this->pRedisReply->str;
+    if (this->pRedisReply->str != nullptr) {
+        value = this->pRedisReply->str;
+    }
     freeReplyObject(this->pRedisReply);
 }
 
