@@ -12,7 +12,6 @@
 #include "oatpp/core/macro/component.hpp"
 
 #include "../../common/dto/DTOs.hpp"
-
 #include "../service/OTServerService.hpp"
 
 
@@ -69,7 +68,7 @@ public:
             otServerService.setDecryptedYOps(reqDTO, decryptedYOps);
             return createDtoResponse(Status::CODE_200, decryptedYOps);
             //return createDtoResponse(Status::CODE_200, success(resDto, decryptedYOps));
-        } catch (const exception &e) {
+        } catch (const logic_error &e) {
             String err = e.what();
             OATPP_LOGE("OTServerController", " logic_error ==> %s", err->data());
             auto errDto = ResponseDTO<String>::createShared();
