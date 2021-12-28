@@ -10,4 +10,6 @@ services:
 #    ports:
 #      - '8000:8000/tcp'
 #      - '8000:8000/udp'
+    volumes:
+      - "./rsa_keys:/service/ot_server/build/rsa_keys"
     restart: always

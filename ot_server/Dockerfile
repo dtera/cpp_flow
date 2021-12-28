@@ -24,4 +24,6 @@ RUN make
 
 EXPOSE 8000 8000
 
+VOLUME /service/ot_server/build/rsa_keys
+
 ENTRYPOINT ["./ot_server-exe"]
