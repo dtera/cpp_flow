@@ -23,9 +23,8 @@ link_libraries(${OPENSSL_LINK_LIB})
 
 add_library(${PROJECT_NAME}-lib
         ../common/util/Utils.h ../common/util/Utils.cpp ../common/util/Func.h ../common/util/BitOp.hpp
-        ../common/dto/DTOs.hpp ../common/dto/OTServerDTOs.hpp ../common/RedisCli.hpp
-        ../ot/BaseOTSender.hpp ../ot/BaseOTReceiver.hpp ../ot/KOutOfNForOTSender.hpp ../ot/KOutOfNForOTReceiver.hpp
-        ../ot/Constant.h ../ot/Message.hpp
+        ../common/dto/DTOs.hpp ../common/dto/OTServerDTOs.hpp ../common/RedisCli.hpp ../common/ParamsTool.hpp
+        ../ot/BaseOTSender.hpp ../ot/KOutOfNForOTSender.hpp ../ot/Constant.h ../ot/Message.hpp
         AppComponent.hpp
         controller/OTServerController.hpp
         service/OTServerService.hpp

@@ -9,11 +9,12 @@
 
 #include <regex>
 #include <oatpp/core/Types.hpp>
-
+#include "oatpp/web/server/api/ApiController.hpp"
 
 #include "../../ot/Message.hpp"
 #include "../../ot/KOutOfNForOTReceiver.hpp"
 #include "../../common/api/OTServerApiClient.hpp"
+#include "../../common/dto/DTOs.hpp"
 #include "../../common/dto/OTClientDTOs.hpp"
 #include "../../common/util/OatppUtils.hpp"
 #include "../../common/util/Func.h"
@@ -23,12 +24,12 @@ using namespace oatpp;
 
 class OTClientService {
 private:
-    shared_ptr<server::api::ApiController::ObjectMapper> objectMapper;
+    shared_ptr<oatpp::web::server::api::ApiController::ObjectMapper> objectMapper;
     shared_ptr<OTServerApiClient> otServer;
     String publicKey;
     static const unsigned int tokenLen = 32;
 public:
-    explicit OTClientService(shared_ptr<server::api::ApiController::ObjectMapper> &objectMapper);
+    explicit OTClientService(shared_ptr<oatpp::web::server::api::ApiController::ObjectMapper> &objectMapper);
 
     //void setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<String> &messages, const bool &onlyGetChosen);
 
@@ -36,7 +37,7 @@ public:
 
 };
 
-OTClientService::OTClientService(shared_ptr<server::api::ApiController::ObjectMapper> &objectMapper) {
+OTClientService::OTClientService(shared_ptr<oatpp::web::server::api::ApiController::ObjectMapper> &objectMapper) {
     auto reqExecutor = createHttpRequestExecutor(8000);
     // Create ObjectMapper for serialization of DTOs
     //this->objectMapper = oatpp::parser::json::mapping::ObjectMapper::createShared();

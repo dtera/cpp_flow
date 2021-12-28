@@ -5,7 +5,7 @@ ADD . /service/
 WORKDIR /service
 
 RUN rm -rf ot_server cmake-build-debug build .gitignore CMakeLists.txt main.cpp README.md tests.h \
-    ot_client/cmake-build-debug ot_client/build
+    ot_client/cmake-build-debug ot_client/build ot/BaseOTSender.hpp ot/KOutOfNForOTSender.hpp common/RedisCli.hpp
 
 RUN apk update && apk upgrade
 RUN apk add --no-cache git

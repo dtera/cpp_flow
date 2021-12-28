@@ -6,7 +6,8 @@ services:
       context: ../
       dockerfile: ot_client/Dockerfile
     container_name: ot_client
-    ports:
-      - '8001:8001/tcp'
-      - '8001:8001/udp'
+    network_mode: host
+#    ports:
+#      - '8001:8001/tcp'
+#      - '8001:8001/udp'
     restart: always
