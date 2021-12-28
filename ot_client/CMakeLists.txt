@@ -5,8 +5,8 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(INC_DIR /usr/local/opt/openssl/include)
 set(LINK_DIR /usr/local/opt/openssl/lib)
-set(LIB_SUFFIX dylib)
-#set(LIB_SUFFIX so)
+#set(LIB_SUFFIX dylib)
+set(LIB_SUFFIX so)
 set(LINK_LIB libcrypto.${LIB_SUFFIX} libssl.${LIB_SUFFIX})
 
 set(SOURCE_FILES
