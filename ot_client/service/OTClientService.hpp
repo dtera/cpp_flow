@@ -16,8 +16,10 @@
 #include "../../common/api/OTServerApiClient.hpp"
 #include "../../common/dto/DTOs.hpp"
 #include "../../common/dto/OTClientDTOs.hpp"
+#include "../../common/exceptions/OTError.hpp"
 #include "../../common/util/OatppUtils.hpp"
 #include "../../common/util/Func.h"
+#include "../../common/ParamsTool.hpp"
 
 using namespace oatpp;
 
@@ -38,7 +40,14 @@ public:
 };
 
 OTClientService::OTClientService(shared_ptr<oatpp::web::server::api::ApiController::ObjectMapper> &objectMapper) {
-    auto reqExecutor = createHttpRequestExecutor(8000);
+    auto reqExecutor = createHttpRequestExecutor(
+            ParamsTool::get("otServerHost", "localhost"),
+            ParamsTool::getShort("otServerPort", 8000),
+            ParamsTool::getShort("maxConn", 10),
+            ParamsTool::getShort("maxIdle", 5),
+            ParamsTool::getShort("maxRetry", 3),
+            ParamsTool::getShort("maxRetrySeconds", 1)
+    );
     // Create ObjectMapper for serialization of DTOs
     //this->objectMapper = oatpp::parser::json::mapping::ObjectMapper::createShared();
     this->objectMapper = objectMapper;
@@ -75,10 +84,15 @@ void OTClientService::setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<F
         otServerReqDTO->params->push_back(pair.first);
         i++;
     }
+    otServerReqDTO->k = choices.size();
 
     // 1. get random messages from ot sender
-    auto randomMsgs = otServer->getRandomMsgs(otServerReqDTO)->
-            readBodyToDto<Vector<String>>(objectMapper);
+    auto reply = otServer->getRandomMsgs(otServerReqDTO);
+    if (reply->getStatusCode() == oatpp::web::protocol::http::Status::CODE_503.code) {
+        auto err = reply->readBodyToDto<Object<ResponseDTO<String>>>(objectMapper);
+        throw OTError(err->message->data());
+    }
+    auto randomMsgs = reply->readBodyToDto<Vector<String>>(objectMapper);
     vector<string> rms;
     oatppVector_to_vector(randomMsgs, rms);
     // 2. otReceiver encrypt key y with publicKey and random msg

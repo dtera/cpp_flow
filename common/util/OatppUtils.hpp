@@ -19,8 +19,9 @@ using namespace oatpp::network;
 using namespace oatpp::web;
 
 std::shared_ptr<oatpp::web::client::RequestExecutor>
-createHttpRequestExecutor(const unsigned short &port = 80, const std::string &host = "localhost",
-                          const unsigned short &maxConn = 10, const unsigned short &maxIdle = 5) {
+createHttpRequestExecutor(const std::string &host = "localhost", const unsigned short &port = 80,
+                          const unsigned short &maxConn = 10, const unsigned short &maxIdle = 5,
+                          const unsigned short &maxRetry = 3, const unsigned short &maxRetrySeconds = 1) {
     OATPP_LOGD("OTClientService", " Using Oat++ native HttpRequestExecutor.");
     /* create connection provider */
     auto connectionProvider = tcp::client::ConnectionProvider::createShared(
@@ -32,7 +33,8 @@ createHttpRequestExecutor(const unsigned short &port = 80, const std::string &ho
             std::chrono::seconds(maxIdle)
     );*/
     /* create retry policy */
-    auto retryPolicy = std::make_shared<client::SimpleRetryPolicy>(3, std::chrono::seconds(1));
+    auto retryPolicy = std::make_shared<client::SimpleRetryPolicy>(maxRetry,
+                                                                   std::chrono::seconds(maxRetrySeconds));
     /* create request executor */
     auto requestExecutor = client::HttpRequestExecutor::createShared(
             connectionProvider, retryPolicy);
@@ -46,13 +48,14 @@ struct pair_less {
 };
 
 template<typename T1, typename T2>
-void oatppVector_to_vector(Vector <T1> &v1, std::vector<T2> &v2) {
+void oatppVector_to_vector(Vector<T1> &v1, std::vector<T2> &v2) {
     for (auto &t: *v1) {
         v2.push_back(t);
     }
 }
+
 template<typename T1, typename T2>
-void vector_to_oatppVector(std::vector <T1> &v1, Vector<T2> &v2) {
+void vector_to_oatppVector(std::vector<T1> &v1, Vector<T2> &v2) {
     v2 = {};
     for (auto &t: v1) {
         v2->push_back(t);

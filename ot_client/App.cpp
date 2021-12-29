@@ -2,12 +2,13 @@
 #pragma ide diagnostic ignored "UnusedParameter"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
-#include "./controller/OTClientController.hpp"
-#include "./AppComponent.hpp"
-
-#include "oatpp/network/Server.hpp"
-
 #include <iostream>
+#include <oatpp/network/Server.hpp>
+
+#include "./AppComponent.hpp"
+#include "./controller/OTClientController.hpp"
+#include "../common/ParamsTool.hpp"
+
 
 void run() {
 
@@ -43,6 +44,8 @@ void run() {
 int main(int argc, const char * argv[]) {
 
   oatpp::base::Environment::init();
+
+    ParamsTool::fromArgs(argc, argv);
 
   run();
   

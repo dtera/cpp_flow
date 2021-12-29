@@ -8,22 +8,25 @@ set(LIB_SUFFIX so)
 set(INC_DIR /usr/local/include)
 set(LINK_DIR /usr/local/lib)
 set(LINK_LIB libhiredis.${LIB_SUFFIX})
+
 set(OPENSSL_INC_DIR /usr/local/opt/openssl/include)
 set(OPENSSL_LINK_DIR /usr/local/opt/openssl/lib)
 set(OPENSSL_LINK_LIB libcrypto.${LIB_SUFFIX} libssl.${LIB_SUFFIX})
 
-set(SOURCE_FILES App.cpp)
-
 include_directories(${INC_DIR})
 link_directories(${LINK_DIR})
 link_libraries(${LINK_LIB})
+
 include_directories(${OPENSSL_INC_DIR})
 link_directories(${OPENSSL_LINK_DIR})
 link_libraries(${OPENSSL_LINK_LIB})
 
+set(SOURCE_FILES App.cpp)
+
 add_library(${PROJECT_NAME}-lib
         ../common/util/Utils.h ../common/util/Utils.cpp ../common/util/Func.h ../common/util/BitOp.hpp
         ../common/dto/DTOs.hpp ../common/dto/OTServerDTOs.hpp ../common/RedisCli.hpp ../common/ParamsTool.hpp
+        ../common/exceptions/OTError.hpp
         ../ot/BaseOTSender.hpp ../ot/KOutOfNForOTSender.hpp ../ot/Constant.h ../ot/Message.hpp
         AppComponent.hpp
         controller/OTServerController.hpp

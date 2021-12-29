@@ -12,6 +12,7 @@
 #include "oatpp/core/macro/component.hpp"
 
 #include "../../common/dto/DTOs.hpp"
+#include "../../common/exceptions/OTError.hpp"
 #include "../service/OTServerService.hpp"
 
 
@@ -45,19 +46,38 @@ public:
     }*/
 
     ENDPOINT("GET", "/getPublicKey", getPublicKey) {
-        auto resDto = ResponseDTO<String>::createShared();
-        String pk = otServerService.getPublicKey();
-        //return createDtoResponse(Status::CODE_200, pk);
-        return createDtoResponse(Status::CODE_200, success(resDto, pk));
+        try {
+            auto resDto = ResponseDTO<String>::createShared();
+            String pk = otServerService.getPublicKey();
+            //return createDtoResponse(Status::CODE_200, pk);
+            return createDtoResponse(Status::CODE_200, success(resDto, pk));
+        } catch (const std::exception &e) {
+            String err = e.what();
+            OATPP_LOGE("OTServerController", " exception ==> %s", err->data());
+            auto errDto = ResponseDTO<String>::createShared();
+            return createDtoResponse(Status::CODE_500, error(errDto, err));
+        }
     }
 
     ENDPOINT("POST", "/getRandomMsgs", getRandomMsgs,
              BODY_DTO(Object<OTServerReqDTO<String>>, reqDTO)) {
-        //auto resDto = ResponseDTO<Vector<String>>::createShared();
-        Vector<String> rms;
-        otServerService.setRandomMsgs(reqDTO, rms);
-        return createDtoResponse(Status::CODE_200, rms);
-        //return createDtoResponse(Status::CODE_200, success(resDto, rms));
+        try {
+            //auto resDto = ResponseDTO<Vector<String>>::createShared();
+            Vector<String> rms;
+            otServerService.setRandomMsgs(reqDTO, rms);
+            return createDtoResponse(Status::CODE_200, rms);
+            //return createDtoResponse(Status::CODE_200, success(resDto, rms));
+
+        } catch (OTError &e) {
+            OATPP_LOGE("OTServerController", " OTError ==> %s", e.what().data());
+            auto errDto = ResponseDTO<String>::createShared();
+            return createDtoResponse(Status::CODE_503, error(errDto, 501, e.what()));
+        } catch (const std::exception &e) {
+            String err = e.what();
+            OATPP_LOGE("OTServerController", " exception ==> %s", err->data());
+            auto errDto = ResponseDTO<String>::createShared();
+            return createDtoResponse(Status::CODE_500, error(errDto, err));
+        }
     }
 
     ENDPOINT("POST", "/getDecryptedYOps", getDecryptedYOps,
@@ -68,9 +88,9 @@ public:
             otServerService.setDecryptedYOps(reqDTO, decryptedYOps);
             return createDtoResponse(Status::CODE_200, decryptedYOps);
             //return createDtoResponse(Status::CODE_200, success(resDto, decryptedYOps));
-        } catch (const logic_error &e) {
+        } catch (const std::exception &e) {
             String err = e.what();
-            OATPP_LOGE("OTServerController", " logic_error ==> %s", err->data());
+            OATPP_LOGE("OTServerController", " exception ==> %s", err->data());
             auto errDto = ResponseDTO<String>::createShared();
             return createDtoResponse(Status::CODE_500, error(errDto, err));
         }

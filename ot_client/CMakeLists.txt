@@ -3,11 +3,21 @@ project(ot_client)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(INC_DIR /usr/local/opt/openssl/include)
-set(LINK_DIR /usr/local/opt/openssl/lib)
 #set(LIB_SUFFIX dylib)
 set(LIB_SUFFIX so)
-set(LINK_LIB libcrypto.${LIB_SUFFIX} libssl.${LIB_SUFFIX})
+set(INC_DIR /usr/local/include)
+set(LINK_DIR /usr/local/lib)
+
+set(OPENSSL_INC_DIR /usr/local/opt/openssl/include)
+set(OPENSSL_LINK_DIR /usr/local/opt/openssl/lib)
+set(OPENSSL_LINK_LIB libcrypto.${LIB_SUFFIX} libssl.${LIB_SUFFIX})
+
+include_directories(${INC_DIR})
+link_directories(${LINK_DIR})
+
+include_directories(${OPENSSL_INC_DIR})
+link_directories(${OPENSSL_LINK_DIR})
+link_libraries(${OPENSSL_LINK_LIB})
 
 set(SOURCE_FILES
         App.cpp
@@ -27,7 +37,7 @@ link_libraries(${LINK_LIB})
 
 add_library(${PROJECT_NAME}-lib
         ../common/util/Utils.h ../common/util/Utils.cpp ../common/util/Func.h ../common/util/BitOp.hpp
-        ../common/dto/DTOs.hpp ../common/dto/OTServerDTOs.hpp
+        ../common/dto/DTOs.hpp ../common/dto/OTServerDTOs.hpp ../common/exceptions/OTError.hpp
         ../ot/BaseOTReceiver.hpp ../ot/KOutOfNForOTReceiver.hpp ../ot/Constant.h ../ot/Message.hpp
         AppComponent.hpp
         controller/OTClientController.hpp

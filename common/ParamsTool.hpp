@@ -20,7 +20,7 @@ public:
     static string get(const string &key, const string &defaultValue = "") {
         try {
             return data.at(key);
-        } catch (exception &e) {
+        } catch (std::exception &e) {
             return defaultValue;
         }
     }
@@ -35,7 +35,7 @@ public:
                 return false;
             }
             return boost::lexical_cast<bool>(v);
-        } catch (exception &e) {
+        } catch (std::exception &e) {
             return defaultValue;
         }
     }
@@ -43,7 +43,7 @@ public:
     static short getShort(const string &key, const short &defaultValue = 0) {
         try {
             return boost::lexical_cast<short>(data.at(key));
-        } catch (exception &e) {
+        } catch (std::exception &e) {
             return defaultValue;
         }
     }
@@ -51,7 +51,7 @@ public:
     static int getInt(const string &key, const int &defaultValue = 0) {
         try {
             return boost::lexical_cast<int>(data.at(key));
-        } catch (exception &e) {
+        } catch (std::exception &e) {
             return defaultValue;
         }
     }
@@ -59,7 +59,7 @@ public:
     static long getLong(const string &key, const long &defaultValue = 0) {
         try {
             return boost::lexical_cast<long>(data.at(key));
-        } catch (exception &e) {
+        } catch (std::exception &e) {
             return defaultValue;
         }
     }
@@ -67,7 +67,7 @@ public:
     static float getFloat(const string &key, const float &defaultValue = 0) {
         try {
             return boost::lexical_cast<float>(data.at(key));
-        } catch (exception &e) {
+        } catch (std::exception &e) {
             return defaultValue;
         }
     }
@@ -75,16 +75,16 @@ public:
     static double getDouble(const string &key, const double &defaultValue = 0) {
         try {
             return boost::lexical_cast<double>(data.at(key));
-        } catch (exception &e) {
+        } catch (std::exception &e) {
             return defaultValue;
         }
     }
 
     static void fromArgs(int argc, const char *argv[]) {
-        if (argc > 0) {
-            if (boost::contains(argv[0], "=")) {
+        if (argc > 1) {
+            if (boost::contains(argv[1], "=")) {
                 fromArgsWithSep(argc, argv, "=");
-            } else if (boost::contains(argv[0], ":")) {
+            } else if (boost::contains(argv[1], ":")) {
                 fromArgsWithSep(argc, argv, ":");
             } else {
                 fromArgsWithPrefix(argc, argv);
@@ -93,9 +93,9 @@ public:
     }
 
     static void fromArgsWithPrefix(int argc, const char *const *argv) {
-        int i = 0;
-        string key = argv[i];
+        int i = 1;
         while (i < argc) {
+            string key = argv[i];
             if (boost::starts_with(argv[i], "--")) {
                 key = key.substr(2, key.length() - 2);
             } else if (boost::starts_with(argv[i], "-")) {
@@ -104,7 +104,8 @@ public:
                 throw runtime_error("Error parsing args on " + key + ". Please prefix keys with -- or -.");
             }
             i++;
-            if (i >= argc || boost::starts_with(argv[i], "--") || boost::starts_with(argv[i], "-")) {
+            if (i >= argc || boost::starts_with(argv[i], "--") ||
+                boost::starts_with(argv[i], "-")) {
                 data.insert({key, ""});
             } else {
                 data.insert({key, argv[i]});
@@ -114,7 +115,7 @@ public:
     }
 
     static void fromArgsWithSep(int argc, const char *argv[], const string &sep) {
-        for (int i = 0; i < argc; ++i) {
+        for (int i = 1; i < argc; ++i) {
             auto arg = argv[i];
             vector<string> kv;
             boost::split(kv, arg, boost::is_any_of(sep));
@@ -128,3 +129,5 @@ public:
     }
 
 };
+
+map<string, string> ParamsTool::data = {};

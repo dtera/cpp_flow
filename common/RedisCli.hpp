@@ -10,6 +10,7 @@
 #include <hiredis/hiredis.h>
 #include "util/Utils.h"
 
+using namespace oatpp;
 using namespace std;
 
 class RedisCli {
@@ -17,7 +18,7 @@ private:
     redisContext *pRedisContext{};
     redisReply *pRedisReply{};
 public:
-    explicit RedisCli(const string &host = "localhost", const int &port = 6379);
+    explicit RedisCli(const string &host = "localhost", const int &port = 6379, const string &password = "");
 
     ~RedisCli();
 
@@ -39,13 +40,17 @@ public:
 
 };
 
-RedisCli::RedisCli(const string &host, const int &port) {
+RedisCli::RedisCli(const string &host, const int &port, const string &password) {
     this->connect(host, port);
+    // AUTH with password
+    this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, "AUTH %s", password.c_str());
+    printf("AUTH: %s\n", this->pRedisReply->str);
+    freeReplyObject(this->pRedisReply);
 }
 
 RedisCli::~RedisCli() {
-    this->pRedisContext = nullptr;
-    this->pRedisReply = nullptr;
+    delete pRedisContext;
+    delete pRedisReply;
 }
 
 void RedisCli::connect(const string &host, const int &port) {

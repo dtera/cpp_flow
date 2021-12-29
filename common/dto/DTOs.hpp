@@ -37,6 +37,14 @@ class KvDTO : public oatpp::DTO {
 
 // ========================Begin common function to construct ResponseDTO========================
 template <typename D>
+oatpp::Object<ResponseDTO<D>> &of(oatpp::Object<ResponseDTO<D>> &dto,
+                                  const oatpp::Int32 &code, const oatpp::String &message) {
+    dto->code = code;
+    dto->message = message;
+    return dto;
+}
+
+template <typename D>
 oatpp::Object<ResponseDTO<D>> &of(oatpp::Object<ResponseDTO<D>> &dto, D &data,
                                   const oatpp::Int32 &code, const oatpp::String &message) {
     dto->code = code;
@@ -53,6 +61,18 @@ oatpp::Object<ResponseDTO<D>> &success(oatpp::Object<ResponseDTO<D>> &dto, D &da
 template <typename D>
 oatpp::Object<ResponseDTO<D>> &error(oatpp::Object<ResponseDTO<D>> &dto, D &data) {
     return of(dto, data, 500, "Internal Server Error");
+}
+
+template <typename D>
+oatpp::Object<ResponseDTO<D>> &error(oatpp::Object<ResponseDTO<D>> &dto,
+                                     const oatpp::Int32 &code, const oatpp::String &message) {
+    return of(dto, code, message);
+}
+
+template <typename D>
+oatpp::Object<ResponseDTO<D>> &error(oatpp::Object<ResponseDTO<D>> &dto, D &data,
+                                     const oatpp::Int32 &code, const oatpp::String &message) {
+    return of(dto, data, code, message);
 }
 // ========================End common function to construct ResponseDTO==========================
 

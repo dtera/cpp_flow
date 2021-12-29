@@ -11,8 +11,10 @@
 #include <oatpp/core/Types.hpp>
 
 #include "../../common/dto/OTServerDTOs.hpp"
+#include "../../common/exceptions/OTError.hpp"
 #include "../../common/util/OatppUtils.hpp"
 #include "../../common/util/Func.h"
+#include "../../common/ParamsTool.hpp"
 #include "../../common/RedisCli.hpp"
 #include "../../ot/KOutOfNForOTSender.hpp"
 #include "../../ot/Message.hpp"
@@ -24,9 +26,11 @@ private:
     String publicKey;
     //map<string, KOutOfNForOTSender<StrMessage>> otSenderMap;
     map<string, KOutOfNForOTSender<FieldsMessage>> otSenderMap;
-    RedisCli redisCli;
+    RedisCli *redisCli;
 public:
     OTServerService();
+
+    ~OTServerService();
 
     String &getPublicKey();
 
@@ -35,10 +39,17 @@ public:
     void setDecryptedYOps(const Object<OTServerReqDTO<Vector<Int8>>> &reqDTO, Vector<Vector<Int8>> &decryptedYOps);
 };
 
-OTServerService::OTServerService() {
+OTServerService::OTServerService() : redisCli(nullptr) {
+    redisCli = new RedisCli(ParamsTool::get("redisHost", "localhost"),
+                            ParamsTool::getInt("redisPort", 6379),
+                            ParamsTool::get("redisPassword", ""));
     BaseOTSender<StrMessage>::gen_keypair();
     publicKey = BaseOTSender<StrMessage>::get_pub_key();
     OATPP_LOGD("OTServerService", " publicKey \n%s", publicKey->data());
+}
+
+OTServerService::~OTServerService() {
+    delete redisCli;
 }
 
 String &OTServerService::getPublicKey() {
@@ -46,6 +57,12 @@ String &OTServerService::getPublicKey() {
 }
 
 void OTServerService::setRandomMsgs(const Object<OTServerReqDTO<String>> &reqDTO, Vector<String> &rms) {
+    auto reqLimitNum = ParamsTool::getInt("reqLimitNum", 5);
+    if (reqDTO->k != nullptr && reqDTO->k > reqLimitNum) {
+        auto err = "The request num " + boost::lexical_cast<string>(reqDTO->k) + " exceeded the limit num " +
+                   boost::lexical_cast<string>(reqLimitNum);
+        throw OTError(err);
+    }
     /*string s1 = "abc", s2 = "def", s3 = "ghi", s4 = "jkl", s5 = "mno";
     vector<StrMessage> ms = {StrMessage(s1), StrMessage(s2), StrMessage(s3),
                              StrMessage(s4), StrMessage(s5)};
@@ -55,7 +72,7 @@ void OTServerService::setRandomMsgs(const Object<OTServerReqDTO<String>> &reqDTO
     redisCli.mGet(reqDTO->params, ms, f);
     KOutOfNForOTSender<StrMessage> otSender(ms);*/
     vector<FieldsMessage> ms;
-    redisCli.hGetAll(reqDTO->params, ms);
+    redisCli->hGetAll(reqDTO->params, ms);
     KOutOfNForOTSender<FieldsMessage> otSender(ms);
     otSenderMap.insert(make_pair(reqDTO->sessionToken, otSender));
     vector_to_oatppVector(otSender.get_rs(), rms);
@@ -76,3 +93,4 @@ void OTServerService::setDecryptedYOps(const Object<OTServerReqDTO<Vector<Int8>>
 
     otSenderMap.erase(reqDTO->sessionToken);
 }
+
