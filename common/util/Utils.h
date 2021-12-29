@@ -11,18 +11,19 @@
 #pragma comment(lib, "crypt32.lib")
 #pragma comment(lib, "ws2_32.lib")
 */
-
-#include <iostream>
+#include <boost/algorithm/string.hpp>
 #include <cstdio>
-#include <sys/stat.h>
-#include <unistd.h>
 #include <ctime>
-#include <string>
-#include <vector>
-#include <openssl/rsa.h>
+#include <iostream>
+#include <oatpp/core/Types.hpp>
 #include <openssl/pem.h>
 #include <openssl/bio.h>
-#include <oatpp/core/Types.hpp>
+#include <openssl/rsa.h>
+#include <regex>
+#include <string>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <vector>
 
 #include "../../ot/Constant.h"
 
@@ -40,6 +41,10 @@ void fread_all(char *&out, FILE *p_file);
 string gen_random_str(const int &len, const bool &visible_char = true);
 
 vector<int> str2int_vector(const string &in);
+
+inline void split(const string &in, vector<string> &out, const string &sep = " ");
+
+inline vector<string> regex_split(const string &in, const string &reg_sep);
 
 void println_str2int_vector(const string &s, const string &name, const string &sep = ", ");
 

@@ -194,6 +194,25 @@ vector<int> str2int_vector(const string &in) {
     return res;
 }
 
+inline void split(const string &in, vector<string> &out, const string &sep) {
+    auto i = in.find_first_not_of(sep, 0);
+    auto j = in.find_first_of(sep, i);
+    while (string::npos != i || string::npos != j) {
+        auto t = in.substr(i, j - i);
+        boost::trim(t);
+        out.push_back(t);
+        i = in.find_first_not_of(sep, j);
+        j = in.find_first_of(sep, i);
+    }
+}
+
+inline vector<string> regex_split(const string &in, const string &reg_sep) {
+    regex regex_sep(reg_sep);
+    auto res  = sregex_token_iterator(in.begin(), in.end(), regex_sep, -1);
+    vector<string> out(res, sregex_token_iterator());
+    return out;
+}
+
 void println_str2int_vector(const string &s, const string &name, const string &sep) {
     println_vector(str2int_vector(s), name);
 }
