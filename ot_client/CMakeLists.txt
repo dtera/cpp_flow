@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(LIB_SUFFIX so)
 set(INC_DIR /usr/local/include)
 set(LINK_DIR /usr/local/lib)
+set(LINK_LIB boost_filesystem.${LIB_SUFFIX})
 
 set(OPENSSL_INC_DIR /usr/local/opt/openssl/include)
 set(OPENSSL_LINK_DIR /usr/local/opt/openssl/lib)
@@ -14,6 +15,7 @@ set(OPENSSL_LINK_LIB libcrypto.${LIB_SUFFIX} libssl.${LIB_SUFFIX})
 
 include_directories(${INC_DIR})
 link_directories(${LINK_DIR})
+link_libraries(${LINK_LIB})
 
 include_directories(${OPENSSL_INC_DIR})
 link_directories(${OPENSSL_LINK_DIR})

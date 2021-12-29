@@ -2,10 +2,6 @@ FROM alpine:3.13.7
 MAINTAINER dterazhao (https://github.com/dtera)
 
 ADD . /service/
-WORKDIR /service
-
-RUN rm -rf ot_client cmake-build-debug build .gitignore CMakeLists.txt main.cpp README.md tests.h \
-    ot_server/cmake-build-debug ot_server/build ot/BaseOTReceiver.hpp ot/KOutOfNForOTReceiver.hpp
 
 RUN apk update && apk upgrade
 RUN apk add --no-cache git
@@ -18,12 +14,20 @@ RUN apk add --no-cache openssl-dev && rm -rf /var/cache/apk/*
 RUN sh -c common/shell/install-oatpp-modules.sh
 
 WORKDIR /service/ot_server/build
-
+RUN cp -R ../conf ./
 RUN cmake ..
 RUN make
 
-EXPOSE 8000 8000
+WORKDIR /service
+RUN find * -maxdepth 0 | grep -v ot_server | xargs rm -rf
 
+WORKDIR /service/ot_server
+RUN find * -maxdepth 0 | grep -v build | xargs rm -rf
+
+WORKDIR /service/ot_server/build
 VOLUME /service/ot_server/build/rsa_keys
+VOLUME /service/ot_server/build/conf
+
+EXPOSE 8000 8000
 
 ENTRYPOINT ["./ot_server-exe"]

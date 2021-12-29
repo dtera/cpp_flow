@@ -4,9 +4,10 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "cert-msc50-cpp"
 #pragma clang diagnostic ignored "-Wdangling-gsl"
+#pragma ide diagnostic ignored "misc-no-recursion"
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#pragma ide diagnostic ignored "cppcoreguidelines-narrowing-conversions"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
+#pragma ide diagnostic ignored "cppcoreguidelines-narrowing-conversions"
 
 #include "Utils.h"
 
@@ -211,6 +212,17 @@ inline vector<string> regex_split(const string &in, const string &reg_sep) {
     auto res  = sregex_token_iterator(in.begin(), in.end(), regex_sep, -1);
     vector<string> out(res, sregex_token_iterator());
     return out;
+}
+
+void ini_to_map(boost::property_tree::ptree &pt, map<string, string> &data, const string &prefix, const string &sep) {
+    for (auto p: pt) {
+        auto key = (prefix.empty() ? "" : prefix + sep) + p.first;
+        if (p.second.empty()) {
+            data.insert({key, p.second.data()});
+        } else {
+            ini_to_map(p.second, data, key, sep);
+        }
+    }
 }
 
 void println_str2int_vector(const string &s, const string &name, const string &sep) {

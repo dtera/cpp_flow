@@ -7,9 +7,14 @@
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include <boost/algorithm/string.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
 #include <map>
 #include <string>
+
+#include "util/Utils.h"
 
 using namespace std;
 
@@ -17,6 +22,68 @@ class ParamsTool {
 private:
     static map<string, string> data;
 public:
+
+    static void fromArgs(int argc, const char *argv[]) {
+        if (argc > 1) {
+            if (boost::contains(argv[1], "=")) {
+                fromArgsWithSep(argc, argv, "=");
+            } else if (boost::contains(argv[1], ":")) {
+                fromArgsWithSep(argc, argv, ":");
+            } else {
+                fromArgsWithPrefix(argc, argv);
+            }
+
+            const string confFile = get("confFile");
+            if (getBool("argsFromConf") && !confFile.empty() && boost::filesystem::exists(confFile)) {
+                fromArgsWithConf(argc, argv);
+            }
+        }
+    }
+
+    static void fromArgsWithConf(int argc, const char *const *argv) {
+        auto confFile = data.at("confFile");
+
+        boost::property_tree::ptree pt;
+        boost::property_tree::ini_parser::read_ini(confFile, pt);
+        ini_to_map(pt, data);
+    }
+
+    static void fromArgsWithPrefix(int argc, const char *const *argv) {
+        int i = 1;
+        while (i < argc) {
+            string key = argv[i];
+            if (boost::starts_with(argv[i], "--")) {
+                key = key.substr(2, key.length() - 2);
+            } else if (boost::starts_with(argv[i], "-")) {
+                key = key.substr(1, key.length() - 1);
+            } else {
+                throw runtime_error("Error parsing args on " + key + ". Please prefix keys with -- or -.");
+            }
+            i++;
+            if (i >= argc || boost::starts_with(argv[i], "--") ||
+                boost::starts_with(argv[i], "-")) {
+                data.insert({key, ""});
+            } else {
+                data.insert({key, argv[i]});
+                i++;
+            }
+        }
+    }
+
+    static void fromArgsWithSep(int argc, const char *argv[], const string &sep) {
+        for (int i = 1; i < argc; ++i) {
+            auto arg = argv[i];
+            vector<string> kv;
+            boost::split(kv, arg, boost::is_any_of(sep));
+            boost::trim(kv[0]);
+            boost::trim(kv[1]);
+            if (boost::starts_with(kv[0], "--")) {
+                kv[0] = kv[0].substr(2, kv[0].length() - 2);
+            }
+            data.insert({kv[0], kv[1]});
+        }
+    }
+
     static string get(const string &key, const string &defaultValue = "") {
         try {
             return data.at(key);
@@ -77,54 +144,6 @@ public:
             return boost::lexical_cast<double>(data.at(key));
         } catch (std::exception &e) {
             return defaultValue;
-        }
-    }
-
-    static void fromArgs(int argc, const char *argv[]) {
-        if (argc > 1) {
-            if (boost::contains(argv[1], "=")) {
-                fromArgsWithSep(argc, argv, "=");
-            } else if (boost::contains(argv[1], ":")) {
-                fromArgsWithSep(argc, argv, ":");
-            } else {
-                fromArgsWithPrefix(argc, argv);
-            }
-        }
-    }
-
-    static void fromArgsWithPrefix(int argc, const char *const *argv) {
-        int i = 1;
-        while (i < argc) {
-            string key = argv[i];
-            if (boost::starts_with(argv[i], "--")) {
-                key = key.substr(2, key.length() - 2);
-            } else if (boost::starts_with(argv[i], "-")) {
-                key = key.substr(1, key.length() - 1);
-            } else {
-                throw runtime_error("Error parsing args on " + key + ". Please prefix keys with -- or -.");
-            }
-            i++;
-            if (i >= argc || boost::starts_with(argv[i], "--") ||
-                boost::starts_with(argv[i], "-")) {
-                data.insert({key, ""});
-            } else {
-                data.insert({key, argv[i]});
-                i++;
-            }
-        }
-    }
-
-    static void fromArgsWithSep(int argc, const char *argv[], const string &sep) {
-        for (int i = 1; i < argc; ++i) {
-            auto arg = argv[i];
-            vector<string> kv;
-            boost::split(kv, arg, boost::is_any_of(sep));
-            boost::trim(kv[0]);
-            boost::trim(kv[1]);
-            if (boost::starts_with(kv[0], "--")) {
-                kv[0] = kv[0].substr(2, kv[0].length() - 2);
-            }
-            data.insert({kv[0], kv[1]});
         }
     }
 

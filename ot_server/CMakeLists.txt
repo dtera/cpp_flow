@@ -7,7 +7,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(LIB_SUFFIX so)
 set(INC_DIR /usr/local/include)
 set(LINK_DIR /usr/local/lib)
-set(LINK_LIB libhiredis.${LIB_SUFFIX})
+set(LINK_LIB libhiredis.${LIB_SUFFIX} boost_filesystem.${LIB_SUFFIX})
 
 set(OPENSSL_INC_DIR /usr/local/opt/openssl/include)
 set(OPENSSL_LINK_DIR /usr/local/opt/openssl/lib)

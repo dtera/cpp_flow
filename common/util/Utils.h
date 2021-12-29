@@ -12,6 +12,8 @@
 #pragma comment(lib, "ws2_32.lib")
 */
 #include <boost/algorithm/string.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/ini_parser.hpp>
 #include <cstdio>
 #include <ctime>
 #include <iostream>
@@ -45,6 +47,9 @@ vector<int> str2int_vector(const string &in);
 inline void split(const string &in, vector<string> &out, const string &sep = " ");
 
 inline vector<string> regex_split(const string &in, const string &reg_sep);
+
+void ini_to_map(boost::property_tree::ptree &pt, map<string, string> &data,
+                const string &prefix = "", const string &sep = ".");
 
 void println_str2int_vector(const string &s, const string &name, const string &sep = ", ");
 

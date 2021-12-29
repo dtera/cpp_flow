@@ -7,7 +7,12 @@ services:
       dockerfile: ot_client/Dockerfile
     container_name: ot_client
     network_mode: host
-#    ports:
-#      - '8001:8001/tcp'
-#      - '8001:8001/udp'
+    #    ports:
+    #      - '8001:8001/tcp'
+    #      - '8001:8001/udp'
+    volumes:
+      - conf:/service/ot_server/build/conf
+    command:
+      - argsFromConf=true
+      - confFile=conf/ot_server.ini
     restart: always

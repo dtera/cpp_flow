@@ -7,9 +7,27 @@ services:
       dockerfile: ot_server/Dockerfile
     container_name: ot_server
     network_mode: host
-#    ports:
-#      - '8000:8000/tcp'
-#      - '8000:8000/udp'
+    #    ports:
+    #      - '8000:8000/tcp'
+    #      - '8000:8000/udp'
     volumes:
-      - "./rsa_keys:/service/ot_server/build/rsa_keys"
+      - rsa_keys:/service/ot_server/build/rsa_keys
+      - conf:/service/ot_server/build/conf
+    command:
+      - argsFromConf=true
+      - confFile=conf/ot_server.ini
+    restart: always
+    depends_on:
+      - db
+
+  db:
+    image: redis
+    container_name: redis
+    network_mode: host
+    volumes:
+      - data:/data
+      - redis:/etc/redis
+    command:
+      - redis-server /etc/redis/redis.conf
+      - --requirepass 123456 --appendonly yes
     restart: always
