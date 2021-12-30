@@ -11,7 +11,7 @@
 
 using namespace std;
 
-class _LIBCPP_EXCEPTION_ABI OTError : public exception {
+class OTError : public exception {
 private:
     string m_p;
 public:
