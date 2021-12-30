@@ -8,8 +8,7 @@ services:
     container_name: ot_client
     network_mode: host
     #    ports:
-    #      - '8001:8001/tcp'
-    #      - '8001:8001/udp'
+    #      - "8001:8001"
     volumes:
       - ./conf:/service/ot_client/build/conf
     command:
