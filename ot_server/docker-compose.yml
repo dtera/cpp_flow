@@ -26,6 +26,5 @@ services:
     network_mode: host
     volumes:
       - ./redis/data:/data
-      - ./redis/conf:/etc/redis
-    command: redis-server /etc/redis/redis.conf --requirepass 123456 --appendonly yes
+    command: redis-server /data/redis.conf
     restart: always
