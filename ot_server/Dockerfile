@@ -11,6 +11,7 @@ RUN apk add --no-cache cmake
 RUN apk add --no-cache hiredis-dev
 RUN apk add --no-cache openssl-dev && rm -rf /var/cache/apk/*
 
+WORKDIR /service
 RUN sh -c common/shell/install-oatpp-modules.sh
 
 WORKDIR /service/ot_server/build
