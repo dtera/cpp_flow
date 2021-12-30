@@ -11,8 +11,8 @@ services:
     #      - '8000:8000/tcp'
     #      - '8000:8000/udp'
     volumes:
-      - rsa_keys:/service/ot_server/build/rsa_keys
-      - conf:/service/ot_server/build/conf
+      - ./rsa_keys:/service/ot_server/build/rsa_keys
+      - ./conf:/service/ot_server/build/conf
     command:
       - argsFromConf=true
       - confFile=conf/ot_server.ini
@@ -25,8 +25,8 @@ services:
     container_name: redis
     network_mode: host
     volumes:
-      - redis/data:/data
-      - redis/conf:/etc/redis
+      - ./redis/data:/data
+      - ./redis/conf:/etc/redis
     command:
       - redis-server /etc/redis/redis.conf
       - --requirepass 123456 --appendonly yes
