@@ -27,7 +27,5 @@ services:
     volumes:
       - ./redis/data:/data
       - ./redis/conf:/etc/redis
-    command:
-      - redis-server /etc/redis/redis.conf
-      - --requirepass 123456 --appendonly yes
+    command: redis-server /etc/redis/redis.conf --requirepass 123456 --appendonly yes
     restart: always
