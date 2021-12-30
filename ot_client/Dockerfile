@@ -8,7 +8,7 @@ RUN apk add --no-cache git
 RUN apk add --no-cache g++
 RUN apk add --no-cache make
 RUN apk add --no-cache cmake
-RUN apk add --no-cache boost-build
+RUN apk add --no-cache boost-dev
 RUN apk add --no-cache openssl-dev && rm -rf /var/cache/apk/*
 
 WORKDIR /service
