@@ -21,12 +21,12 @@ services:
       - db
 
   db:
-    image: redis
+    image: redis:6.2.6-alpine
     container_name: redis
     network_mode: host
     volumes:
-      - data:/data
-      - redis:/etc/redis
+      - redis/data:/data
+      - redis/conf:/etc/redis
     command:
       - redis-server /etc/redis/redis.conf
       - --requirepass 123456 --appendonly yes
