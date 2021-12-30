@@ -11,7 +11,7 @@ services:
     #      - '8001:8001/tcp'
     #      - '8001:8001/udp'
     volumes:
-      - ./conf:/service/ot_server/build/conf
+      - ./conf:/service/ot_client/build/conf
     command:
       - argsFromConf=true
       - confFile=conf/ot_server.ini
