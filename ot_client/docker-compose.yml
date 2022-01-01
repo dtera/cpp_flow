@@ -13,5 +13,5 @@ services:
       - ./conf:/service/ot_client/build/conf
     command:
       - argsFromConf=true
-      - confFile=conf/ot_server.ini
+      - confFile=conf/ot_client.ini
     restart: always

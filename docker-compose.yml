@@ -1,0 +1,48 @@
+version: '3.3'
+
+services:
+  ot_client:
+    build:
+      context: .
+      dockerfile: ot_client/Dockerfile
+    container_name: ot_client
+    network_mode: host
+    #    ports:
+    #      - "8001:8001"
+    volumes:
+      - ./ot_client/conf:/service/ot_client/build/conf
+    command:
+      - argsFromConf=true
+      - confFile=conf/ot_client.ini
+    restart: always
+    depends_on:
+      - ot_server
+
+  ot_server:
+    build:
+      context: .
+      dockerfile: ot_server/Dockerfile
+    container_name: ot_server
+    network_mode: host
+    #    ports:
+    #      - "8000:8000"
+    volumes:
+      - ./ot_server/rsa_keys:/service/ot_server/build/rsa_keys
+      - ./ot_server/conf:/service/ot_server/build/conf
+    command:
+      - argsFromConf=true
+      - confFile=conf/ot_server.ini
+    restart: always
+    depends_on:
+      - db
+
+  db:
+    image: redis:6.2.6-alpine
+    container_name: redis
+    network_mode: host
+    #    ports:
+    #      - "6379:6379"
+    volumes:
+      - ./ot_server/redis/data:/data
+    command: redis-server /data/redis.conf
+    restart: always
