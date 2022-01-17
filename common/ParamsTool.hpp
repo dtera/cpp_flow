@@ -24,6 +24,7 @@ private:
 public:
 
     static void fromArgs(int argc, const char *argv[]) {
+        string confFile = "config.ini";
         if (argc > 1) {
             if (boost::contains(argv[1], "=")) {
                 fromArgsWithSep(argc, argv, "=");
@@ -33,13 +34,15 @@ public:
                 fromArgsWithPrefix(argc, argv);
             }
 
-            string confFile = get("confFile");
+            confFile = get("confFile");
             if (confFile.empty()) {
                 confFile = get("conf", "config.ini");
             }
             if (!confFile.empty() && boost::filesystem::exists(confFile)) {
                 fromArgsWithConf(confFile);
             }
+        } else if (boost::filesystem::exists(confFile)) {
+            fromArgsWithConf(confFile);
         }
     }
 
