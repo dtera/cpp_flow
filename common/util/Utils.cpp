@@ -77,15 +77,15 @@ string rsa_pub_encrypt(const string &in, const string &pub_key) {
 }
 
 int gen_rsa_keypair(char *&pub_key, char *&pri_key, const bool &write_to_file, const int &key_size,
-                    const char *const rsa_keys_path,
-                    const char *const pub_key_file_name, const char *const pri_key_file_name) {
-    if (access(rsa_keys_path, F_OK)) {
-        mkdir(rsa_keys_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
+                    const string &rsa_keys_path,
+                    const string &pub_key_file_name, const string &pri_key_file_name) {
+    if (access(rsa_keys_path.data(), F_OK)) {
+        mkdir(rsa_keys_path.data(), S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH);
     }
-    const char *pub_key_file_path = (string(rsa_keys_path) + "/" + pub_key_file_name).data();
-    const char *pri_key_file_path = (string(rsa_keys_path) + "/" + pri_key_file_name).data();
-    FILE *pub_file = fopen(pub_key_file_path, "r");
-    FILE *pri_file = fopen(pri_key_file_path, "r");
+    string pub_key_file_path = string(rsa_keys_path) + "/" + pub_key_file_name;
+    string pri_key_file_path = string(rsa_keys_path) + "/" + pri_key_file_name;
+    FILE *pub_file = fopen(pub_key_file_path.data(), "r");
+    FILE *pri_file = fopen(pri_key_file_path.data(), "r");
     if (pub_file != nullptr && pri_file != nullptr) {
         cout << "Read rsa_keypair from " << pub_key_file_path << " and " << pri_key_file_path << endl;
         fread_all(pub_key, pub_file);
@@ -120,17 +120,17 @@ int gen_rsa_keypair(char *&pub_key, char *&pri_key, const bool &write_to_file, c
     BIO_read(pri, pri_key, priLen);
 
     if (write_to_file) {
-        pub_file = fopen(pub_key_file_path, "w");
+        pub_file = fopen(pub_key_file_path.data(), "w");
         if (pub_file == nullptr) {
-            cout << "BIO_new_file " << pub_key_file_path << " error" << endl;
+            cout << "BIO_new_file " << pub_key_file_path.data() << " error" << endl;
             return -4;
         }
         fputs(pub_key, pub_file);
         fclose(pub_file);
 
-        pri_file = fopen(pri_key_file_path, "w");
+        pri_file = fopen(pri_key_file_path.data(), "w");
         if (pri_file == nullptr) {
-            cout << "BIO_new_file " << pri_key_file_path << " error" << endl;
+            cout << "BIO_new_file " << pri_key_file_path.data() << " error" << endl;
             return -5;
         }
         fputs(pri_key, pri_file);

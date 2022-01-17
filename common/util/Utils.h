@@ -34,9 +34,9 @@ string rsa_pri_decrypt(const string &in, const string &pri_key);
 string rsa_pub_encrypt(const string &in, const string &pub_key);
 
 int gen_rsa_keypair(char *&pub_key, char *&pri_key, const bool &write_to_file = false,
-                    const int &key_size = DEFAULT_KEY_SIZE, const char *const rsa_keys_path = RSA_KEYS_PATH.data(),
-                    const char *const pub_key_file_name = RSA_PUBLIC_KEY_FILE_NAME.data(),
-                    const char *const pri_key_file_name = RSA_PRIVATE_KEY_FILE_NAME.data());
+                    const int &key_size = DEFAULT_KEY_SIZE, const string &rsa_keys_path = RSA_KEYS_PATH,
+                    const string &pub_key_file_name = RSA_PUBLIC_KEY_FILE_NAME,
+                    const string &pri_key_file_name = RSA_PRIVATE_KEY_FILE_NAME);
 
 void fread_all(char *&out, FILE *p_file);
 
