@@ -33,16 +33,17 @@ public:
                 fromArgsWithPrefix(argc, argv);
             }
 
-            const string confFile = get("confFile");
-            if (getBool("argsFromConf") && !confFile.empty() && boost::filesystem::exists(confFile)) {
-                fromArgsWithConf(argc, argv);
+            string confFile = get("confFile");
+            if (confFile.empty()) {
+                confFile = get("conf", "config.ini");
+            }
+            if (!confFile.empty() && boost::filesystem::exists(confFile)) {
+                fromArgsWithConf(confFile);
             }
         }
     }
 
-    static void fromArgsWithConf(int argc, const char *const *argv) {
-        auto confFile = data.at("confFile");
-
+    static void fromArgsWithConf(string &confFile) {
         boost::property_tree::ptree pt;
         boost::property_tree::ini_parser::read_ini(confFile, pt);
         ini_to_map(pt, data);
