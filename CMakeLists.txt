@@ -31,7 +31,8 @@ link_directories(${OPENSSL_LINK_DIR})
 link_libraries(${OPENSSL_LINK_LIB})
 
 #set(SOURCE_FILES main.cpp)
-set(SOURCE_FILES HttpServer.cpp)
+#set(SOURCE_FILES HttpServer.cpp)
+set(SOURCE_FILES HttpClient.cpp)
 
 add_library(${PROJECT_NAME}-lib common/util/Utils.cpp
         common/http/connection.cpp common/http/mime_types.cpp common/http/reply.cpp common/http/request_handler.cpp

@@ -32,13 +32,7 @@ link_libraries(${OPENSSL_LINK_LIB})
 set(SOURCE_FILES App.cpp)
 
 add_library(${PROJECT_NAME}-lib
-        ../common/util/Utils.h ../common/util/Utils.cpp ../common/util/Func.h ../common/util/BitOp.hpp
-        ../common/dto/DTOs.hpp ../common/dto/OTServerDTOs.hpp ../common/RedisCli.hpp ../common/ParamsTool.hpp
-        ../common/exceptions/OTError.hpp
-        ../ot/BaseOTSender.hpp ../ot/KOutOfNForOTSender.hpp ../ot/Constant.h ../ot/Message.hpp
-        AppComponent.hpp
-        controller/OTServerController.hpp
-        service/OTServerService.hpp
+        ../common/util/Utils.cpp
         )
 
 find_package(oatpp REQUIRED)

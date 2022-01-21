@@ -34,9 +34,9 @@ public:
                 fromArgsWithPrefix(argc, argv);
             }
 
-            confFile = get("confFile");
+            confFile = get("conf");
             if (confFile.empty()) {
-                confFile = get("conf", "config.ini");
+                confFile = get("i", "config.ini");
             }
             if (!confFile.empty() && boost::filesystem::exists(confFile)) {
                 fromArgsWithConf(confFile);

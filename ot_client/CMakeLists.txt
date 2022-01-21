@@ -46,12 +46,7 @@ link_directories(${LINK_DIR})
 link_libraries(${LINK_LIB})
 
 add_library(${PROJECT_NAME}-lib
-        ../common/util/Utils.h ../common/util/Utils.cpp ../common/util/Func.h ../common/util/BitOp.hpp
-        ../common/dto/DTOs.hpp ../common/dto/OTServerDTOs.hpp ../common/exceptions/OTError.hpp
-        ../ot/BaseOTReceiver.hpp ../ot/KOutOfNForOTReceiver.hpp ../ot/Constant.h ../ot/Message.hpp
-        AppComponent.hpp
-        controller/OTClientController.hpp
-        service/OTClientService.hpp
+        ../common/util/Utils.cpp
         )
 
 find_package(oatpp REQUIRED)
