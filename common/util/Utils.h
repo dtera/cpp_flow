@@ -82,6 +82,15 @@ void println_vector(const vector<T> &vs, const string &name, const string &sep =
     cout << "]" << endl;
 }
 
+template<typename K, typename V>
+void println_map(const map<K, V> &m, const string &name) {
+    cout << name << "(len:" << m.size() << ")--> \n{";
+    for (auto entry: m) {
+        cout << "\n\t" << entry.first << ": " << entry.second << ",";
+    }
+    cout << "\n}" << endl;
+}
+
 template<typename T>
 string join_vector(const vector<T> &vs, const string &sep = ",", const string &start = "", const string &end = "") {
     string res = start;

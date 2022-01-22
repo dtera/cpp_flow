@@ -3,41 +3,107 @@
 //
 #pragma once
 #pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-avoid-bind"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #pragma ide diagnostic ignored "OCUnusedStructInspection"
-#pragma ide diagnostic ignored "modernize-avoid-bind"
 
-#include <iostream>
-#include <string>
+#include <boost/algorithm/string.hpp>
+#include <boost/algorithm/string/regex.hpp>
 #include <boost/asio.hpp>
 #include <boost/bind/bind.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/regex.hpp>
+#include <iostream>
+#include <string>
+#include <utility>
+#include <vector>
+
+#include "../util/Utils.h"
 
 using boost::asio::ip::tcp;
+using namespace std;
 
 class http_client {
 public:
-    http_client(boost::asio::io_context &io_context,
-           const std::string &server, const std::string &path)
-            : resolver_(io_context),
-              socket_(io_context) {
+    explicit http_client(const int port = 80, std::string host = "localhost", std::string http_version = "1.1")
+            : query(host, boost::lexical_cast<std::string>(port),
+                    boost::asio::ip::resolver_query_base::numeric_service),
+              resolver_(io_context), socket_(io_context),
+              port(port), host(std::move(host)), http_ver(std::move(http_version)) {}
+
+    void get(const std::string &path) {
         // Form the request. We specify the "Connection: close" header so that the
         // server will close the socket after transmitting the response. This will
         // allow us to treat all data up until the EOF as the content.
         std::ostream request_stream(&request_);
-        request_stream << "GET " << path << " HTTP/1.0\r\n";
-        request_stream << "Host: " << server << "\r\n";
+        request_stream << "GET " << path << " HTTP/" << http_ver << "\r\n";
+        request_stream << "Host: " << host << "\r\n";
         request_stream << "Accept: */*\r\n";
         request_stream << "Connection: close\r\n\r\n";
 
         // Start an asynchronous resolve to translate the server and service names
         // into a list of endpoints.
-        resolver_.async_resolve(server, "http",
+        resolver_.async_resolve(query,
                                 boost::bind(&http_client::handle_resolve, this,
                                             boost::asio::placeholders::error,
                                             boost::asio::placeholders::results));
+        io_context.run();
+        io_context.reset();
     }
 
+    void post(const std::string &path, const std::string &reqBody) {
+        // Form the request. We specify the "Connection: close" header so that the
+        // server will close the socket after transmitting the response. This will
+        // allow us to treat all data up until the EOF as the content.
+        std::ostream request_stream(&request_);
+        request_stream << "POST " << path << " HTTP/" << http_ver << "\r\n";
+        request_stream << "Host: " << host << "\r\n";
+        request_stream << "Accept: */*\r\n";
+        request_stream << "Content-Type: application/json\r\n";
+        request_stream << "Content-Length: "<< reqBody.length() << "\r\n";
+        request_stream << "Accept-Encoding: gzip, deflate, br\r\n";
+        request_stream << "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36\r\n";
+        request_stream << "Connection: close\r\n\r\n";
+        request_stream << reqBody.c_str();
+
+        // Start an asynchronous resolve to translate the server and service names
+        // into a list of endpoints.
+        resolver_.async_resolve(query,
+                                boost::bind(&http_client::handle_resolve, this,
+                                            boost::asio::placeholders::error,
+                                            boost::asio::placeholders::results));
+        io_context.run();
+        io_context.reset();
+    }
+
+    std::string &getHttpVersion() { return http_version; }
+
+    unsigned int &getStatusCode() { return status_code; }
+
+    std::string &getStatusMessage() { return status_message; }
+
+    std::map<std::string, std::string> &getHeaders() { return headers; }
+
+    std::string &getContent() { return content; }
+
 private:
+    const std::string host;
+    const int port;
+    const std::string http_ver;
+
+    boost::asio::io_context io_context;
+    tcp::resolver::query query;
+    tcp::resolver resolver_;
+    tcp::socket socket_;
+    boost::asio::streambuf request_;
+    boost::asio::streambuf response_;
+
+    std::string http_version;
+    unsigned int status_code{};
+    std::string status_message;
+    std::map<std::string, std::string> headers;
+    std::string content;
+
     void handle_resolve(const boost::system::error_code &err,
                         const tcp::resolver::results_type &endpoints) {
         if (!err) {
@@ -79,11 +145,8 @@ private:
         if (!err) {
             // Check that response is OK.
             std::istream response_stream(&response_);
-            std::string http_version;
             response_stream >> http_version;
-            unsigned int status_code;
             response_stream >> status_code;
-            std::string status_message;
             std::getline(response_stream, status_message);
             if (!response_stream || http_version.substr(0, 5) != "HTTP/") {
                 std::cout << "Invalid response\n";
@@ -108,14 +171,26 @@ private:
         if (!err) {
             // Process the response headers.
             std::istream response_stream(&response_);
-            std::string header;
-            while (std::getline(response_stream, header) && header != "\r")
-                std::cout << header << "\n";
-            std::cout << "\n";
+            std::string line;
+            std::vector<std::string> kv;
+            while (std::getline(response_stream, line) && line != "\r") {
+                //cout << line << endl;
+                boost::split(kv, line.c_str(), boost::is_any_of(":"),
+                             boost::token_compress_on);
+                //println_vector(kv, "kv");
+                boost::trim(kv[1]);
+                headers.insert({kv[0], kv[1]});
+                kv.clear();
+            }
 
             // Write whatever content we already have to output.
-            if (response_.size() > 0)
-                std::cout << &response_;
+            if (response_.size() > 0) {
+                //std::cout << &response_;
+                while (std::getline(response_stream, line)) {
+                    //cout << "line: " << line << endl;
+                    content += line;
+                }
+            }
 
             // Start reading remaining data until EOF.
             boost::asio::async_read(socket_, response_,
@@ -130,7 +205,7 @@ private:
     void handle_read_content(const boost::system::error_code &err) {
         if (!err) {
             // Write all the data that has been read so far.
-            std::cout << &response_;
+            std::cout << "response_: " << &response_;
 
             // Continue reading remaining data until EOF.
             boost::asio::async_read(socket_, response_,
@@ -142,8 +217,4 @@ private:
         }
     }
 
-    tcp::resolver resolver_;
-    tcp::socket socket_;
-    boost::asio::streambuf request_;
-    boost::asio::streambuf response_;
 };

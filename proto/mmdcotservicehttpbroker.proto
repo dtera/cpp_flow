@@ -1,0 +1,48 @@
+syntax = "proto2";
+
+package otServicePB;
+
+//ot service data
+message Response {
+  optional uint32 code = 1;
+  optional string message = 2;
+  optional float reqTimeMillis = 3;
+  optional string data = 4;
+}
+
+//ot service data
+message OTServiceData {
+  optional string value = 1;
+}
+
+message OTServerRequest {
+  optional string function = 1;
+  optional string sessionToken = 2;
+  optional uint32 k = 3;
+  repeated string params = 4;
+}
+
+message OTServerResponse {
+  optional string function = 1;
+  repeated string values = 2;
+}
+
+/*message UinWithLabel {
+  optional uint32 uin = 1;
+  optional uint32 label = 2;
+}*/
+
+message OTClientRequest {
+  //repeated UinWithLabel uinWithLabel = 1;
+  optional string function = 1;
+  map<uint32, uint32> uinWithLabelMap = 2;
+}
+
+message OTClientResult {
+  map<string, string> resMap = 1;
+}
+
+message OTClientResponse {
+  optional string function = 1;
+  repeated OTClientResult result = 2;
+}
