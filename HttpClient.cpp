@@ -4,19 +4,14 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "UnusedParameter"
 
-#include <google/protobuf/message.h>
-#include <google/protobuf/util/json_util.h>
-#include <google/protobuf/text_format.h>
 #include <iostream>
 #include <string>
 
 #include "common/http/http_client.hpp"
 #include "common/util/Utils.h"
-
 #include "mmdcotservicehttpbroker.pb.h"
 
 using namespace std;
-using namespace google::protobuf::util;
 
 int main(int argc, char *argv[]) {
     try {
@@ -30,7 +25,8 @@ int main(int argc, char *argv[]) {
 
         otServicePB::Response response;
         //response.ParseFromString(content);
-        auto status = JsonStringToMessage(content, &response);
+        auto status = client.setPbMessage(&response);
+        cout<< status << endl;
         cout<< response.code() << endl;
         cout<< response.message() << endl;
         cout<< response.data() << endl;

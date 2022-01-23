@@ -13,6 +13,9 @@
 #include <boost/bind/bind.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/regex.hpp>
+#include <google/protobuf/message.h>
+#include <google/protobuf/util/json_util.h>
+#include <google/protobuf/text_format.h>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -21,6 +24,7 @@
 #include "../util/Utils.h"
 
 using boost::asio::ip::tcp;
+using namespace google::protobuf::util;
 using namespace std;
 
 class http_client {
@@ -85,6 +89,10 @@ public:
     std::map<std::string, std::string> &getHeaders() { return headers; }
 
     std::string &getContent() { return content; }
+
+    Status setPbMessage(google::protobuf::Message *message) {
+        return JsonStringToMessage(content, message);
+    }
 
 private:
     const std::string host;
