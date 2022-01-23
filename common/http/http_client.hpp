@@ -173,6 +173,7 @@ private:
             std::istream response_stream(&response_);
             std::string line;
             std::vector<std::string> kv;
+            headers.clear();
             while (std::getline(response_stream, line) && line != "\r") {
                 //cout << line << endl;
                 boost::split(kv, line.c_str(), boost::is_any_of(":"),
@@ -184,6 +185,7 @@ private:
             }
 
             // Write whatever content we already have to output.
+            content = "";
             if (response_.size() > 0) {
                 //std::cout << &response_;
                 while (std::getline(response_stream, line)) {
