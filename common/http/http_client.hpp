@@ -66,7 +66,8 @@ public:
         request_stream << "Content-Type: application/json\r\n";
         request_stream << "Content-Length: "<< reqBody.length() << "\r\n";
         request_stream << "Accept-Encoding: gzip, deflate, br\r\n";
-        request_stream << "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36\r\n";
+        request_stream << "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ";
+        request_stream << "(KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36\r\n";
         request_stream << "Connection: close\r\n\r\n";
         request_stream << reqBody.c_str();
 
