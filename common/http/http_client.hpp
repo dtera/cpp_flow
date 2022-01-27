@@ -55,6 +55,16 @@ public:
         io_context.reset();
     }
 
+    void post(const std::string &path, google::protobuf::Message &message, const bool &getMapFromMsg = false) {
+        std::string reqBody;
+        MessageToJsonString(message, &reqBody);
+        if (getMapFromMsg) {
+            auto i = reqBody.find_first_of('{', 1);
+            reqBody = reqBody.substr(i, reqBody.size() - i - 1);
+        }
+        post(path, reqBody);
+    }
+
     void post(const std::string &path, const std::string &reqBody) {
         // Form the request. We specify the "Connection: close" header so that the
         // server will close the socket after transmitting the response. This will
@@ -91,8 +101,8 @@ public:
 
     std::string &getContent() { return content; }
 
-    Status setPbMessage(google::protobuf::Message *message) {
-        return JsonStringToMessage(content, message);
+    Status setPbMessage(google::protobuf::Message &message) {
+        return JsonStringToMessage(content, &message);
     }
 
 private:
@@ -216,7 +226,13 @@ private:
     void handle_read_content(const boost::system::error_code &err) {
         if (!err) {
             // Write all the data that has been read so far.
-            std::cout << "response_: " << &response_;
+            std::istream response_stream(&response_);
+            std::string line;
+            if (response_.size() > 0) {
+                while (std::getline(response_stream, line)) {
+                    content += line;
+                }
+            }
 
             // Continue reading remaining data until EOF.
             boost::asio::async_read(socket_, response_,
