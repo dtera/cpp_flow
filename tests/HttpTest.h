@@ -2,18 +2,32 @@
 // Created by zhaohuiqiang on 2022/1/14.
 //
 #pragma clang diagnostic push
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #pragma ide diagnostic ignored "UnusedParameter"
 
+#include <boost/lexical_cast.hpp>
 #include <iostream>
 #include <string>
 
 #include "common/http/http_client.hpp"
+#include "common/http/server.hpp"
 #include "common/util/Utils.h"
 #include "mmdcotservicehttpbroker.pb.h"
 
-using namespace std;
+void httpServerTest() {
+    try {
+        // Initialise the server.
+        http::server3::server s("0.0.0.0", "80", ".", 1);
+        // Run the server until stopped.
+        s.run();
+    }
+    catch (std::exception &e) {
+        std::cerr << "exception: " << e.what() << "\n";
+    }
+}
 
-int main(int argc, char *argv[]) {
+void httpClientTest() {
     try {
         http_client client(8080, "localhost");
         client.get("/getPublicKey");
@@ -60,6 +74,4 @@ int main(int argc, char *argv[]) {
     } catch (std::exception &e) {
         cout << "Exception: " << e.what() << endl;
     }
-
-    return 0;
 }

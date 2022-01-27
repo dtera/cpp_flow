@@ -34,7 +34,7 @@ set(SOURCE_FILES
         test/app/MyApiTestClient.hpp ../common/util/OatppUtils.hpp)
 
 set(TEST_SOURCE_FILES
-        test/tests.cpp
+        test/Tests.cpp
         test/app/TestComponent.hpp
         test/app/MyApiTestClient.hpp
         test/MyControllerTest.cpp
