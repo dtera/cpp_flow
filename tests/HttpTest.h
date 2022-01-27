@@ -10,7 +10,7 @@
 #include <iostream>
 #include <string>
 
-#include "common/http/http_client.hpp"
+#include "common/http/HttpClient.hpp"
 #include "common/http/server.hpp"
 #include "common/util/Utils.h"
 #include "mmdcotservicehttpbroker.pb.h"
@@ -29,7 +29,7 @@ void httpServerTest() {
 
 void httpClientTest() {
     try {
-        http_client client(8080, "localhost");
+        HttpClient client(8080, "localhost");
         client.get("/getPublicKey");
         auto headers = client.getHeaders();
         auto content = client.getContent();
@@ -45,7 +45,7 @@ void httpClientTest() {
         cout << response.message() << endl;
         cout << response.data() << endl;
 
-        http_client cli(8081, "localhost:8081");
+        HttpClient cli(8081, "localhost:8081");
         string reqBody = "{\n"
                          "  \"1001\": 1,\n"
                          "  \"1002\": 0,\n"

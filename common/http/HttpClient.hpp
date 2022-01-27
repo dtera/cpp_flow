@@ -27,9 +27,9 @@ using boost::asio::ip::tcp;
 using namespace google::protobuf::util;
 using namespace std;
 
-class http_client {
+class HttpClient {
 public:
-    explicit http_client(const int port = 80, std::string host = "localhost", std::string http_version = "1.1")
+    explicit HttpClient(const int port = 80, std::string host = "localhost", std::string http_version = "1.1")
             : query(host, boost::lexical_cast<std::string>(port),
                     boost::asio::ip::resolver_query_base::numeric_service),
               resolver_(io_context), socket_(io_context),
@@ -48,7 +48,7 @@ public:
         // Start an asynchronous resolve to translate the server and service names
         // into a list of endpoints.
         resolver_.async_resolve(query,
-                                boost::bind(&http_client::handle_resolve, this,
+                                boost::bind(&HttpClient::handle_resolve, this,
                                             boost::asio::placeholders::error,
                                             boost::asio::placeholders::results));
         io_context.run();
@@ -84,7 +84,7 @@ public:
         // Start an asynchronous resolve to translate the server and service names
         // into a list of endpoints.
         resolver_.async_resolve(query,
-                                boost::bind(&http_client::handle_resolve, this,
+                                boost::bind(&HttpClient::handle_resolve, this,
                                             boost::asio::placeholders::error,
                                             boost::asio::placeholders::results));
         io_context.run();
@@ -129,7 +129,7 @@ private:
             // Attempt a connection to each endpoint in the list until we
             // successfully establish a connection.
             boost::asio::async_connect(socket_, endpoints,
-                                       boost::bind(&http_client::handle_connect, this,
+                                       boost::bind(&HttpClient::handle_connect, this,
                                                    boost::asio::placeholders::error));
         } else {
             std::cout << "Error: " << err.message() << "\n";
@@ -140,7 +140,7 @@ private:
         if (!err) {
             // The connection was successful. Send the request.
             boost::asio::async_write(socket_, request_,
-                                     boost::bind(&http_client::handle_write_request, this,
+                                     boost::bind(&HttpClient::handle_write_request, this,
                                                  boost::asio::placeholders::error));
         } else {
             std::cout << "Error: " << err.message() << "\n";
@@ -153,7 +153,7 @@ private:
             // automatically grow to accommodate the entire line. The growth may be
             // limited by passing a maximum size to the stream buf constructor.
             boost::asio::async_read_until(socket_, response_, "\r\n",
-                                          boost::bind(&http_client::handle_read_status_line, this,
+                                          boost::bind(&HttpClient::handle_read_status_line, this,
                                                       boost::asio::placeholders::error));
         } else {
             std::cout << "Error: " << err.message() << "\n";
@@ -179,7 +179,7 @@ private:
 
             // Read the response headers, which are terminated by a blank line.
             boost::asio::async_read_until(socket_, response_, "\r\n\r\n",
-                                          boost::bind(&http_client::handle_read_headers, this,
+                                          boost::bind(&HttpClient::handle_read_headers, this,
                                                       boost::asio::placeholders::error));
         } else {
             std::cout << "Error: " << err << "\n";
@@ -216,7 +216,7 @@ private:
             // Start reading remaining data until EOF.
             boost::asio::async_read(socket_, response_,
                                     boost::asio::transfer_at_least(1),
-                                    boost::bind(&http_client::handle_read_content, this,
+                                    boost::bind(&HttpClient::handle_read_content, this,
                                                 boost::asio::placeholders::error));
         } else {
             std::cout << "Error: " << err << "\n";
@@ -237,7 +237,7 @@ private:
             // Continue reading remaining data until EOF.
             boost::asio::async_read(socket_, response_,
                                     boost::asio::transfer_at_least(1),
-                                    boost::bind(&http_client::handle_read_content, this,
+                                    boost::bind(&HttpClient::handle_read_content, this,
                                                 boost::asio::placeholders::error));
         } else if (err != boost::asio::error::eof) {
             std::cout << "Error: " << err << "\n";
