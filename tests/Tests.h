@@ -2,16 +2,44 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
+#include <functional>
 #include <iostream>
 #include <string>
-#include <functional>
 
+#include "common/util/Utils.h"
+#include "common/util/Func.h"
 #include "ot/KOutOfNForOTSender.hpp"
 #include "ot/KOutOfNForOTReceiver.hpp"
 #include "ot/Message.hpp"
-#include "common/util/Utils.h"
-#include "common/util/Func.h"
+#include "tests/HttpTest.h"
 
+void test() {
+    //random_str_test();
+    //rsa_test();
+    //bit_op_test();
+    /*string res;
+    do {
+    res = ot_test();
+    } while(res == "def");*/
+    //ot_test();
+    /*BaseOTSender<string>::gen_keypair();
+    cout << BaseOTSender<string>::get_pub_key() << endl;*/
+
+    //httpClientTest();
+    //httpServerTest();
+    otServicePB::OTClientRequest req;
+    auto uinWithLabelMap = req.mutable_uinwithlabelmap();
+    uinWithLabelMap->insert({1001, 1});
+    uinWithLabelMap->insert({1002, 0});
+    uinWithLabelMap->insert({1003, 1});
+    uinWithLabelMap->insert({1004, 0});
+    uinWithLabelMap->insert({1005, 1});
+
+    for (auto &pair: *uinWithLabelMap) {
+        cout << pair.first << ": " << pair.second << endl;
+    }
+
+}
 
 string ot_test() {
     string s1 = "abc", s2 = "def", s3 = "ghi", s4 = "jkl", s5 = "mno";
