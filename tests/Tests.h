@@ -25,9 +25,10 @@ void test() {
     /*BaseOTSender<string>::gen_keypair();
     cout << BaseOTSender<string>::get_pub_key() << endl;*/
 
+    httpClientOldTest();
     //httpClientTest();
     //httpServerTest();
-    otServicePB::OTClientRequest req;
+    /*otServicePB::OTClientRequest req;
     auto uinWithLabelMap = req.mutable_uinwithlabelmap();
     uinWithLabelMap->insert({1001, 1});
     uinWithLabelMap->insert({1002, 0});
@@ -37,7 +38,7 @@ void test() {
 
     for (auto &pair: *uinWithLabelMap) {
         cout << pair.first << ": " << pair.second << endl;
-    }
+    }*/
 
 }
 
