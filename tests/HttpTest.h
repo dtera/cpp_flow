@@ -90,10 +90,10 @@ void httpClientOldTest() {
         otServicePB::Response response;
         //response.ParseFromString(content);
         auto status = client.setPbMessage(response);
-        cout << status << endl;
-        cout << response.code() << endl;
-        cout << response.message() << endl;
-        cout << response.data() << endl;
+        cout << "status: " << status << endl;
+        cout << "code: " << response.code() << endl;
+        cout << "message: " << response.message() << endl;
+        cout << "data: \n" << response.data() << endl;
 
         HttpClientOld cli(8081, "localhost:8081");
         string reqBody = "{\n"

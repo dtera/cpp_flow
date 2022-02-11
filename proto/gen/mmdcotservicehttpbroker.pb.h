@@ -49,7 +49,7 @@ struct TableStruct_mmdcotservicehttpbroker_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxiliaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[9]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[11]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
@@ -57,6 +57,9 @@ struct TableStruct_mmdcotservicehttpbroker_2eproto {
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_mmdcotservicehttpbroker_2eproto;
 namespace otServicePB {
+class Error;
+struct ErrorDefaultTypeInternal;
+extern ErrorDefaultTypeInternal _Error_default_instance_;
 class OTClientRequest;
 struct OTClientRequestDefaultTypeInternal;
 extern OTClientRequestDefaultTypeInternal _OTClientRequest_default_instance_;
@@ -66,18 +69,21 @@ extern OTClientRequest_UinWithLabelMapEntry_DoNotUseDefaultTypeInternal _OTClien
 class OTClientResponse;
 struct OTClientResponseDefaultTypeInternal;
 extern OTClientResponseDefaultTypeInternal _OTClientResponse_default_instance_;
-class OTClientResult;
-struct OTClientResultDefaultTypeInternal;
-extern OTClientResultDefaultTypeInternal _OTClientResult_default_instance_;
-class OTClientResult_ResMapEntry_DoNotUse;
-struct OTClientResult_ResMapEntry_DoNotUseDefaultTypeInternal;
-extern OTClientResult_ResMapEntry_DoNotUseDefaultTypeInternal _OTClientResult_ResMapEntry_DoNotUse_default_instance_;
+class OTClientResponseWrapper;
+struct OTClientResponseWrapperDefaultTypeInternal;
+extern OTClientResponseWrapperDefaultTypeInternal _OTClientResponseWrapper_default_instance_;
+class OTClientResponse_ResMapEntry_DoNotUse;
+struct OTClientResponse_ResMapEntry_DoNotUseDefaultTypeInternal;
+extern OTClientResponse_ResMapEntry_DoNotUseDefaultTypeInternal _OTClientResponse_ResMapEntry_DoNotUse_default_instance_;
 class OTServerRequest;
 struct OTServerRequestDefaultTypeInternal;
 extern OTServerRequestDefaultTypeInternal _OTServerRequest_default_instance_;
 class OTServerResponse;
 struct OTServerResponseDefaultTypeInternal;
 extern OTServerResponseDefaultTypeInternal _OTServerResponse_default_instance_;
+class OTServerResponseWrapper;
+struct OTServerResponseWrapperDefaultTypeInternal;
+extern OTServerResponseWrapperDefaultTypeInternal _OTServerResponseWrapper_default_instance_;
 class OTServiceData;
 struct OTServiceDataDefaultTypeInternal;
 extern OTServiceDataDefaultTypeInternal _OTServiceData_default_instance_;
@@ -86,13 +92,15 @@ struct ResponseDefaultTypeInternal;
 extern ResponseDefaultTypeInternal _Response_default_instance_;
 }  // namespace otServicePB
 PROTOBUF_NAMESPACE_OPEN
+template<> ::otServicePB::Error* Arena::CreateMaybeMessage<::otServicePB::Error>(Arena*);
 template<> ::otServicePB::OTClientRequest* Arena::CreateMaybeMessage<::otServicePB::OTClientRequest>(Arena*);
 template<> ::otServicePB::OTClientRequest_UinWithLabelMapEntry_DoNotUse* Arena::CreateMaybeMessage<::otServicePB::OTClientRequest_UinWithLabelMapEntry_DoNotUse>(Arena*);
 template<> ::otServicePB::OTClientResponse* Arena::CreateMaybeMessage<::otServicePB::OTClientResponse>(Arena*);
-template<> ::otServicePB::OTClientResult* Arena::CreateMaybeMessage<::otServicePB::OTClientResult>(Arena*);
-template<> ::otServicePB::OTClientResult_ResMapEntry_DoNotUse* Arena::CreateMaybeMessage<::otServicePB::OTClientResult_ResMapEntry_DoNotUse>(Arena*);
+template<> ::otServicePB::OTClientResponseWrapper* Arena::CreateMaybeMessage<::otServicePB::OTClientResponseWrapper>(Arena*);
+template<> ::otServicePB::OTClientResponse_ResMapEntry_DoNotUse* Arena::CreateMaybeMessage<::otServicePB::OTClientResponse_ResMapEntry_DoNotUse>(Arena*);
 template<> ::otServicePB::OTServerRequest* Arena::CreateMaybeMessage<::otServicePB::OTServerRequest>(Arena*);
 template<> ::otServicePB::OTServerResponse* Arena::CreateMaybeMessage<::otServicePB::OTServerResponse>(Arena*);
+template<> ::otServicePB::OTServerResponseWrapper* Arena::CreateMaybeMessage<::otServicePB::OTServerResponseWrapper>(Arena*);
 template<> ::otServicePB::OTServiceData* Arena::CreateMaybeMessage<::otServicePB::OTServiceData>(Arena*);
 template<> ::otServicePB::Response* Arena::CreateMaybeMessage<::otServicePB::Response>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
@@ -220,11 +228,7 @@ class Response final :
     kCodeFieldNumber = 1,
     kReqTimeMillisFieldNumber = 3,
   };
-  // optional string message = 2;
-  bool has_message() const;
-  private:
-  bool _internal_has_message() const;
-  public:
+  // string message = 2;
   void clear_message();
   const std::string& message() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -238,11 +242,7 @@ class Response final :
   std::string* _internal_mutable_message();
   public:
 
-  // optional string data = 4;
-  bool has_data() const;
-  private:
-  bool _internal_has_data() const;
-  public:
+  // string data = 4;
   void clear_data();
   const std::string& data() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -256,11 +256,7 @@ class Response final :
   std::string* _internal_mutable_data();
   public:
 
-  // optional uint32 code = 1;
-  bool has_code() const;
-  private:
-  bool _internal_has_code() const;
-  public:
+  // uint32 code = 1;
   void clear_code();
   ::PROTOBUF_NAMESPACE_ID::uint32 code() const;
   void set_code(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -269,11 +265,7 @@ class Response final :
   void _internal_set_code(::PROTOBUF_NAMESPACE_ID::uint32 value);
   public:
 
-  // optional float reqTimeMillis = 3;
-  bool has_reqtimemillis() const;
-  private:
-  bool _internal_has_reqtimemillis() const;
-  public:
+  // float reqTimeMillis = 3;
   void clear_reqtimemillis();
   float reqtimemillis() const;
   void set_reqtimemillis(float value);
@@ -289,12 +281,166 @@ class Response final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr data_;
   ::PROTOBUF_NAMESPACE_ID::uint32 code_;
   float reqtimemillis_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Error final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:otServicePB.Error) */ {
+ public:
+  inline Error() : Error(nullptr) {}
+  ~Error() override;
+  explicit constexpr Error(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  Error(const Error& from);
+  Error(Error&& from) noexcept
+    : Error() {
+    *this = ::std::move(from);
+  }
+
+  inline Error& operator=(const Error& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Error& operator=(Error&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Error& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Error* internal_default_instance() {
+    return reinterpret_cast<const Error*>(
+               &_Error_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(Error& a, Error& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(Error* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Error* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline Error* New() const final {
+    return new Error();
+  }
+
+  Error* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<Error>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const Error& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const Error& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(Error* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "otServicePB.Error";
+  }
+  protected:
+  explicit Error(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kMessageFieldNumber = 2,
+    kCodeFieldNumber = 1,
+  };
+  // string message = 2;
+  void clear_message();
+  const std::string& message() const;
+  template <typename ArgT0 = const std::string&, typename... ArgT>
+  void set_message(ArgT0&& arg0, ArgT... args);
+  std::string* mutable_message();
+  PROTOBUF_MUST_USE_RESULT std::string* release_message();
+  void set_allocated_message(std::string* message);
+  private:
+  const std::string& _internal_message() const;
+  inline PROTOBUF_ALWAYS_INLINE void _internal_set_message(const std::string& value);
+  std::string* _internal_mutable_message();
+  public:
+
+  // uint32 code = 1;
+  void clear_code();
+  ::PROTOBUF_NAMESPACE_ID::uint32 code() const;
+  void set_code(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  private:
+  ::PROTOBUF_NAMESPACE_ID::uint32 _internal_code() const;
+  void _internal_set_code(::PROTOBUF_NAMESPACE_ID::uint32 value);
+  public:
+
+  // @@protoc_insertion_point(class_scope:otServicePB.Error)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr message_;
+  ::PROTOBUF_NAMESPACE_ID::uint32 code_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
 };
 // -------------------------------------------------------------------
@@ -343,7 +489,7 @@ class OTServiceData final :
                &_OTServiceData_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    1;
+    2;
 
   friend void swap(OTServiceData& a, OTServiceData& b) {
     a.Swap(&b);
@@ -416,11 +562,7 @@ class OTServiceData final :
   enum : int {
     kValueFieldNumber = 1,
   };
-  // optional string value = 1;
-  bool has_value() const;
-  private:
-  bool _internal_has_value() const;
-  public:
+  // string value = 1;
   void clear_value();
   const std::string& value() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -441,9 +583,8 @@ class OTServiceData final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr value_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
 };
 // -------------------------------------------------------------------
@@ -492,7 +633,7 @@ class OTServerRequest final :
                &_OTServerRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    2;
+    3;
 
   friend void swap(OTServerRequest& a, OTServerRequest& b) {
     a.Swap(&b);
@@ -592,11 +733,7 @@ class OTServerRequest final :
   std::string* _internal_add_params();
   public:
 
-  // optional string function = 1;
-  bool has_function() const;
-  private:
-  bool _internal_has_function() const;
-  public:
+  // string function = 1;
   void clear_function();
   const std::string& function() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -610,11 +747,7 @@ class OTServerRequest final :
   std::string* _internal_mutable_function();
   public:
 
-  // optional string sessionToken = 2;
-  bool has_sessiontoken() const;
-  private:
-  bool _internal_has_sessiontoken() const;
-  public:
+  // string sessionToken = 2;
   void clear_sessiontoken();
   const std::string& sessiontoken() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -628,11 +761,7 @@ class OTServerRequest final :
   std::string* _internal_mutable_sessiontoken();
   public:
 
-  // optional uint32 k = 3;
-  bool has_k() const;
-  private:
-  bool _internal_has_k() const;
-  public:
+  // uint32 k = 3;
   void clear_k();
   ::PROTOBUF_NAMESPACE_ID::uint32 k() const;
   void set_k(::PROTOBUF_NAMESPACE_ID::uint32 value);
@@ -648,12 +777,11 @@ class OTServerRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> params_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr function_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr sessiontoken_;
   ::PROTOBUF_NAMESPACE_ID::uint32 k_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
 };
 // -------------------------------------------------------------------
@@ -702,7 +830,7 @@ class OTServerResponse final :
                &_OTServerResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    3;
+    4;
 
   friend void swap(OTServerResponse& a, OTServerResponse& b) {
     a.Swap(&b);
@@ -800,11 +928,7 @@ class OTServerResponse final :
   std::string* _internal_add_values();
   public:
 
-  // optional string function = 1;
-  bool has_function() const;
-  private:
-  bool _internal_has_function() const;
-  public:
+  // string function = 1;
   void clear_function();
   const std::string& function() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -825,10 +949,177 @@ class OTServerResponse final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField<std::string> values_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr function_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OTServerResponseWrapper final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:otServicePB.OTServerResponseWrapper) */ {
+ public:
+  inline OTServerResponseWrapper() : OTServerResponseWrapper(nullptr) {}
+  ~OTServerResponseWrapper() override;
+  explicit constexpr OTServerResponseWrapper(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OTServerResponseWrapper(const OTServerResponseWrapper& from);
+  OTServerResponseWrapper(OTServerResponseWrapper&& from) noexcept
+    : OTServerResponseWrapper() {
+    *this = ::std::move(from);
+  }
+
+  inline OTServerResponseWrapper& operator=(const OTServerResponseWrapper& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OTServerResponseWrapper& operator=(OTServerResponseWrapper&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const OTServerResponseWrapper& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OTServerResponseWrapper* internal_default_instance() {
+    return reinterpret_cast<const OTServerResponseWrapper*>(
+               &_OTServerResponseWrapper_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    5;
+
+  friend void swap(OTServerResponseWrapper& a, OTServerResponseWrapper& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(OTServerResponseWrapper* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OTServerResponseWrapper* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline OTServerResponseWrapper* New() const final {
+    return new OTServerResponseWrapper();
+  }
+
+  OTServerResponseWrapper* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<OTServerResponseWrapper>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const OTServerResponseWrapper& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const OTServerResponseWrapper& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(OTServerResponseWrapper* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "otServicePB.OTServerResponseWrapper";
+  }
+  protected:
+  explicit OTServerResponseWrapper(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kErrorFieldNumber = 1,
+    kResultFieldNumber = 2,
+  };
+  // .otServicePB.Error error = 1;
+  bool has_error() const;
+  private:
+  bool _internal_has_error() const;
+  public:
+  void clear_error();
+  const ::otServicePB::Error& error() const;
+  PROTOBUF_MUST_USE_RESULT ::otServicePB::Error* release_error();
+  ::otServicePB::Error* mutable_error();
+  void set_allocated_error(::otServicePB::Error* error);
+  private:
+  const ::otServicePB::Error& _internal_error() const;
+  ::otServicePB::Error* _internal_mutable_error();
+  public:
+  void unsafe_arena_set_allocated_error(
+      ::otServicePB::Error* error);
+  ::otServicePB::Error* unsafe_arena_release_error();
+
+  // .otServicePB.OTServerResponse result = 2;
+  bool has_result() const;
+  private:
+  bool _internal_has_result() const;
+  public:
+  void clear_result();
+  const ::otServicePB::OTServerResponse& result() const;
+  PROTOBUF_MUST_USE_RESULT ::otServicePB::OTServerResponse* release_result();
+  ::otServicePB::OTServerResponse* mutable_result();
+  void set_allocated_result(::otServicePB::OTServerResponse* result);
+  private:
+  const ::otServicePB::OTServerResponse& _internal_result() const;
+  ::otServicePB::OTServerResponse* _internal_mutable_result();
+  public:
+  void unsafe_arena_set_allocated_result(
+      ::otServicePB::OTServerResponse* result);
+  ::otServicePB::OTServerResponse* unsafe_arena_release_result();
+
+  // @@protoc_insertion_point(class_scope:otServicePB.OTServerResponseWrapper)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::otServicePB::Error* error_;
+  ::otServicePB::OTServerResponse* result_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
 };
 // -------------------------------------------------------------------
@@ -900,7 +1191,7 @@ class OTClientRequest final :
                &_OTClientRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    5;
+    7;
 
   friend void swap(OTClientRequest& a, OTClientRequest& b) {
     a.Swap(&b);
@@ -992,11 +1283,7 @@ class OTClientRequest final :
   ::PROTOBUF_NAMESPACE_ID::Map< ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32 >*
       mutable_uinwithlabelmap();
 
-  // optional string function = 1;
-  bool has_function() const;
-  private:
-  bool _internal_has_function() const;
-  public:
+  // string function = 1;
   void clear_function();
   const std::string& function() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -1017,195 +1304,42 @@ class OTClientRequest final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   ::PROTOBUF_NAMESPACE_ID::internal::MapField<
       OTClientRequest_UinWithLabelMapEntry_DoNotUse,
       ::PROTOBUF_NAMESPACE_ID::uint32, ::PROTOBUF_NAMESPACE_ID::uint32,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32,
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_UINT32> uinwithlabelmap_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr function_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
 };
 // -------------------------------------------------------------------
 
-class OTClientResult_ResMapEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<OTClientResult_ResMapEntry_DoNotUse, 
+class OTClientResponse_ResMapEntry_DoNotUse : public ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<OTClientResponse_ResMapEntry_DoNotUse, 
     std::string, std::string,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> {
 public:
-  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<OTClientResult_ResMapEntry_DoNotUse, 
+  typedef ::PROTOBUF_NAMESPACE_ID::internal::MapEntry<OTClientResponse_ResMapEntry_DoNotUse, 
     std::string, std::string,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> SuperType;
-  OTClientResult_ResMapEntry_DoNotUse();
-  explicit constexpr OTClientResult_ResMapEntry_DoNotUse(
+  OTClientResponse_ResMapEntry_DoNotUse();
+  explicit constexpr OTClientResponse_ResMapEntry_DoNotUse(
       ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-  explicit OTClientResult_ResMapEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  void MergeFrom(const OTClientResult_ResMapEntry_DoNotUse& other);
-  static const OTClientResult_ResMapEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const OTClientResult_ResMapEntry_DoNotUse*>(&_OTClientResult_ResMapEntry_DoNotUse_default_instance_); }
+  explicit OTClientResponse_ResMapEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  void MergeFrom(const OTClientResponse_ResMapEntry_DoNotUse& other);
+  static const OTClientResponse_ResMapEntry_DoNotUse* internal_default_instance() { return reinterpret_cast<const OTClientResponse_ResMapEntry_DoNotUse*>(&_OTClientResponse_ResMapEntry_DoNotUse_default_instance_); }
   static bool ValidateKey(std::string* s) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "otServicePB.OTClientResult.ResMapEntry.key");
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "otServicePB.OTClientResponse.ResMapEntry.key");
  }
   static bool ValidateValue(std::string* s) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "otServicePB.OTClientResult.ResMapEntry.value");
+    return ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(s->data(), static_cast<int>(s->size()), ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::PARSE, "otServicePB.OTClientResponse.ResMapEntry.value");
  }
   using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
   ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
 };
 
-// -------------------------------------------------------------------
-
-class OTClientResult final :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:otServicePB.OTClientResult) */ {
- public:
-  inline OTClientResult() : OTClientResult(nullptr) {}
-  ~OTClientResult() override;
-  explicit constexpr OTClientResult(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
-
-  OTClientResult(const OTClientResult& from);
-  OTClientResult(OTClientResult&& from) noexcept
-    : OTClientResult() {
-    *this = ::std::move(from);
-  }
-
-  inline OTClientResult& operator=(const OTClientResult& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline OTClientResult& operator=(OTClientResult&& from) noexcept {
-    if (this == &from) return *this;
-    if (GetOwningArena() == from.GetOwningArena()) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const OTClientResult& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const OTClientResult* internal_default_instance() {
-    return reinterpret_cast<const OTClientResult*>(
-               &_OTClientResult_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages =
-    7;
-
-  friend void swap(OTClientResult& a, OTClientResult& b) {
-    a.Swap(&b);
-  }
-  inline void Swap(OTClientResult* other) {
-    if (other == this) return;
-    if (GetOwningArena() == other->GetOwningArena()) {
-      InternalSwap(other);
-    } else {
-      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(OTClientResult* other) {
-    if (other == this) return;
-    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  inline OTClientResult* New() const final {
-    return new OTClientResult();
-  }
-
-  OTClientResult* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<OTClientResult>(arena);
-  }
-  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
-  void CopyFrom(const OTClientResult& from);
-  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
-  void MergeFrom(const OTClientResult& from);
-  private:
-  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
-  public:
-  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
-  bool IsInitialized() const final;
-
-  size_t ByteSizeLong() const final;
-  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
-  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
-      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
-  int GetCachedSize() const final { return _cached_size_.Get(); }
-
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const final;
-  void InternalSwap(OTClientResult* other);
-  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
-  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "otServicePB.OTClientResult";
-  }
-  protected:
-  explicit OTClientResult(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                       bool is_message_owned = false);
-  private:
-  static void ArenaDtor(void* object);
-  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
-  public:
-
-  static const ClassData _class_data_;
-  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
-
-  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
-
-  // nested types ----------------------------------------------------
-
-
-  // accessors -------------------------------------------------------
-
-  enum : int {
-    kResMapFieldNumber = 1,
-  };
-  // map<string, string> resMap = 1;
-  int resmap_size() const;
-  private:
-  int _internal_resmap_size() const;
-  public:
-  void clear_resmap();
-  private:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
-      _internal_resmap() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
-      _internal_mutable_resmap();
-  public:
-  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
-      resmap() const;
-  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
-      mutable_resmap();
-
-  // @@protoc_insertion_point(class_scope:otServicePB.OTClientResult)
- private:
-  class _Internal;
-
-  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
-  typedef void InternalArenaConstructable_;
-  typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
-      OTClientResult_ResMapEntry_DoNotUse,
-      std::string, std::string,
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> resmap_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
-};
 // -------------------------------------------------------------------
 
 class OTClientResponse final :
@@ -1252,7 +1386,7 @@ class OTClientResponse final :
                &_OTClientResponse_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
-    8;
+    9;
 
   friend void swap(OTClientResponse& a, OTClientResponse& b) {
     a.Swap(&b);
@@ -1320,35 +1454,31 @@ class OTClientResponse final :
 
   // nested types ----------------------------------------------------
 
+
   // accessors -------------------------------------------------------
 
   enum : int {
-    kResultFieldNumber = 2,
+    kResMapFieldNumber = 2,
     kFunctionFieldNumber = 1,
   };
-  // repeated .otServicePB.OTClientResult result = 2;
-  int result_size() const;
+  // map<string, string> resMap = 2;
+  int resmap_size() const;
   private:
-  int _internal_result_size() const;
+  int _internal_resmap_size() const;
   public:
-  void clear_result();
-  ::otServicePB::OTClientResult* mutable_result(int index);
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResult >*
-      mutable_result();
+  void clear_resmap();
   private:
-  const ::otServicePB::OTClientResult& _internal_result(int index) const;
-  ::otServicePB::OTClientResult* _internal_add_result();
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      _internal_resmap() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      _internal_mutable_resmap();
   public:
-  const ::otServicePB::OTClientResult& result(int index) const;
-  ::otServicePB::OTClientResult* add_result();
-  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResult >&
-      result() const;
+  const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+      resmap() const;
+  ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+      mutable_resmap();
 
-  // optional string function = 1;
-  bool has_function() const;
-  private:
-  bool _internal_has_function() const;
-  public:
+  // string function = 1;
   void clear_function();
   const std::string& function() const;
   template <typename ArgT0 = const std::string&, typename... ArgT>
@@ -1369,10 +1499,181 @@ class OTClientResponse final :
   template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
-  ::PROTOBUF_NAMESPACE_ID::internal::HasBits<1> _has_bits_;
-  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
-  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResult > result_;
+  ::PROTOBUF_NAMESPACE_ID::internal::MapField<
+      OTClientResponse_ResMapEntry_DoNotUse,
+      std::string, std::string,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING,
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::TYPE_STRING> resmap_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr function_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
+};
+// -------------------------------------------------------------------
+
+class OTClientResponseWrapper final :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:otServicePB.OTClientResponseWrapper) */ {
+ public:
+  inline OTClientResponseWrapper() : OTClientResponseWrapper(nullptr) {}
+  ~OTClientResponseWrapper() override;
+  explicit constexpr OTClientResponseWrapper(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized);
+
+  OTClientResponseWrapper(const OTClientResponseWrapper& from);
+  OTClientResponseWrapper(OTClientResponseWrapper&& from) noexcept
+    : OTClientResponseWrapper() {
+    *this = ::std::move(from);
+  }
+
+  inline OTClientResponseWrapper& operator=(const OTClientResponseWrapper& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline OTClientResponseWrapper& operator=(OTClientResponseWrapper&& from) noexcept {
+    if (this == &from) return *this;
+    if (GetOwningArena() == from.GetOwningArena()) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const OTClientResponseWrapper& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const OTClientResponseWrapper* internal_default_instance() {
+    return reinterpret_cast<const OTClientResponseWrapper*>(
+               &_OTClientResponseWrapper_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    10;
+
+  friend void swap(OTClientResponseWrapper& a, OTClientResponseWrapper& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(OTClientResponseWrapper* other) {
+    if (other == this) return;
+    if (GetOwningArena() == other->GetOwningArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(OTClientResponseWrapper* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetOwningArena() == other->GetOwningArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline OTClientResponseWrapper* New() const final {
+    return new OTClientResponseWrapper();
+  }
+
+  OTClientResponseWrapper* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<OTClientResponseWrapper>(arena);
+  }
+  using ::PROTOBUF_NAMESPACE_ID::Message::CopyFrom;
+  void CopyFrom(const OTClientResponseWrapper& from);
+  using ::PROTOBUF_NAMESPACE_ID::Message::MergeFrom;
+  void MergeFrom(const OTClientResponseWrapper& from);
+  private:
+  static void MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to, const ::PROTOBUF_NAMESPACE_ID::Message&from);
+  public:
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(OTClientResponseWrapper* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "otServicePB.OTClientResponseWrapper";
+  }
+  protected:
+  explicit OTClientResponseWrapper(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                       bool is_message_owned = false);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  static const ClassData _class_data_;
+  const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*GetClassData() const final;
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kResultFieldNumber = 2,
+    kErrorFieldNumber = 1,
+  };
+  // repeated .otServicePB.OTClientResponse result = 2;
+  int result_size() const;
+  private:
+  int _internal_result_size() const;
+  public:
+  void clear_result();
+  ::otServicePB::OTClientResponse* mutable_result(int index);
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResponse >*
+      mutable_result();
+  private:
+  const ::otServicePB::OTClientResponse& _internal_result(int index) const;
+  ::otServicePB::OTClientResponse* _internal_add_result();
+  public:
+  const ::otServicePB::OTClientResponse& result(int index) const;
+  ::otServicePB::OTClientResponse* add_result();
+  const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResponse >&
+      result() const;
+
+  // .otServicePB.Error error = 1;
+  bool has_error() const;
+  private:
+  bool _internal_has_error() const;
+  public:
+  void clear_error();
+  const ::otServicePB::Error& error() const;
+  PROTOBUF_MUST_USE_RESULT ::otServicePB::Error* release_error();
+  ::otServicePB::Error* mutable_error();
+  void set_allocated_error(::otServicePB::Error* error);
+  private:
+  const ::otServicePB::Error& _internal_error() const;
+  ::otServicePB::Error* _internal_mutable_error();
+  public:
+  void unsafe_arena_set_allocated_error(
+      ::otServicePB::Error* error);
+  ::otServicePB::Error* unsafe_arena_release_error();
+
+  // @@protoc_insertion_point(class_scope:otServicePB.OTClientResponseWrapper)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResponse > result_;
+  ::otServicePB::Error* error_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_mmdcotservicehttpbroker_2eproto;
 };
 // ===================================================================
@@ -1386,17 +1687,9 @@ class OTClientResponse final :
 #endif  // __GNUC__
 // Response
 
-// optional uint32 code = 1;
-inline bool Response::_internal_has_code() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline bool Response::has_code() const {
-  return _internal_has_code();
-}
+// uint32 code = 1;
 inline void Response::clear_code() {
   code_ = 0u;
-  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 Response::_internal_code() const {
   return code_;
@@ -1406,7 +1699,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 Response::code() const {
   return _internal_code();
 }
 inline void Response::_internal_set_code(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _has_bits_[0] |= 0x00000004u;
+  
   code_ = value;
 }
 inline void Response::set_code(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -1414,17 +1707,9 @@ inline void Response::set_code(::PROTOBUF_NAMESPACE_ID::uint32 value) {
   // @@protoc_insertion_point(field_set:otServicePB.Response.code)
 }
 
-// optional string message = 2;
-inline bool Response::_internal_has_message() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool Response::has_message() const {
-  return _internal_has_message();
-}
+// string message = 2;
 inline void Response::clear_message() {
   message_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& Response::message() const {
   // @@protoc_insertion_point(field_get:otServicePB.Response.message)
@@ -1433,7 +1718,7 @@ inline const std::string& Response::message() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void Response::set_message(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
+ 
  message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:otServicePB.Response.message)
 }
@@ -1446,43 +1731,31 @@ inline const std::string& Response::_internal_message() const {
   return message_.Get();
 }
 inline void Response::_internal_set_message(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* Response::_internal_mutable_message() {
-  _has_bits_[0] |= 0x00000001u;
+  
   return message_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* Response::release_message() {
   // @@protoc_insertion_point(field_release:otServicePB.Response.message)
-  if (!_internal_has_message()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return message_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  return message_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void Response::set_allocated_message(std::string* message) {
   if (message != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    
   }
   message_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), message,
       GetArenaForAllocation());
   // @@protoc_insertion_point(field_set_allocated:otServicePB.Response.message)
 }
 
-// optional float reqTimeMillis = 3;
-inline bool Response::_internal_has_reqtimemillis() const {
-  bool value = (_has_bits_[0] & 0x00000008u) != 0;
-  return value;
-}
-inline bool Response::has_reqtimemillis() const {
-  return _internal_has_reqtimemillis();
-}
+// float reqTimeMillis = 3;
 inline void Response::clear_reqtimemillis() {
   reqtimemillis_ = 0;
-  _has_bits_[0] &= ~0x00000008u;
 }
 inline float Response::_internal_reqtimemillis() const {
   return reqtimemillis_;
@@ -1492,7 +1765,7 @@ inline float Response::reqtimemillis() const {
   return _internal_reqtimemillis();
 }
 inline void Response::_internal_set_reqtimemillis(float value) {
-  _has_bits_[0] |= 0x00000008u;
+  
   reqtimemillis_ = value;
 }
 inline void Response::set_reqtimemillis(float value) {
@@ -1500,17 +1773,9 @@ inline void Response::set_reqtimemillis(float value) {
   // @@protoc_insertion_point(field_set:otServicePB.Response.reqTimeMillis)
 }
 
-// optional string data = 4;
-inline bool Response::_internal_has_data() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool Response::has_data() const {
-  return _internal_has_data();
-}
+// string data = 4;
 inline void Response::clear_data() {
   data_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000002u;
 }
 inline const std::string& Response::data() const {
   // @@protoc_insertion_point(field_get:otServicePB.Response.data)
@@ -1519,7 +1784,7 @@ inline const std::string& Response::data() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void Response::set_data(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000002u;
+ 
  data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:otServicePB.Response.data)
 }
@@ -1532,26 +1797,22 @@ inline const std::string& Response::_internal_data() const {
   return data_.Get();
 }
 inline void Response::_internal_set_data(const std::string& value) {
-  _has_bits_[0] |= 0x00000002u;
+  
   data_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* Response::_internal_mutable_data() {
-  _has_bits_[0] |= 0x00000002u;
+  
   return data_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* Response::release_data() {
   // @@protoc_insertion_point(field_release:otServicePB.Response.data)
-  if (!_internal_has_data()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000002u;
-  return data_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  return data_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void Response::set_allocated_data(std::string* data) {
   if (data != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    
   }
   data_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), data,
       GetArenaForAllocation());
@@ -1560,19 +1821,81 @@ inline void Response::set_allocated_data(std::string* data) {
 
 // -------------------------------------------------------------------
 
+// Error
+
+// uint32 code = 1;
+inline void Error::clear_code() {
+  code_ = 0u;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Error::_internal_code() const {
+  return code_;
+}
+inline ::PROTOBUF_NAMESPACE_ID::uint32 Error::code() const {
+  // @@protoc_insertion_point(field_get:otServicePB.Error.code)
+  return _internal_code();
+}
+inline void Error::_internal_set_code(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  
+  code_ = value;
+}
+inline void Error::set_code(::PROTOBUF_NAMESPACE_ID::uint32 value) {
+  _internal_set_code(value);
+  // @@protoc_insertion_point(field_set:otServicePB.Error.code)
+}
+
+// string message = 2;
+inline void Error::clear_message() {
+  message_.ClearToEmpty();
+}
+inline const std::string& Error::message() const {
+  // @@protoc_insertion_point(field_get:otServicePB.Error.message)
+  return _internal_message();
+}
+template <typename ArgT0, typename... ArgT>
+inline PROTOBUF_ALWAYS_INLINE
+void Error::set_message(ArgT0&& arg0, ArgT... args) {
+ 
+ message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set:otServicePB.Error.message)
+}
+inline std::string* Error::mutable_message() {
+  std::string* _s = _internal_mutable_message();
+  // @@protoc_insertion_point(field_mutable:otServicePB.Error.message)
+  return _s;
+}
+inline const std::string& Error::_internal_message() const {
+  return message_.Get();
+}
+inline void Error::_internal_set_message(const std::string& value) {
+  
+  message_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
+}
+inline std::string* Error::_internal_mutable_message() {
+  
+  return message_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
+}
+inline std::string* Error::release_message() {
+  // @@protoc_insertion_point(field_release:otServicePB.Error.message)
+  return message_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+}
+inline void Error::set_allocated_message(std::string* message) {
+  if (message != nullptr) {
+    
+  } else {
+    
+  }
+  message_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), message,
+      GetArenaForAllocation());
+  // @@protoc_insertion_point(field_set_allocated:otServicePB.Error.message)
+}
+
+// -------------------------------------------------------------------
+
 // OTServiceData
 
-// optional string value = 1;
-inline bool OTServiceData::_internal_has_value() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool OTServiceData::has_value() const {
-  return _internal_has_value();
-}
+// string value = 1;
 inline void OTServiceData::clear_value() {
   value_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& OTServiceData::value() const {
   // @@protoc_insertion_point(field_get:otServicePB.OTServiceData.value)
@@ -1581,7 +1904,7 @@ inline const std::string& OTServiceData::value() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void OTServiceData::set_value(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
+ 
  value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:otServicePB.OTServiceData.value)
 }
@@ -1594,26 +1917,22 @@ inline const std::string& OTServiceData::_internal_value() const {
   return value_.Get();
 }
 inline void OTServiceData::_internal_set_value(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   value_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* OTServiceData::_internal_mutable_value() {
-  _has_bits_[0] |= 0x00000001u;
+  
   return value_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* OTServiceData::release_value() {
   // @@protoc_insertion_point(field_release:otServicePB.OTServiceData.value)
-  if (!_internal_has_value()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return value_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  return value_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void OTServiceData::set_allocated_value(std::string* value) {
   if (value != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    
   }
   value_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value,
       GetArenaForAllocation());
@@ -1624,17 +1943,9 @@ inline void OTServiceData::set_allocated_value(std::string* value) {
 
 // OTServerRequest
 
-// optional string function = 1;
-inline bool OTServerRequest::_internal_has_function() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool OTServerRequest::has_function() const {
-  return _internal_has_function();
-}
+// string function = 1;
 inline void OTServerRequest::clear_function() {
   function_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& OTServerRequest::function() const {
   // @@protoc_insertion_point(field_get:otServicePB.OTServerRequest.function)
@@ -1643,7 +1954,7 @@ inline const std::string& OTServerRequest::function() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void OTServerRequest::set_function(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
+ 
  function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:otServicePB.OTServerRequest.function)
 }
@@ -1656,43 +1967,31 @@ inline const std::string& OTServerRequest::_internal_function() const {
   return function_.Get();
 }
 inline void OTServerRequest::_internal_set_function(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* OTServerRequest::_internal_mutable_function() {
-  _has_bits_[0] |= 0x00000001u;
+  
   return function_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* OTServerRequest::release_function() {
   // @@protoc_insertion_point(field_release:otServicePB.OTServerRequest.function)
-  if (!_internal_has_function()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return function_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  return function_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void OTServerRequest::set_allocated_function(std::string* function) {
   if (function != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    
   }
   function_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), function,
       GetArenaForAllocation());
   // @@protoc_insertion_point(field_set_allocated:otServicePB.OTServerRequest.function)
 }
 
-// optional string sessionToken = 2;
-inline bool OTServerRequest::_internal_has_sessiontoken() const {
-  bool value = (_has_bits_[0] & 0x00000002u) != 0;
-  return value;
-}
-inline bool OTServerRequest::has_sessiontoken() const {
-  return _internal_has_sessiontoken();
-}
+// string sessionToken = 2;
 inline void OTServerRequest::clear_sessiontoken() {
   sessiontoken_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000002u;
 }
 inline const std::string& OTServerRequest::sessiontoken() const {
   // @@protoc_insertion_point(field_get:otServicePB.OTServerRequest.sessionToken)
@@ -1701,7 +2000,7 @@ inline const std::string& OTServerRequest::sessiontoken() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void OTServerRequest::set_sessiontoken(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000002u;
+ 
  sessiontoken_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:otServicePB.OTServerRequest.sessionToken)
 }
@@ -1714,43 +2013,31 @@ inline const std::string& OTServerRequest::_internal_sessiontoken() const {
   return sessiontoken_.Get();
 }
 inline void OTServerRequest::_internal_set_sessiontoken(const std::string& value) {
-  _has_bits_[0] |= 0x00000002u;
+  
   sessiontoken_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* OTServerRequest::_internal_mutable_sessiontoken() {
-  _has_bits_[0] |= 0x00000002u;
+  
   return sessiontoken_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* OTServerRequest::release_sessiontoken() {
   // @@protoc_insertion_point(field_release:otServicePB.OTServerRequest.sessionToken)
-  if (!_internal_has_sessiontoken()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000002u;
-  return sessiontoken_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  return sessiontoken_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void OTServerRequest::set_allocated_sessiontoken(std::string* sessiontoken) {
   if (sessiontoken != nullptr) {
-    _has_bits_[0] |= 0x00000002u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000002u;
+    
   }
   sessiontoken_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), sessiontoken,
       GetArenaForAllocation());
   // @@protoc_insertion_point(field_set_allocated:otServicePB.OTServerRequest.sessionToken)
 }
 
-// optional uint32 k = 3;
-inline bool OTServerRequest::_internal_has_k() const {
-  bool value = (_has_bits_[0] & 0x00000004u) != 0;
-  return value;
-}
-inline bool OTServerRequest::has_k() const {
-  return _internal_has_k();
-}
+// uint32 k = 3;
 inline void OTServerRequest::clear_k() {
   k_ = 0u;
-  _has_bits_[0] &= ~0x00000004u;
 }
 inline ::PROTOBUF_NAMESPACE_ID::uint32 OTServerRequest::_internal_k() const {
   return k_;
@@ -1760,7 +2047,7 @@ inline ::PROTOBUF_NAMESPACE_ID::uint32 OTServerRequest::k() const {
   return _internal_k();
 }
 inline void OTServerRequest::_internal_set_k(::PROTOBUF_NAMESPACE_ID::uint32 value) {
-  _has_bits_[0] |= 0x00000004u;
+  
   k_ = value;
 }
 inline void OTServerRequest::set_k(::PROTOBUF_NAMESPACE_ID::uint32 value) {
@@ -1847,17 +2134,9 @@ OTServerRequest::mutable_params() {
 
 // OTServerResponse
 
-// optional string function = 1;
-inline bool OTServerResponse::_internal_has_function() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool OTServerResponse::has_function() const {
-  return _internal_has_function();
-}
+// string function = 1;
 inline void OTServerResponse::clear_function() {
   function_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& OTServerResponse::function() const {
   // @@protoc_insertion_point(field_get:otServicePB.OTServerResponse.function)
@@ -1866,7 +2145,7 @@ inline const std::string& OTServerResponse::function() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void OTServerResponse::set_function(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
+ 
  function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:otServicePB.OTServerResponse.function)
 }
@@ -1879,26 +2158,22 @@ inline const std::string& OTServerResponse::_internal_function() const {
   return function_.Get();
 }
 inline void OTServerResponse::_internal_set_function(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* OTServerResponse::_internal_mutable_function() {
-  _has_bits_[0] |= 0x00000001u;
+  
   return function_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* OTServerResponse::release_function() {
   // @@protoc_insertion_point(field_release:otServicePB.OTServerResponse.function)
-  if (!_internal_has_function()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return function_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  return function_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void OTServerResponse::set_allocated_function(std::string* function) {
   if (function != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    
   }
   function_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), function,
       GetArenaForAllocation());
@@ -1982,21 +2257,197 @@ OTServerResponse::mutable_values() {
 
 // -------------------------------------------------------------------
 
+// OTServerResponseWrapper
+
+// .otServicePB.Error error = 1;
+inline bool OTServerResponseWrapper::_internal_has_error() const {
+  return this != internal_default_instance() && error_ != nullptr;
+}
+inline bool OTServerResponseWrapper::has_error() const {
+  return _internal_has_error();
+}
+inline void OTServerResponseWrapper::clear_error() {
+  if (GetArenaForAllocation() == nullptr && error_ != nullptr) {
+    delete error_;
+  }
+  error_ = nullptr;
+}
+inline const ::otServicePB::Error& OTServerResponseWrapper::_internal_error() const {
+  const ::otServicePB::Error* p = error_;
+  return p != nullptr ? *p : reinterpret_cast<const ::otServicePB::Error&>(
+      ::otServicePB::_Error_default_instance_);
+}
+inline const ::otServicePB::Error& OTServerResponseWrapper::error() const {
+  // @@protoc_insertion_point(field_get:otServicePB.OTServerResponseWrapper.error)
+  return _internal_error();
+}
+inline void OTServerResponseWrapper::unsafe_arena_set_allocated_error(
+    ::otServicePB::Error* error) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_);
+  }
+  error_ = error;
+  if (error) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:otServicePB.OTServerResponseWrapper.error)
+}
+inline ::otServicePB::Error* OTServerResponseWrapper::release_error() {
+  
+  ::otServicePB::Error* temp = error_;
+  error_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::otServicePB::Error* OTServerResponseWrapper::unsafe_arena_release_error() {
+  // @@protoc_insertion_point(field_release:otServicePB.OTServerResponseWrapper.error)
+  
+  ::otServicePB::Error* temp = error_;
+  error_ = nullptr;
+  return temp;
+}
+inline ::otServicePB::Error* OTServerResponseWrapper::_internal_mutable_error() {
+  
+  if (error_ == nullptr) {
+    auto* p = CreateMaybeMessage<::otServicePB::Error>(GetArenaForAllocation());
+    error_ = p;
+  }
+  return error_;
+}
+inline ::otServicePB::Error* OTServerResponseWrapper::mutable_error() {
+  ::otServicePB::Error* _msg = _internal_mutable_error();
+  // @@protoc_insertion_point(field_mutable:otServicePB.OTServerResponseWrapper.error)
+  return _msg;
+}
+inline void OTServerResponseWrapper::set_allocated_error(::otServicePB::Error* error) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete error_;
+  }
+  if (error) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::otServicePB::Error>::GetOwningArena(error);
+    if (message_arena != submessage_arena) {
+      error = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  error_ = error;
+  // @@protoc_insertion_point(field_set_allocated:otServicePB.OTServerResponseWrapper.error)
+}
+
+// .otServicePB.OTServerResponse result = 2;
+inline bool OTServerResponseWrapper::_internal_has_result() const {
+  return this != internal_default_instance() && result_ != nullptr;
+}
+inline bool OTServerResponseWrapper::has_result() const {
+  return _internal_has_result();
+}
+inline void OTServerResponseWrapper::clear_result() {
+  if (GetArenaForAllocation() == nullptr && result_ != nullptr) {
+    delete result_;
+  }
+  result_ = nullptr;
+}
+inline const ::otServicePB::OTServerResponse& OTServerResponseWrapper::_internal_result() const {
+  const ::otServicePB::OTServerResponse* p = result_;
+  return p != nullptr ? *p : reinterpret_cast<const ::otServicePB::OTServerResponse&>(
+      ::otServicePB::_OTServerResponse_default_instance_);
+}
+inline const ::otServicePB::OTServerResponse& OTServerResponseWrapper::result() const {
+  // @@protoc_insertion_point(field_get:otServicePB.OTServerResponseWrapper.result)
+  return _internal_result();
+}
+inline void OTServerResponseWrapper::unsafe_arena_set_allocated_result(
+    ::otServicePB::OTServerResponse* result) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(result_);
+  }
+  result_ = result;
+  if (result) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:otServicePB.OTServerResponseWrapper.result)
+}
+inline ::otServicePB::OTServerResponse* OTServerResponseWrapper::release_result() {
+  
+  ::otServicePB::OTServerResponse* temp = result_;
+  result_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::otServicePB::OTServerResponse* OTServerResponseWrapper::unsafe_arena_release_result() {
+  // @@protoc_insertion_point(field_release:otServicePB.OTServerResponseWrapper.result)
+  
+  ::otServicePB::OTServerResponse* temp = result_;
+  result_ = nullptr;
+  return temp;
+}
+inline ::otServicePB::OTServerResponse* OTServerResponseWrapper::_internal_mutable_result() {
+  
+  if (result_ == nullptr) {
+    auto* p = CreateMaybeMessage<::otServicePB::OTServerResponse>(GetArenaForAllocation());
+    result_ = p;
+  }
+  return result_;
+}
+inline ::otServicePB::OTServerResponse* OTServerResponseWrapper::mutable_result() {
+  ::otServicePB::OTServerResponse* _msg = _internal_mutable_result();
+  // @@protoc_insertion_point(field_mutable:otServicePB.OTServerResponseWrapper.result)
+  return _msg;
+}
+inline void OTServerResponseWrapper::set_allocated_result(::otServicePB::OTServerResponse* result) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete result_;
+  }
+  if (result) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::otServicePB::OTServerResponse>::GetOwningArena(result);
+    if (message_arena != submessage_arena) {
+      result = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, result, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  result_ = result;
+  // @@protoc_insertion_point(field_set_allocated:otServicePB.OTServerResponseWrapper.result)
+}
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // OTClientRequest
 
-// optional string function = 1;
-inline bool OTClientRequest::_internal_has_function() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool OTClientRequest::has_function() const {
-  return _internal_has_function();
-}
+// string function = 1;
 inline void OTClientRequest::clear_function() {
   function_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& OTClientRequest::function() const {
   // @@protoc_insertion_point(field_get:otServicePB.OTClientRequest.function)
@@ -2005,7 +2456,7 @@ inline const std::string& OTClientRequest::function() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void OTClientRequest::set_function(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
+ 
  function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:otServicePB.OTClientRequest.function)
 }
@@ -2018,26 +2469,22 @@ inline const std::string& OTClientRequest::_internal_function() const {
   return function_.Get();
 }
 inline void OTClientRequest::_internal_set_function(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* OTClientRequest::_internal_mutable_function() {
-  _has_bits_[0] |= 0x00000001u;
+  
   return function_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* OTClientRequest::release_function() {
   // @@protoc_insertion_point(field_release:otServicePB.OTClientRequest.function)
-  if (!_internal_has_function()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return function_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  return function_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void OTClientRequest::set_allocated_function(std::string* function) {
   if (function != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    
   }
   function_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), function,
       GetArenaForAllocation());
@@ -2077,52 +2524,11 @@ OTClientRequest::mutable_uinwithlabelmap() {
 
 // -------------------------------------------------------------------
 
-// OTClientResult
-
-// map<string, string> resMap = 1;
-inline int OTClientResult::_internal_resmap_size() const {
-  return resmap_.size();
-}
-inline int OTClientResult::resmap_size() const {
-  return _internal_resmap_size();
-}
-inline void OTClientResult::clear_resmap() {
-  resmap_.Clear();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
-OTClientResult::_internal_resmap() const {
-  return resmap_.GetMap();
-}
-inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
-OTClientResult::resmap() const {
-  // @@protoc_insertion_point(field_map:otServicePB.OTClientResult.resMap)
-  return _internal_resmap();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
-OTClientResult::_internal_mutable_resmap() {
-  return resmap_.MutableMap();
-}
-inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
-OTClientResult::mutable_resmap() {
-  // @@protoc_insertion_point(field_mutable_map:otServicePB.OTClientResult.resMap)
-  return _internal_mutable_resmap();
-}
-
-// -------------------------------------------------------------------
-
 // OTClientResponse
 
-// optional string function = 1;
-inline bool OTClientResponse::_internal_has_function() const {
-  bool value = (_has_bits_[0] & 0x00000001u) != 0;
-  return value;
-}
-inline bool OTClientResponse::has_function() const {
-  return _internal_has_function();
-}
+// string function = 1;
 inline void OTClientResponse::clear_function() {
   function_.ClearToEmpty();
-  _has_bits_[0] &= ~0x00000001u;
 }
 inline const std::string& OTClientResponse::function() const {
   // @@protoc_insertion_point(field_get:otServicePB.OTClientResponse.function)
@@ -2131,7 +2537,7 @@ inline const std::string& OTClientResponse::function() const {
 template <typename ArgT0, typename... ArgT>
 inline PROTOBUF_ALWAYS_INLINE
 void OTClientResponse::set_function(ArgT0&& arg0, ArgT... args) {
- _has_bits_[0] |= 0x00000001u;
+ 
  function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, static_cast<ArgT0 &&>(arg0), args..., GetArenaForAllocation());
   // @@protoc_insertion_point(field_set:otServicePB.OTClientResponse.function)
 }
@@ -2144,75 +2550,198 @@ inline const std::string& OTClientResponse::_internal_function() const {
   return function_.Get();
 }
 inline void OTClientResponse::_internal_set_function(const std::string& value) {
-  _has_bits_[0] |= 0x00000001u;
+  
   function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, value, GetArenaForAllocation());
 }
 inline std::string* OTClientResponse::_internal_mutable_function() {
-  _has_bits_[0] |= 0x00000001u;
+  
   return function_.Mutable(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, GetArenaForAllocation());
 }
 inline std::string* OTClientResponse::release_function() {
   // @@protoc_insertion_point(field_release:otServicePB.OTClientResponse.function)
-  if (!_internal_has_function()) {
-    return nullptr;
-  }
-  _has_bits_[0] &= ~0x00000001u;
-  return function_.ReleaseNonDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
+  return function_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArenaForAllocation());
 }
 inline void OTClientResponse::set_allocated_function(std::string* function) {
   if (function != nullptr) {
-    _has_bits_[0] |= 0x00000001u;
+    
   } else {
-    _has_bits_[0] &= ~0x00000001u;
+    
   }
   function_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), function,
       GetArenaForAllocation());
   // @@protoc_insertion_point(field_set_allocated:otServicePB.OTClientResponse.function)
 }
 
-// repeated .otServicePB.OTClientResult result = 2;
-inline int OTClientResponse::_internal_result_size() const {
+// map<string, string> resMap = 2;
+inline int OTClientResponse::_internal_resmap_size() const {
+  return resmap_.size();
+}
+inline int OTClientResponse::resmap_size() const {
+  return _internal_resmap_size();
+}
+inline void OTClientResponse::clear_resmap() {
+  resmap_.Clear();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+OTClientResponse::_internal_resmap() const {
+  return resmap_.GetMap();
+}
+inline const ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >&
+OTClientResponse::resmap() const {
+  // @@protoc_insertion_point(field_map:otServicePB.OTClientResponse.resMap)
+  return _internal_resmap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+OTClientResponse::_internal_mutable_resmap() {
+  return resmap_.MutableMap();
+}
+inline ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >*
+OTClientResponse::mutable_resmap() {
+  // @@protoc_insertion_point(field_mutable_map:otServicePB.OTClientResponse.resMap)
+  return _internal_mutable_resmap();
+}
+
+// -------------------------------------------------------------------
+
+// OTClientResponseWrapper
+
+// .otServicePB.Error error = 1;
+inline bool OTClientResponseWrapper::_internal_has_error() const {
+  return this != internal_default_instance() && error_ != nullptr;
+}
+inline bool OTClientResponseWrapper::has_error() const {
+  return _internal_has_error();
+}
+inline void OTClientResponseWrapper::clear_error() {
+  if (GetArenaForAllocation() == nullptr && error_ != nullptr) {
+    delete error_;
+  }
+  error_ = nullptr;
+}
+inline const ::otServicePB::Error& OTClientResponseWrapper::_internal_error() const {
+  const ::otServicePB::Error* p = error_;
+  return p != nullptr ? *p : reinterpret_cast<const ::otServicePB::Error&>(
+      ::otServicePB::_Error_default_instance_);
+}
+inline const ::otServicePB::Error& OTClientResponseWrapper::error() const {
+  // @@protoc_insertion_point(field_get:otServicePB.OTClientResponseWrapper.error)
+  return _internal_error();
+}
+inline void OTClientResponseWrapper::unsafe_arena_set_allocated_error(
+    ::otServicePB::Error* error) {
+  if (GetArenaForAllocation() == nullptr) {
+    delete reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(error_);
+  }
+  error_ = error;
+  if (error) {
+    
+  } else {
+    
+  }
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:otServicePB.OTClientResponseWrapper.error)
+}
+inline ::otServicePB::Error* OTClientResponseWrapper::release_error() {
+  
+  ::otServicePB::Error* temp = error_;
+  error_ = nullptr;
+#ifdef PROTOBUF_FORCE_COPY_IN_RELEASE
+  auto* old =  reinterpret_cast<::PROTOBUF_NAMESPACE_ID::MessageLite*>(temp);
+  temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  if (GetArenaForAllocation() == nullptr) { delete old; }
+#else  // PROTOBUF_FORCE_COPY_IN_RELEASE
+  if (GetArenaForAllocation() != nullptr) {
+    temp = ::PROTOBUF_NAMESPACE_ID::internal::DuplicateIfNonNull(temp);
+  }
+#endif  // !PROTOBUF_FORCE_COPY_IN_RELEASE
+  return temp;
+}
+inline ::otServicePB::Error* OTClientResponseWrapper::unsafe_arena_release_error() {
+  // @@protoc_insertion_point(field_release:otServicePB.OTClientResponseWrapper.error)
+  
+  ::otServicePB::Error* temp = error_;
+  error_ = nullptr;
+  return temp;
+}
+inline ::otServicePB::Error* OTClientResponseWrapper::_internal_mutable_error() {
+  
+  if (error_ == nullptr) {
+    auto* p = CreateMaybeMessage<::otServicePB::Error>(GetArenaForAllocation());
+    error_ = p;
+  }
+  return error_;
+}
+inline ::otServicePB::Error* OTClientResponseWrapper::mutable_error() {
+  ::otServicePB::Error* _msg = _internal_mutable_error();
+  // @@protoc_insertion_point(field_mutable:otServicePB.OTClientResponseWrapper.error)
+  return _msg;
+}
+inline void OTClientResponseWrapper::set_allocated_error(::otServicePB::Error* error) {
+  ::PROTOBUF_NAMESPACE_ID::Arena* message_arena = GetArenaForAllocation();
+  if (message_arena == nullptr) {
+    delete error_;
+  }
+  if (error) {
+    ::PROTOBUF_NAMESPACE_ID::Arena* submessage_arena =
+        ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper<::otServicePB::Error>::GetOwningArena(error);
+    if (message_arena != submessage_arena) {
+      error = ::PROTOBUF_NAMESPACE_ID::internal::GetOwnedMessage(
+          message_arena, error, submessage_arena);
+    }
+    
+  } else {
+    
+  }
+  error_ = error;
+  // @@protoc_insertion_point(field_set_allocated:otServicePB.OTClientResponseWrapper.error)
+}
+
+// repeated .otServicePB.OTClientResponse result = 2;
+inline int OTClientResponseWrapper::_internal_result_size() const {
   return result_.size();
 }
-inline int OTClientResponse::result_size() const {
+inline int OTClientResponseWrapper::result_size() const {
   return _internal_result_size();
 }
-inline void OTClientResponse::clear_result() {
+inline void OTClientResponseWrapper::clear_result() {
   result_.Clear();
 }
-inline ::otServicePB::OTClientResult* OTClientResponse::mutable_result(int index) {
-  // @@protoc_insertion_point(field_mutable:otServicePB.OTClientResponse.result)
+inline ::otServicePB::OTClientResponse* OTClientResponseWrapper::mutable_result(int index) {
+  // @@protoc_insertion_point(field_mutable:otServicePB.OTClientResponseWrapper.result)
   return result_.Mutable(index);
 }
-inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResult >*
-OTClientResponse::mutable_result() {
-  // @@protoc_insertion_point(field_mutable_list:otServicePB.OTClientResponse.result)
+inline ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResponse >*
+OTClientResponseWrapper::mutable_result() {
+  // @@protoc_insertion_point(field_mutable_list:otServicePB.OTClientResponseWrapper.result)
   return &result_;
 }
-inline const ::otServicePB::OTClientResult& OTClientResponse::_internal_result(int index) const {
+inline const ::otServicePB::OTClientResponse& OTClientResponseWrapper::_internal_result(int index) const {
   return result_.Get(index);
 }
-inline const ::otServicePB::OTClientResult& OTClientResponse::result(int index) const {
-  // @@protoc_insertion_point(field_get:otServicePB.OTClientResponse.result)
+inline const ::otServicePB::OTClientResponse& OTClientResponseWrapper::result(int index) const {
+  // @@protoc_insertion_point(field_get:otServicePB.OTClientResponseWrapper.result)
   return _internal_result(index);
 }
-inline ::otServicePB::OTClientResult* OTClientResponse::_internal_add_result() {
+inline ::otServicePB::OTClientResponse* OTClientResponseWrapper::_internal_add_result() {
   return result_.Add();
 }
-inline ::otServicePB::OTClientResult* OTClientResponse::add_result() {
-  ::otServicePB::OTClientResult* _add = _internal_add_result();
-  // @@protoc_insertion_point(field_add:otServicePB.OTClientResponse.result)
+inline ::otServicePB::OTClientResponse* OTClientResponseWrapper::add_result() {
+  ::otServicePB::OTClientResponse* _add = _internal_add_result();
+  // @@protoc_insertion_point(field_add:otServicePB.OTClientResponseWrapper.result)
   return _add;
 }
-inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResult >&
-OTClientResponse::result() const {
-  // @@protoc_insertion_point(field_list:otServicePB.OTClientResponse.result)
+inline const ::PROTOBUF_NAMESPACE_ID::RepeatedPtrField< ::otServicePB::OTClientResponse >&
+OTClientResponseWrapper::result() const {
+  // @@protoc_insertion_point(field_list:otServicePB.OTClientResponseWrapper.result)
   return result_;
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------
