@@ -95,7 +95,7 @@ void httpClientOldTest() {
         cout << "message: " << response.message() << endl;
         cout << "data: \n" << response.data() << endl;
 
-        HttpClientOld cli(8081, "localhost:8081");
+        HttpClientOld cli(8081, "localhost");
         string reqBody = "{\n"
                          "  \"1001\": 1,\n"
                          "  \"1002\": 0,\n"
