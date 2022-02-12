@@ -29,11 +29,11 @@ using namespace std;
 
 class HttpClient {
 public:
-    explicit HttpClient(const int port = 80, std::string host = "localhost", std::string http_version = "1.1")
+    explicit HttpClient(const int port = 80, const std::string &host = "localhost", std::string http_version = "1.1")
             : query(host, boost::lexical_cast<std::string>(port),
                     boost::asio::ip::resolver_query_base::numeric_service),
               resolver_(io_context), socket_(io_context),
-              port(port), host(std::move(host)), http_ver(std::move(http_version)) {}
+              port(port), host(host), http_ver(std::move(http_version)) {}
 
     void get(const std::string &path) {
         // Form the request. We specify the "Connection: close" header so that the
