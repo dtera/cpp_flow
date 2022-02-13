@@ -10,7 +10,7 @@ set(LINK_DIR /usr/local/lib)
 set(LINK_LIB libboost_filesystem.${LIB_SUFFIX} libboost_system.${LIB_SUFFIX} libboost_thread-mt.${LIB_SUFFIX}
         libhiredis.${LIB_SUFFIX} libprotobuf.${LIB_SUFFIX})
 
-set(PROJECT_INC_DIR . ./include ./proto/gen)
+set(PROJECT_INC_DIR . ./include ./proto/gen ./proto/src)
 set(PROJECT_LINK_DIR ./lib)
 set(PROJECT_LINK_LIB)
 

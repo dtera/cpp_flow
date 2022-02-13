@@ -28,33 +28,8 @@ void test() {
     //httpClientOldTest();
     //httpClientTest();
     //httpServerTest();
-    /*otServicePB::OTClientRequest req;
-    auto uinWithLabelMap = req.mutable_uinwithlabelmap();
-    uinWithLabelMap->insert({1001, 1});
-    uinWithLabelMap->insert({1002, 0});
-    uinWithLabelMap->insert({1003, 1});
-    uinWithLabelMap->insert({1004, 0});
-    uinWithLabelMap->insert({1005, 1});
 
-    for (auto &pair: *uinWithLabelMap) {
-        cout << pair.first << ": " << pair.second << endl;
-    }*/
-    string reqBody = "{\n"
-                     "  \"function\": \"OT_Cli_GetMessages\",\n"
-                     "  \"uinWithLabelMap\": {\n"
-                     "    \"1001\": 1,\n"
-                     "    \"1002\": 0,\n"
-                     "    \"1003\": 1,\n"
-                     "    \"1004\": 0,\n"
-                     "    \"1005\": 1\n"
-                     "  }\n"
-                     "}";
-    otServicePB::OTClientRequest req;
-    JsonStringToMessage(reqBody, &req);
-
-    std::string otClientReqStr;
-    MessageToJsonString(req, &otClientReqStr);
-    cout << "otClientReqStr: \n" << otClientReqStr << endl;
+    //oTTest();
 }
 
 string ot_test() {

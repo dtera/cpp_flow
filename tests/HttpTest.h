@@ -15,6 +15,28 @@
 #include "common/http/server.hpp"
 #include "common/util/Utils.h"
 #include "mmdcotservicehttpbroker.pb.h"
+//#include "OTClientService.hpp"
+
+/*void oTTest() {
+    OTClientService oTClientService;
+
+    string reqBody = "{\n"
+                     "  \"function\": \"OT_Cli_GetMessages\",\n"
+                     "  \"uinWithLabelMap\": {\n"
+                     "    \"1001\": 1,\n"
+                     "    \"1002\": 0,\n"
+                     "    \"1003\": 1,\n"
+                     "    \"1004\": 0,\n"
+                     "    \"1005\": 1\n"
+                     "  }\n"
+                     "}";
+    otServicePB::OTClientRequest req;
+    otServicePB::OTClientResponse res;
+    JsonStringToMessage(reqBody, &req);
+
+    oTClientService.setMessages(req, res);
+
+}*/
 
 void httpServerTest() {
     try {
