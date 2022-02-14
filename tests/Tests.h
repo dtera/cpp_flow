@@ -30,8 +30,11 @@ void test() {
     //httpServerTest();
 
     //oTTest();
-    auto sessionToken = gen_random_str(32);
-    cout << "sessionToken: " << sessionToken << endl;
+    //auto sessionToken = gen_random_str(32);
+    cout << "arc4random: " << arc4random() << endl;
+    cout << "arc4random: " << arc4random() << endl;
+    cout << "sessionToken: " << gen_random_str(32) << endl;
+    cout << "sessionToken: " << gen_random_str(32) << endl;
 
     vector<string> rs;
     gen_n_random_str(32, 3, rs, 3);
