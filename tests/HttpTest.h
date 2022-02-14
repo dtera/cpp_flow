@@ -15,9 +15,9 @@
 #include "common/http/server.hpp"
 #include "common/util/Utils.h"
 #include "mmdcotservicehttpbroker.pb.h"
-//#include "OTClientService.hpp"
+#include "OTClientService.hpp"
 
-/*void oTTest() {
+void oTTest() {
     OTClientService oTClientService;
 
     string reqBody = "{\n"
@@ -36,7 +36,7 @@
 
     oTClientService.setMessages(req, res);
 
-}*/
+}
 
 void httpServerTest() {
     try {

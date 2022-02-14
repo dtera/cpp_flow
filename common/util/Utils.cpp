@@ -161,8 +161,16 @@ void fread_all(char *&out, FILE *p_file) {
     fclose(p_file);
 }
 
-string gen_random_str(const int &len, const bool &visible_char) {
-    srand(time(nullptr) + rand());
+void gen_n_random_str(const int &len, const unsigned int &seed, vector<string> &rs, const int &n) {
+    for (int i = 0; i < n; ++i) {
+        auto r = gen_random_str(len, seed + i, false);
+        rs.emplace_back(r);
+    }
+}
+
+string gen_random_str(const int &len, const unsigned int &seed, const bool &seed_with_time, const bool &visible_char) {
+    auto sr = (seed == 0 ? arc4random() : seed) + (seed_with_time ? time(nullptr) : 0);
+    srand(sr);
     string rs;
     if (visible_char) {
         char extra[] = {'+', '=', '/', '#', '$', '%', '&', '_'};
@@ -209,7 +217,7 @@ inline void split(const string &in, vector<string> &out, const string &sep) {
 
 inline vector<string> regex_split(const string &in, const string &reg_sep) {
     regex regex_sep(reg_sep);
-    auto res  = sregex_token_iterator(in.begin(), in.end(), regex_sep, -1);
+    auto res = sregex_token_iterator(in.begin(), in.end(), regex_sep, -1);
     vector<string> out(res, sregex_token_iterator());
     return out;
 }

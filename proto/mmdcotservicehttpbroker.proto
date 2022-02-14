@@ -36,6 +36,23 @@ message OTServerResponseWrapper {
   OTServerResponse result = 2;
 }
 
+message OTServerRequest2 {
+  string function = 1;
+  string sessionToken = 2;
+  uint32 k = 3;
+  repeated bytes params = 4;
+}
+
+message OTServerResponse2 {
+  string function = 1;
+  repeated bytes values = 2;
+}
+
+message OTServerResponseWrapper2 {
+  Error error = 1;
+  OTServerResponse2 result = 2;
+}
+
 /*message UinWithLabel {
   uint32 uin = 1;
   uint32 label = 2;

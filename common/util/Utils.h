@@ -3,8 +3,9 @@
 //
 #pragma once
 #pragma clang diagnostic push
-#pragma ide diagnostic ignored "readability-avoid-const-params-in-decls"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
+#pragma ide diagnostic ignored "readability-avoid-const-params-in-decls"
+#pragma ide diagnostic ignored "UnusedParameter"
 /*
 #pragma comment(lib, "libssl.lib")
 #pragma comment(lib, "libcrypto.lib")
@@ -40,7 +41,10 @@ int gen_rsa_keypair(char *&pub_key, char *&pri_key, const bool &write_to_file = 
 
 void fread_all(char *&out, FILE *p_file);
 
-string gen_random_str(const int &len, const bool &visible_char = true);
+void gen_n_random_str(const int &len, const unsigned int &seed, vector<string> &rs, const int &n);
+
+string gen_random_str(const int &len, const unsigned int &seed = 0, const bool &seed_with_time = true,
+                      const bool &visible_char = true);
 
 vector<int> str2int_vector(const string &in);
 
@@ -85,7 +89,7 @@ void println_vector(const vector<T> &vs, const string &name, const string &sep =
 template<typename K, typename V>
 void println_map(const map<K, V> &m, const string &name) {
     cout << name << "(len:" << m.size() << ")--> \n{";
-    for (auto entry: m) {
+    for ([[maybe_unused]] auto &entry: m) {
         cout << "\n\t" << entry.first << ": " << entry.second << ",";
     }
     cout << "\n}" << endl;

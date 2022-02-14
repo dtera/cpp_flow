@@ -30,6 +30,12 @@ void test() {
     //httpServerTest();
 
     //oTTest();
+    auto sessionToken = gen_random_str(32);
+    cout << "sessionToken: " << sessionToken << endl;
+
+    vector<string> rs;
+    gen_n_random_str(32, 3, rs, 3);
+    println_vector(rs, "rs");
 }
 
 string ot_test() {

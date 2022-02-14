@@ -53,7 +53,7 @@ void OTClientService::setMessages(const OTClientRequest &req, OTClientResponse &
     }
 
     auto sessionToken = gen_random_str(tokenLen);
-    OTServerRequest otServerReq;
+    OTServerRequest2 otServerReq;
     otServerReq.set_sessiontoken(sessionToken);
     vector<int> choices;
 
@@ -69,32 +69,28 @@ void OTClientService::setMessages(const OTClientRequest &req, OTClientResponse &
     }
     otServerReq.set_k(choices.size());
 
-    OTServerResponseWrapper otServerRes;
     // 1. get random messages from ot sender
     std::string otServerReqStr;
     MessageToJsonString(otServerReq, &otServerReqStr);
     cout << "otServerReqStr: \n" << otServerReqStr << endl;
     httpClient->post("/getRandomMsgs", otServerReq);
-    cout << "[POST]random messages: \n" << httpClient->getContent() << endl;
-    auto status = httpClient->setPbMessage(otServerRes);
-    auto error = otServerRes.error();
-    auto result = otServerRes.result();
-    if (error.code() == -8) {
-        auto msg = error.message();
-        throw OTError(msg);
-    }
+    auto content = httpClient->getContent();
+    cout << "[POST]random messages: \n" << content << endl;
+
+    boost::replace_all(content, "[", "");
+    boost::replace_all(content, "]", "");
+    boost::replace_all(content, "\"", "");
     vector<string> rms;
-    for (auto &value: result.values()) {
-        rms.emplace_back(value);
-    }
-    //println_vector(rms, "rms");
+    boost::split(rms, content, boost::is_any_of(","), boost::token_compress_on);
+
+    println_vector(rms, "rms");
     otServerReq.mutable_params()->Clear();
     // 2. otReceiver encrypt key y with publicKey and random msg
     vector<string> encrypted_y_ops;
     KOutOfNForOTReceiver otReceiver(choices);
     otReceiver.encrypt(rms, encrypted_y_ops);
     // 3. otSender decrypt the encrypted key and send the decryptedYXorMs to otReceiver
-    OTServerRequest otServerReq2;
+    OTServerRequest2 otServerReq2;
     otServerReq2.set_function("OT_GetDecryptedYOps");
     otServerReq2.set_sessiontoken(sessionToken);
     otServerReq2.set_k(choices.size());
@@ -105,8 +101,9 @@ void OTClientService::setMessages(const OTClientRequest &req, OTClientResponse &
     otServerReqStr = "";
     MessageToJsonString(otServerReq2, &otServerReqStr);
     cout << "otServerReqStr: \n" << otServerReqStr << endl;
-    httpClient->post(reqPath, otServerReq2);
-    cout << "[POST]decryptedYOps: \n" << httpClient->getContent() << endl;
+    httpClient->post("/getDecryptedYOps", otServerReq2);
+    content = httpClient->getContent();
+    cout << "[POST]decryptedYOps: \n" << content << endl;
 
     vector<string> decrypted_y_ops;
     for (auto &value: otServerRes2.result().values()) {
@@ -122,11 +119,8 @@ void OTClientService::setMessages(const OTClientRequest &req, OTClientResponse &
     str2fields_message_fp f = nullptr; // str2fieldsMessage;
     otReceiver.get_messages(decrypted_y_ops, decrypted_ms, f, onlyGetChosen);
     for (auto decrypted_m: decrypted_ms) {
-        for (auto fs: *decrypted_m.getFields()) {
-            vector<string> kv;
-            boost::split(kv, fs, boost::is_any_of(":"),
-                         boost::token_compress_on);
-            res.mutable_resmap()->insert({kv[0], kv[1]});
+        for (const auto& fs: *decrypted_m.getFields()) {
+            res.mutable_resmap()->insert({fs.first, fs.second});
         }
     }
     //for_each(decrypted_ms.begin(), decrypted_ms.end(), println<string>);
