@@ -1,5 +1,6 @@
 #pragma once
 #pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-msc50-cpp"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include <functional>
@@ -31,14 +32,23 @@ void test() {
 
     //oTTest();
     //auto sessionToken = gen_random_str(32);
+
     cout << "arc4random: " << arc4random() << endl;
     cout << "arc4random: " << arc4random() << endl;
     cout << "sessionToken: " << gen_random_str(32) << endl;
     cout << "sessionToken: " << gen_random_str(32) << endl;
 
     vector<string> rs;
-    gen_n_random_str(32, 3, rs, 3);
+    gen_n_random_str(32, 1361272876, rs, 5);
     println_vector(rs, "rs");
+
+    string content = R"({"error": {"code":0,"message":"ok"},"result": {"function":"OT_GetDecryptedYOps"}})";
+    OTServerResponseWrapper otServerRes2;
+    JsonStringToMessage(content, &otServerRes2);
+
+    string otServerResStr;
+    MessageToJsonString(otServerRes2, &otServerResStr);
+    cout << "otServerResStr: \n" << otServerResStr << endl;
 }
 
 string ot_test() {

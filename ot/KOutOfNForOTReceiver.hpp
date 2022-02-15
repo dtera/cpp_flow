@@ -2,6 +2,7 @@
 // Created by zhaohuiqiang on 2021/12/12.
 //
 #pragma once
+#pragma ide diagnostic ignored "google-default-arguments"
 #pragma ide diagnostic ignored "OCUnusedStructInspection"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
@@ -11,15 +12,17 @@ class KOutOfNForOTReceiver : public BaseOTReceiver {
 public:
     explicit KOutOfNForOTReceiver(vector<int> &choices);
 
-    void encrypt(vector<string> &rs, vector<string> &encrypted_y_ops) override;
+    void encrypt(vector<string> &rs, vector<string> &encrypted_y_ops, const string &publicKey = "") override;
 };
 
 
 //================public begin================
 KOutOfNForOTReceiver::KOutOfNForOTReceiver(vector<int> &choices) : BaseOTReceiver(choices) {}
 
-void KOutOfNForOTReceiver::encrypt(vector<string> &rs, vector<string> &encrypted_y_ops) {
-    auto encrypted_y = rsa_pub_encrypt(ybs[0], pub_key);
+void KOutOfNForOTReceiver::encrypt(vector<string> &rs, vector<string> &encrypted_y_ops, const string &publicKey) {
+    //cout << "encrypt::publicKey: \n" << pub_key << endl;
+
+    auto encrypted_y = rsa_pub_encrypt(ybs[0], publicKey.empty() ? pub_key : publicKey);
     auto encrypted_y_not = str_not(encrypted_y);
     auto co_and_rs = str_co_and(rs, &choices);
     auto co_and_rs_not = str_co_and(rs, &choices, true);

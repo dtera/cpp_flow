@@ -13,6 +13,8 @@ class KOutOfNForOTSender : public BaseOTSender<M> {
 public:
     explicit KOutOfNForOTSender(vector<M> &ms);
 
+    explicit KOutOfNForOTSender(vector<M> &ms, const unsigned int &seed);
+
     void decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops) override;
 };
 
@@ -22,8 +24,17 @@ template<class M>
 KOutOfNForOTSender<M>::KOutOfNForOTSender(vector<M> &ms): BaseOTSender<M>(ms) {}
 
 template<class M>
+KOutOfNForOTSender<M>::KOutOfNForOTSender(vector<M> &ms, const unsigned int &seed): BaseOTSender<M>(ms) {
+    this->rbs.clear();
+    gen_n_random_str(this->key_size / 8 - 11, seed, this->rbs, ms.size());
+}
+
+template<class M>
 void KOutOfNForOTSender<M>::decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops) {
+    //cout << "decrypt::publicKey: \n" << this->pub_key << endl;
+    //cout << "decrypt::privateKey: \n" << this->pri_key << endl;
     //println_str2int_vector_vector(encrypted_y_ops, "decrypt::encrypted_y_ops");
+
     for (int i = 0; i < this->n; i++) {
         auto t1 = str_and_not(encrypted_y_ops[0], this->rbs[i]);
         auto t2 = str_and(encrypted_y_ops[1], this->rbs[i]);

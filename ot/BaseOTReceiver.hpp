@@ -2,6 +2,7 @@
 // Created by zhaohuiqiang on 2021/12/12.
 //
 #pragma once
+#pragma ide diagnostic ignored "google-default-arguments"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include <vector>
@@ -44,7 +45,7 @@ public:
     template<typename M, typename F>
     void get_messages_of_chosen(vector<string> &decrypted_y_ops, vector<M> &decrypted_ms, F f = nullptr);
 
-    virtual void encrypt(vector<string> &rs, vector<string> &encrypted_y_ops) = 0;
+    virtual void encrypt(vector<string> &rs, vector<string> &encrypted_y_ops, const string &publicKey = "") = 0;
 
     static void set_pub_key(char *pk);
 
