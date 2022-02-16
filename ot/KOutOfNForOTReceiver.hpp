@@ -43,8 +43,8 @@ void KOutOfNForOTReceiver::encrypt(vector<string> &rs, vector<string> &encrypted
     println_str2int_vector(encrypted_y_not, "encrypt::encrypted_y_not");
     println_str2int_vector(co_and_rs, "encrypt::co_and_rs");
     println_str2int_vector(co_and_rs_not, "encrypt::co_and_rs_not");
-    println_str2int_vector_vector(encrypted_y_ops, "encrypt::encrypted_y_ops");*/
-    cout << endl;
+    println_str2int_vector_vector(encrypted_y_ops, "encrypt::encrypted_y_ops");
+    cout << endl;*/
 }
 //================public end==================
 
