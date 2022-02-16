@@ -57,11 +57,25 @@ struct OTServiceDataDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OTServiceDataDefaultTypeInternal _OTServiceData_default_instance_;
+constexpr Bytes::Bytes(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : bts_()
+  , _bts_cached_byte_size_(0){}
+struct BytesDefaultTypeInternal {
+  constexpr BytesDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~BytesDefaultTypeInternal() {}
+  union {
+    Bytes _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT BytesDefaultTypeInternal _Bytes_default_instance_;
 constexpr OTServerRequest::OTServerRequest(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : params_()
+  : keys_()
+  , bytes_()
   , function_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , sessiontoken_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , sessiontoken_(0u)
   , k_(0u){}
 struct OTServerRequestDefaultTypeInternal {
   constexpr OTServerRequestDefaultTypeInternal()
@@ -75,6 +89,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OTServerRequestDefaultTypeInter
 constexpr OTServerResponse::OTServerResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : values_()
+  , bytes_()
   , function_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
 struct OTServerResponseDefaultTypeInternal {
   constexpr OTServerResponseDefaultTypeInternal()
@@ -98,47 +113,6 @@ struct OTServerResponseWrapperDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OTServerResponseWrapperDefaultTypeInternal _OTServerResponseWrapper_default_instance_;
-constexpr OTServerRequest2::OTServerRequest2(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : params_()
-  , function_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , sessiontoken_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
-  , k_(0u){}
-struct OTServerRequest2DefaultTypeInternal {
-  constexpr OTServerRequest2DefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~OTServerRequest2DefaultTypeInternal() {}
-  union {
-    OTServerRequest2 _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OTServerRequest2DefaultTypeInternal _OTServerRequest2_default_instance_;
-constexpr OTServerResponse2::OTServerResponse2(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : values_()
-  , function_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
-struct OTServerResponse2DefaultTypeInternal {
-  constexpr OTServerResponse2DefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~OTServerResponse2DefaultTypeInternal() {}
-  union {
-    OTServerResponse2 _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OTServerResponse2DefaultTypeInternal _OTServerResponse2_default_instance_;
-constexpr OTServerResponseWrapper2::OTServerResponseWrapper2(
-  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
-  : error_(nullptr)
-  , result_(nullptr){}
-struct OTServerResponseWrapper2DefaultTypeInternal {
-  constexpr OTServerResponseWrapper2DefaultTypeInternal()
-    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
-  ~OTServerResponseWrapper2DefaultTypeInternal() {}
-  union {
-    OTServerResponseWrapper2 _instance;
-  };
-};
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OTServerResponseWrapper2DefaultTypeInternal _OTServerResponseWrapper2_default_instance_;
 constexpr OTClientRequest_UinWithLabelMapEntry_DoNotUse::OTClientRequest_UinWithLabelMapEntry_DoNotUse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
 struct OTClientRequest_UinWithLabelMapEntry_DoNotUseDefaultTypeInternal {
@@ -163,6 +137,29 @@ struct OTClientRequestDefaultTypeInternal {
   };
 };
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OTClientRequestDefaultTypeInternal _OTClientRequest_default_instance_;
+constexpr Fields_MsgEntry_DoNotUse::Fields_MsgEntry_DoNotUse(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
+struct Fields_MsgEntry_DoNotUseDefaultTypeInternal {
+  constexpr Fields_MsgEntry_DoNotUseDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~Fields_MsgEntry_DoNotUseDefaultTypeInternal() {}
+  union {
+    Fields_MsgEntry_DoNotUse _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT Fields_MsgEntry_DoNotUseDefaultTypeInternal _Fields_MsgEntry_DoNotUse_default_instance_;
+constexpr Fields::Fields(
+  ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
+  : msg_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}){}
+struct FieldsDefaultTypeInternal {
+  constexpr FieldsDefaultTypeInternal()
+    : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
+  ~FieldsDefaultTypeInternal() {}
+  union {
+    Fields _instance;
+  };
+};
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT FieldsDefaultTypeInternal _Fields_default_instance_;
 constexpr OTClientResponse_ResMapEntry_DoNotUse::OTClientResponse_ResMapEntry_DoNotUse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized){}
 struct OTClientResponse_ResMapEntry_DoNotUseDefaultTypeInternal {
@@ -177,7 +174,8 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT OTClientResponse_ResMapEntry_Do
 constexpr OTClientResponse::OTClientResponse(
   ::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized)
   : resmap_(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{})
-  , function_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string){}
+  , function_(&::PROTOBUF_NAMESPACE_ID::internal::fixed_address_empty_string)
+  , reqtimemillis_(0){}
 struct OTClientResponseDefaultTypeInternal {
   constexpr OTClientResponseDefaultTypeInternal()
     : _instance(::PROTOBUF_NAMESPACE_ID::internal::ConstantInitialized{}) {}
@@ -229,6 +227,12 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_mmdcotservicehttpbroker_2eprot
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServiceData, value_),
   ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::otServicePB::Bytes, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::otServicePB::Bytes, bts_),
+  ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest, _internal_metadata_),
   ~0u,  // no _extensions_
   ~0u,  // no _oneof_case_
@@ -236,7 +240,8 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_mmdcotservicehttpbroker_2eprot
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest, function_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest, sessiontoken_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest, k_),
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest, params_),
+  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest, keys_),
+  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest, bytes_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -244,6 +249,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_mmdcotservicehttpbroker_2eprot
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponse, function_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponse, values_),
+  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponse, bytes_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponseWrapper, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -251,29 +257,6 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_mmdcotservicehttpbroker_2eprot
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponseWrapper, error_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponseWrapper, result_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest2, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest2, function_),
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest2, sessiontoken_),
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest2, k_),
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerRequest2, params_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponse2, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponse2, function_),
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponse2, values_),
-  ~0u,  // no _has_bits_
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponseWrapper2, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  ~0u,  // no _weak_field_map_
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponseWrapper2, error_),
-  PROTOBUF_FIELD_OFFSET(::otServicePB::OTServerResponseWrapper2, result_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientRequest_UinWithLabelMapEntry_DoNotUse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientRequest_UinWithLabelMapEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -290,6 +273,21 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_mmdcotservicehttpbroker_2eprot
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientRequest, function_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientRequest, uinwithlabelmap_),
+  PROTOBUF_FIELD_OFFSET(::otServicePB::Fields_MsgEntry_DoNotUse, _has_bits_),
+  PROTOBUF_FIELD_OFFSET(::otServicePB::Fields_MsgEntry_DoNotUse, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::otServicePB::Fields_MsgEntry_DoNotUse, key_),
+  PROTOBUF_FIELD_OFFSET(::otServicePB::Fields_MsgEntry_DoNotUse, value_),
+  0,
+  1,
+  ~0u,  // no _has_bits_
+  PROTOBUF_FIELD_OFFSET(::otServicePB::Fields, _internal_metadata_),
+  ~0u,  // no _extensions_
+  ~0u,  // no _oneof_case_
+  ~0u,  // no _weak_field_map_
+  PROTOBUF_FIELD_OFFSET(::otServicePB::Fields, msg_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientResponse_ResMapEntry_DoNotUse, _has_bits_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientResponse_ResMapEntry_DoNotUse, _internal_metadata_),
   ~0u,  // no _extensions_
@@ -305,6 +303,7 @@ const ::PROTOBUF_NAMESPACE_ID::uint32 TableStruct_mmdcotservicehttpbroker_2eprot
   ~0u,  // no _oneof_case_
   ~0u,  // no _weak_field_map_
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientResponse, function_),
+  PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientResponse, reqtimemillis_),
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientResponse, resmap_),
   ~0u,  // no _has_bits_
   PROTOBUF_FIELD_OFFSET(::otServicePB::OTClientResponseWrapper, _internal_metadata_),
@@ -318,31 +317,31 @@ static const ::PROTOBUF_NAMESPACE_ID::internal::MigrationSchema schemas[] PROTOB
   { 0, -1, sizeof(::otServicePB::Response)},
   { 9, -1, sizeof(::otServicePB::Error)},
   { 16, -1, sizeof(::otServicePB::OTServiceData)},
-  { 22, -1, sizeof(::otServicePB::OTServerRequest)},
-  { 31, -1, sizeof(::otServicePB::OTServerResponse)},
-  { 38, -1, sizeof(::otServicePB::OTServerResponseWrapper)},
-  { 45, -1, sizeof(::otServicePB::OTServerRequest2)},
-  { 54, -1, sizeof(::otServicePB::OTServerResponse2)},
-  { 61, -1, sizeof(::otServicePB::OTServerResponseWrapper2)},
-  { 68, 75, sizeof(::otServicePB::OTClientRequest_UinWithLabelMapEntry_DoNotUse)},
-  { 77, -1, sizeof(::otServicePB::OTClientRequest)},
+  { 22, -1, sizeof(::otServicePB::Bytes)},
+  { 28, -1, sizeof(::otServicePB::OTServerRequest)},
+  { 38, -1, sizeof(::otServicePB::OTServerResponse)},
+  { 46, -1, sizeof(::otServicePB::OTServerResponseWrapper)},
+  { 53, 60, sizeof(::otServicePB::OTClientRequest_UinWithLabelMapEntry_DoNotUse)},
+  { 62, -1, sizeof(::otServicePB::OTClientRequest)},
+  { 69, 76, sizeof(::otServicePB::Fields_MsgEntry_DoNotUse)},
+  { 78, -1, sizeof(::otServicePB::Fields)},
   { 84, 91, sizeof(::otServicePB::OTClientResponse_ResMapEntry_DoNotUse)},
   { 93, -1, sizeof(::otServicePB::OTClientResponse)},
-  { 100, -1, sizeof(::otServicePB::OTClientResponseWrapper)},
+  { 101, -1, sizeof(::otServicePB::OTClientResponseWrapper)},
 };
 
 static ::PROTOBUF_NAMESPACE_ID::Message const * const file_default_instances[] = {
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_Response_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_Error_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTServiceData_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_Bytes_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTServerRequest_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTServerResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTServerResponseWrapper_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTServerRequest2_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTServerResponse2_default_instance_),
-  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTServerResponseWrapper2_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTClientRequest_UinWithLabelMapEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTClientRequest_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_Fields_MsgEntry_DoNotUse_default_instance_),
+  reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_Fields_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTClientResponse_ResMapEntry_DoNotUse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTClientResponse_default_instance_),
   reinterpret_cast<const ::PROTOBUF_NAMESPACE_ID::Message*>(&::otServicePB::_OTClientResponseWrapper_default_instance_),
@@ -353,35 +352,34 @@ const char descriptor_table_protodef_mmdcotservicehttpbroker_2eproto[] PROTOBUF_
   "cePB\"N\n\010Response\022\014\n\004code\030\001 \001(\r\022\017\n\007messag"
   "e\030\002 \001(\t\022\025\n\rreqTimeMillis\030\003 \001(\002\022\014\n\004data\030\004"
   " \001(\t\"&\n\005Error\022\014\n\004code\030\001 \001(\r\022\017\n\007message\030\002"
-  " \001(\t\"\036\n\rOTServiceData\022\r\n\005value\030\001 \001(\t\"T\n\017"
-  "OTServerRequest\022\020\n\010function\030\001 \001(\t\022\024\n\014ses"
-  "sionToken\030\002 \001(\t\022\t\n\001k\030\003 \001(\r\022\016\n\006params\030\004 \003"
-  "(\t\"4\n\020OTServerResponse\022\020\n\010function\030\001 \001(\t"
-  "\022\016\n\006values\030\002 \003(\t\"k\n\027OTServerResponseWrap"
-  "per\022!\n\005error\030\001 \001(\0132\022.otServicePB.Error\022-"
-  "\n\006result\030\002 \001(\0132\035.otServicePB.OTServerRes"
-  "ponse\"U\n\020OTServerRequest2\022\020\n\010function\030\001 "
-  "\001(\t\022\024\n\014sessionToken\030\002 \001(\t\022\t\n\001k\030\003 \001(\r\022\016\n\006"
-  "params\030\004 \003(\014\"5\n\021OTServerResponse2\022\020\n\010fun"
-  "ction\030\001 \001(\t\022\016\n\006values\030\002 \003(\014\"m\n\030OTServerR"
-  "esponseWrapper2\022!\n\005error\030\001 \001(\0132\022.otServi"
-  "cePB.Error\022.\n\006result\030\002 \001(\0132\036.otServicePB"
-  ".OTServerResponse2\"\247\001\n\017OTClientRequest\022\020"
-  "\n\010function\030\001 \001(\t\022J\n\017uinWithLabelMap\030\002 \003("
-  "\01321.otServicePB.OTClientRequest.UinWithL"
-  "abelMapEntry\0326\n\024UinWithLabelMapEntry\022\013\n\003"
-  "key\030\001 \001(\r\022\r\n\005value\030\002 \001(\r:\0028\001\"\216\001\n\020OTClien"
-  "tResponse\022\020\n\010function\030\001 \001(\t\0229\n\006resMap\030\002 "
-  "\003(\0132).otServicePB.OTClientResponse.ResMa"
-  "pEntry\032-\n\013ResMapEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005va"
-  "lue\030\002 \001(\t:\0028\001\"k\n\027OTClientResponseWrapper"
-  "\022!\n\005error\030\001 \001(\0132\022.otServicePB.Error\022-\n\006r"
-  "esult\030\002 \003(\0132\035.otServicePB.OTClientRespon"
-  "seb\006proto3"
+  " \001(\t\"\036\n\rOTServiceData\022\r\n\005value\030\001 \001(\t\"\024\n\005"
+  "Bytes\022\013\n\003bts\030\001 \003(\r\"u\n\017OTServerRequest\022\020\n"
+  "\010function\030\001 \001(\t\022\024\n\014sessionToken\030\002 \001(\r\022\t\n"
+  "\001k\030\003 \001(\r\022\014\n\004keys\030\004 \003(\t\022!\n\005bytes\030\005 \003(\0132\022."
+  "otServicePB.Bytes\"W\n\020OTServerResponse\022\020\n"
+  "\010function\030\001 \001(\t\022\016\n\006values\030\002 \003(\t\022!\n\005bytes"
+  "\030\003 \003(\0132\022.otServicePB.Bytes\"k\n\027OTServerRe"
+  "sponseWrapper\022!\n\005error\030\001 \001(\0132\022.otService"
+  "PB.Error\022-\n\006result\030\002 \001(\0132\035.otServicePB.O"
+  "TServerResponse\"\247\001\n\017OTClientRequest\022\020\n\010f"
+  "unction\030\001 \001(\t\022J\n\017uinWithLabelMap\030\002 \003(\01321"
+  ".otServicePB.OTClientRequest.UinWithLabe"
+  "lMapEntry\0326\n\024UinWithLabelMapEntry\022\013\n\003key"
+  "\030\001 \001(\r\022\r\n\005value\030\002 \001(\r:\0028\001\"_\n\006Fields\022)\n\003m"
+  "sg\030\001 \003(\0132\034.otServicePB.Fields.MsgEntry\032*"
+  "\n\010MsgEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t:\002"
+  "8\001\"\245\001\n\020OTClientResponse\022\020\n\010function\030\001 \001("
+  "\t\022\025\n\rreqTimeMillis\030\002 \001(\002\0229\n\006resMap\030\003 \003(\013"
+  "2).otServicePB.OTClientResponse.ResMapEn"
+  "try\032-\n\013ResMapEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value"
+  "\030\002 \001(\t:\0028\001\"k\n\027OTClientResponseWrapper\022!\n"
+  "\005error\030\001 \001(\0132\022.otServicePB.Error\022-\n\006resu"
+  "lt\030\002 \003(\0132\035.otServicePB.OTClientResponseb"
+  "\006proto3"
   ;
 static ::PROTOBUF_NAMESPACE_ID::internal::once_flag descriptor_table_mmdcotservicehttpbroker_2eproto_once;
 const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_mmdcotservicehttpbroker_2eproto = {
-  false, false, 1130, descriptor_table_protodef_mmdcotservicehttpbroker_2eproto, "mmdcotservicehttpbroker.proto", 
+  false, false, 1087, descriptor_table_protodef_mmdcotservicehttpbroker_2eproto, "mmdcotservicehttpbroker.proto", 
   &descriptor_table_mmdcotservicehttpbroker_2eproto_once, nullptr, 0, 14,
   schemas, file_default_instances, TableStruct_mmdcotservicehttpbroker_2eproto::offsets,
   file_level_metadata_mmdcotservicehttpbroker_2eproto, file_level_enum_descriptors_mmdcotservicehttpbroker_2eproto, file_level_service_descriptors_mmdcotservicehttpbroker_2eproto,
@@ -1125,6 +1123,203 @@ void OTServiceData::InternalSwap(OTServiceData* other) {
 
 // ===================================================================
 
+class Bytes::_Internal {
+ public:
+};
+
+Bytes::Bytes(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  bts_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:otServicePB.Bytes)
+}
+Bytes::Bytes(const Bytes& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message(),
+      bts_(from.bts_) {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  // @@protoc_insertion_point(copy_constructor:otServicePB.Bytes)
+}
+
+inline void Bytes::SharedCtor() {
+}
+
+Bytes::~Bytes() {
+  // @@protoc_insertion_point(destructor:otServicePB.Bytes)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void Bytes::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void Bytes::ArenaDtor(void* object) {
+  Bytes* _this = reinterpret_cast< Bytes* >(object);
+  (void)_this;
+}
+void Bytes::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
+}
+void Bytes::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Bytes::Clear() {
+// @@protoc_insertion_point(message_clear_start:otServicePB.Bytes)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  bts_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Bytes::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // repeated uint32 bts = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr = ::PROTOBUF_NAMESPACE_ID::internal::PackedUInt32Parser(_internal_mutable_bts(), ptr, ctx);
+          CHK_(ptr);
+        } else if (static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 8) {
+          _internal_add_bts(::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr));
+          CHK_(ptr);
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* Bytes::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:otServicePB.Bytes)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // repeated uint32 bts = 1;
+  {
+    int byte_size = _bts_cached_byte_size_.load(std::memory_order_relaxed);
+    if (byte_size > 0) {
+      target = stream->WriteUInt32Packed(
+          1, _internal_bts(), byte_size, target);
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:otServicePB.Bytes)
+  return target;
+}
+
+size_t Bytes::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:otServicePB.Bytes)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // repeated uint32 bts = 1;
+  {
+    size_t data_size = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      UInt32Size(this->bts_);
+    if (data_size > 0) {
+      total_size += 1 +
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::Int32Size(
+            static_cast<::PROTOBUF_NAMESPACE_ID::int32>(data_size));
+    }
+    int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(data_size);
+    _bts_cached_byte_size_.store(cached_size,
+                                    std::memory_order_relaxed);
+    total_size += data_size;
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Bytes::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Bytes::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Bytes::GetClassData() const { return &_class_data_; }
+
+void Bytes::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
+  static_cast<Bytes *>(to)->MergeFrom(
+      static_cast<const Bytes &>(from));
+}
+
+
+void Bytes::MergeFrom(const Bytes& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:otServicePB.Bytes)
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  bts_.MergeFrom(from.bts_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Bytes::CopyFrom(const Bytes& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:otServicePB.Bytes)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Bytes::IsInitialized() const {
+  return true;
+}
+
+void Bytes::InternalSwap(Bytes* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  bts_.InternalSwap(&other->bts_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Bytes::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
+      file_level_metadata_mmdcotservicehttpbroker_2eproto[3]);
+}
+
+// ===================================================================
+
 class OTServerRequest::_Internal {
  public:
 };
@@ -1132,7 +1327,8 @@ class OTServerRequest::_Internal {
 OTServerRequest::OTServerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  params_(arena) {
+  keys_(arena),
+  bytes_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -1141,26 +1337,26 @@ OTServerRequest::OTServerRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 OTServerRequest::OTServerRequest(const OTServerRequest& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      params_(from.params_) {
+      keys_(from.keys_),
+      bytes_(from.bytes_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   function_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_function().empty()) {
     function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_function(), 
       GetArenaForAllocation());
   }
-  sessiontoken_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_sessiontoken().empty()) {
-    sessiontoken_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_sessiontoken(), 
-      GetArenaForAllocation());
-  }
-  k_ = from.k_;
+  ::memcpy(&sessiontoken_, &from.sessiontoken_,
+    static_cast<size_t>(reinterpret_cast<char*>(&k_) -
+    reinterpret_cast<char*>(&sessiontoken_)) + sizeof(k_));
   // @@protoc_insertion_point(copy_constructor:otServicePB.OTServerRequest)
 }
 
 inline void OTServerRequest::SharedCtor() {
 function_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-sessiontoken_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-k_ = 0u;
+::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
+    reinterpret_cast<char*>(&sessiontoken_) - reinterpret_cast<char*>(this)),
+    0, static_cast<size_t>(reinterpret_cast<char*>(&k_) -
+    reinterpret_cast<char*>(&sessiontoken_)) + sizeof(k_));
 }
 
 OTServerRequest::~OTServerRequest() {
@@ -1173,7 +1369,6 @@ OTServerRequest::~OTServerRequest() {
 inline void OTServerRequest::SharedDtor() {
   GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
   function_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  sessiontoken_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
 }
 
 void OTServerRequest::ArenaDtor(void* object) {
@@ -1192,10 +1387,12 @@ void OTServerRequest::Clear() {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  params_.Clear();
+  keys_.Clear();
+  bytes_.Clear();
   function_.ClearToEmpty();
-  sessiontoken_.ClearToEmpty();
-  k_ = 0u;
+  ::memset(&sessiontoken_, 0, static_cast<size_t>(
+      reinterpret_cast<char*>(&k_) -
+      reinterpret_cast<char*>(&sessiontoken_)) + sizeof(k_));
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -1214,12 +1411,10 @@ const char* OTServerRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // string sessionToken = 2;
+      // uint32 sessionToken = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_sessiontoken();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "otServicePB.OTServerRequest.sessionToken"));
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 16)) {
+          sessiontoken_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
@@ -1230,18 +1425,30 @@ const char* OTServerRequest::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPAC
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // repeated string params = 4;
+      // repeated string keys = 4;
       case 4:
         if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
           ptr -= 1;
           do {
             ptr += 1;
-            auto str = _internal_add_params();
+            auto str = _internal_add_keys();
             ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "otServicePB.OTServerRequest.params"));
+            CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "otServicePB.OTServerRequest.keys"));
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // repeated .otServicePB.Bytes bytes = 5;
+      case 5:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 42)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_bytes(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<42>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -1283,14 +1490,10 @@ failure:
         1, this->_internal_function(), target);
   }
 
-  // string sessionToken = 2;
-  if (!this->_internal_sessiontoken().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_sessiontoken().data(), static_cast<int>(this->_internal_sessiontoken().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "otServicePB.OTServerRequest.sessionToken");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_sessiontoken(), target);
+  // uint32 sessionToken = 2;
+  if (this->_internal_sessiontoken() != 0) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(2, this->_internal_sessiontoken(), target);
   }
 
   // uint32 k = 3;
@@ -1299,14 +1502,22 @@ failure:
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_k(), target);
   }
 
-  // repeated string params = 4;
-  for (int i = 0, n = this->_internal_params_size(); i < n; i++) {
-    const auto& s = this->_internal_params(i);
+  // repeated string keys = 4;
+  for (int i = 0, n = this->_internal_keys_size(); i < n; i++) {
+    const auto& s = this->_internal_keys(i);
     ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
       s.data(), static_cast<int>(s.length()),
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "otServicePB.OTServerRequest.params");
+      "otServicePB.OTServerRequest.keys");
     target = stream->WriteString(4, s, target);
+  }
+
+  // repeated .otServicePB.Bytes bytes = 5;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_bytes_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(5, this->_internal_bytes(i), target, stream);
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -1325,12 +1536,19 @@ size_t OTServerRequest::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // repeated string params = 4;
+  // repeated string keys = 4;
   total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(params_.size());
-  for (int i = 0, n = params_.size(); i < n; i++) {
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(keys_.size());
+  for (int i = 0, n = keys_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-      params_.Get(i));
+      keys_.Get(i));
+  }
+
+  // repeated .otServicePB.Bytes bytes = 5;
+  total_size += 1UL * this->_internal_bytes_size();
+  for (const auto& msg : this->bytes_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // string function = 1;
@@ -1340,10 +1558,10 @@ size_t OTServerRequest::ByteSizeLong() const {
         this->_internal_function());
   }
 
-  // string sessionToken = 2;
-  if (!this->_internal_sessiontoken().empty()) {
+  // uint32 sessionToken = 2;
+  if (this->_internal_sessiontoken() != 0) {
     total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
         this->_internal_sessiontoken());
   }
 
@@ -1382,11 +1600,12 @@ void OTServerRequest::MergeFrom(const OTServerRequest& from) {
   ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
   (void) cached_has_bits;
 
-  params_.MergeFrom(from.params_);
+  keys_.MergeFrom(from.keys_);
+  bytes_.MergeFrom(from.bytes_);
   if (!from._internal_function().empty()) {
     _internal_set_function(from._internal_function());
   }
-  if (!from._internal_sessiontoken().empty()) {
+  if (from._internal_sessiontoken() != 0) {
     _internal_set_sessiontoken(from._internal_sessiontoken());
   }
   if (from._internal_k() != 0) {
@@ -1409,24 +1628,25 @@ bool OTServerRequest::IsInitialized() const {
 void OTServerRequest::InternalSwap(OTServerRequest* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  params_.InternalSwap(&other->params_);
+  keys_.InternalSwap(&other->keys_);
+  bytes_.InternalSwap(&other->bytes_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &function_, GetArenaForAllocation(),
       &other->function_, other->GetArenaForAllocation()
   );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &sessiontoken_, GetArenaForAllocation(),
-      &other->sessiontoken_, other->GetArenaForAllocation()
-  );
-  swap(k_, other->k_);
+  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
+      PROTOBUF_FIELD_OFFSET(OTServerRequest, k_)
+      + sizeof(OTServerRequest::k_)
+      - PROTOBUF_FIELD_OFFSET(OTServerRequest, sessiontoken_)>(
+          reinterpret_cast<char*>(&sessiontoken_),
+          reinterpret_cast<char*>(&other->sessiontoken_));
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata OTServerRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
-      file_level_metadata_mmdcotservicehttpbroker_2eproto[3]);
+      file_level_metadata_mmdcotservicehttpbroker_2eproto[4]);
 }
 
 // ===================================================================
@@ -1438,7 +1658,8 @@ class OTServerResponse::_Internal {
 OTServerResponse::OTServerResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
                          bool is_message_owned)
   : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  values_(arena) {
+  values_(arena),
+  bytes_(arena) {
   SharedCtor();
   if (!is_message_owned) {
     RegisterArenaDtor(arena);
@@ -1447,7 +1668,8 @@ OTServerResponse::OTServerResponse(::PROTOBUF_NAMESPACE_ID::Arena* arena,
 }
 OTServerResponse::OTServerResponse(const OTServerResponse& from)
   : ::PROTOBUF_NAMESPACE_ID::Message(),
-      values_(from.values_) {
+      values_(from.values_),
+      bytes_(from.bytes_) {
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
   function_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
   if (!from._internal_function().empty()) {
@@ -1490,6 +1712,7 @@ void OTServerResponse::Clear() {
   (void) cached_has_bits;
 
   values_.Clear();
+  bytes_.Clear();
   function_.ClearToEmpty();
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
@@ -1521,6 +1744,18 @@ const char* OTServerResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
           } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+        } else goto handle_unusual;
+        continue;
+      // repeated .otServicePB.Bytes bytes = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(_internal_add_bytes(), ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -1572,6 +1807,14 @@ failure:
     target = stream->WriteString(2, s, target);
   }
 
+  // repeated .otServicePB.Bytes bytes = 3;
+  for (unsigned int i = 0,
+      n = static_cast<unsigned int>(this->_internal_bytes_size()); i < n; i++) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
+      InternalWriteMessage(3, this->_internal_bytes(i), target, stream);
+  }
+
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
     target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
         _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
@@ -1594,6 +1837,13 @@ size_t OTServerResponse::ByteSizeLong() const {
   for (int i = 0, n = values_.size(); i < n; i++) {
     total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
       values_.Get(i));
+  }
+
+  // repeated .otServicePB.Bytes bytes = 3;
+  total_size += 1UL * this->_internal_bytes_size();
+  for (const auto& msg : this->bytes_) {
+    total_size +=
+      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(msg);
   }
 
   // string function = 1;
@@ -1632,6 +1882,7 @@ void OTServerResponse::MergeFrom(const OTServerResponse& from) {
   (void) cached_has_bits;
 
   values_.MergeFrom(from.values_);
+  bytes_.MergeFrom(from.bytes_);
   if (!from._internal_function().empty()) {
     _internal_set_function(from._internal_function());
   }
@@ -1653,6 +1904,7 @@ void OTServerResponse::InternalSwap(OTServerResponse* other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   values_.InternalSwap(&other->values_);
+  bytes_.InternalSwap(&other->bytes_);
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
       &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       &function_, GetArenaForAllocation(),
@@ -1663,7 +1915,7 @@ void OTServerResponse::InternalSwap(OTServerResponse* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata OTServerResponse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
-      file_level_metadata_mmdcotservicehttpbroker_2eproto[4]);
+      file_level_metadata_mmdcotservicehttpbroker_2eproto[5]);
 }
 
 // ===================================================================
@@ -1911,788 +2163,7 @@ void OTServerResponseWrapper::InternalSwap(OTServerResponseWrapper* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata OTServerResponseWrapper::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
-      file_level_metadata_mmdcotservicehttpbroker_2eproto[5]);
-}
-
-// ===================================================================
-
-class OTServerRequest2::_Internal {
- public:
-};
-
-OTServerRequest2::OTServerRequest2(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  params_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
-  // @@protoc_insertion_point(arena_constructor:otServicePB.OTServerRequest2)
-}
-OTServerRequest2::OTServerRequest2(const OTServerRequest2& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      params_(from.params_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  function_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_function().empty()) {
-    function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_function(), 
-      GetArenaForAllocation());
-  }
-  sessiontoken_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_sessiontoken().empty()) {
-    sessiontoken_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_sessiontoken(), 
-      GetArenaForAllocation());
-  }
-  k_ = from.k_;
-  // @@protoc_insertion_point(copy_constructor:otServicePB.OTServerRequest2)
-}
-
-inline void OTServerRequest2::SharedCtor() {
-function_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-sessiontoken_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-k_ = 0u;
-}
-
-OTServerRequest2::~OTServerRequest2() {
-  // @@protoc_insertion_point(destructor:otServicePB.OTServerRequest2)
-  if (GetArenaForAllocation() != nullptr) return;
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-inline void OTServerRequest2::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  function_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  sessiontoken_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-void OTServerRequest2::ArenaDtor(void* object) {
-  OTServerRequest2* _this = reinterpret_cast< OTServerRequest2* >(object);
-  (void)_this;
-}
-void OTServerRequest2::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void OTServerRequest2::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void OTServerRequest2::Clear() {
-// @@protoc_insertion_point(message_clear_start:otServicePB.OTServerRequest2)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  params_.Clear();
-  function_.ClearToEmpty();
-  sessiontoken_.ClearToEmpty();
-  k_ = 0u;
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* OTServerRequest2::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // string function = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_function();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "otServicePB.OTServerRequest2.function"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // string sessionToken = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          auto str = _internal_mutable_sessiontoken();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "otServicePB.OTServerRequest2.sessionToken"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // uint32 k = 3;
-      case 3:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 24)) {
-          k_ = ::PROTOBUF_NAMESPACE_ID::internal::ReadVarint32(&ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated bytes params = 4;
-      case 4:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 34)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_params();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<34>(ptr));
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* OTServerRequest2::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:otServicePB.OTServerRequest2)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string function = 1;
-  if (!this->_internal_function().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_function().data(), static_cast<int>(this->_internal_function().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "otServicePB.OTServerRequest2.function");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_function(), target);
-  }
-
-  // string sessionToken = 2;
-  if (!this->_internal_sessiontoken().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_sessiontoken().data(), static_cast<int>(this->_internal_sessiontoken().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "otServicePB.OTServerRequest2.sessionToken");
-    target = stream->WriteStringMaybeAliased(
-        2, this->_internal_sessiontoken(), target);
-  }
-
-  // uint32 k = 3;
-  if (this->_internal_k() != 0) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteUInt32ToArray(3, this->_internal_k(), target);
-  }
-
-  // repeated bytes params = 4;
-  for (int i = 0, n = this->_internal_params_size(); i < n; i++) {
-    const auto& s = this->_internal_params(i);
-    target = stream->WriteBytes(4, s, target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:otServicePB.OTServerRequest2)
-  return target;
-}
-
-size_t OTServerRequest2::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:otServicePB.OTServerRequest2)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated bytes params = 4;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(params_.size());
-  for (int i = 0, n = params_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-      params_.Get(i));
-  }
-
-  // string function = 1;
-  if (!this->_internal_function().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_function());
-  }
-
-  // string sessionToken = 2;
-  if (!this->_internal_sessiontoken().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_sessiontoken());
-  }
-
-  // uint32 k = 3;
-  if (this->_internal_k() != 0) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::UInt32Size(
-        this->_internal_k());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData OTServerRequest2::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    OTServerRequest2::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*OTServerRequest2::GetClassData() const { return &_class_data_; }
-
-void OTServerRequest2::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<OTServerRequest2 *>(to)->MergeFrom(
-      static_cast<const OTServerRequest2 &>(from));
-}
-
-
-void OTServerRequest2::MergeFrom(const OTServerRequest2& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:otServicePB.OTServerRequest2)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  params_.MergeFrom(from.params_);
-  if (!from._internal_function().empty()) {
-    _internal_set_function(from._internal_function());
-  }
-  if (!from._internal_sessiontoken().empty()) {
-    _internal_set_sessiontoken(from._internal_sessiontoken());
-  }
-  if (from._internal_k() != 0) {
-    _internal_set_k(from._internal_k());
-  }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void OTServerRequest2::CopyFrom(const OTServerRequest2& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:otServicePB.OTServerRequest2)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool OTServerRequest2::IsInitialized() const {
-  return true;
-}
-
-void OTServerRequest2::InternalSwap(OTServerRequest2* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  params_.InternalSwap(&other->params_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &function_, GetArenaForAllocation(),
-      &other->function_, other->GetArenaForAllocation()
-  );
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &sessiontoken_, GetArenaForAllocation(),
-      &other->sessiontoken_, other->GetArenaForAllocation()
-  );
-  swap(k_, other->k_);
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata OTServerRequest2::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
       file_level_metadata_mmdcotservicehttpbroker_2eproto[6]);
-}
-
-// ===================================================================
-
-class OTServerResponse2::_Internal {
- public:
-};
-
-OTServerResponse2::OTServerResponse2(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
-  values_(arena) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
-  // @@protoc_insertion_point(arena_constructor:otServicePB.OTServerResponse2)
-}
-OTServerResponse2::OTServerResponse2(const OTServerResponse2& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message(),
-      values_(from.values_) {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  function_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-  if (!from._internal_function().empty()) {
-    function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_function(), 
-      GetArenaForAllocation());
-  }
-  // @@protoc_insertion_point(copy_constructor:otServicePB.OTServerResponse2)
-}
-
-inline void OTServerResponse2::SharedCtor() {
-function_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-OTServerResponse2::~OTServerResponse2() {
-  // @@protoc_insertion_point(destructor:otServicePB.OTServerResponse2)
-  if (GetArenaForAllocation() != nullptr) return;
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-inline void OTServerResponse2::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  function_.DestroyNoArena(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
-}
-
-void OTServerResponse2::ArenaDtor(void* object) {
-  OTServerResponse2* _this = reinterpret_cast< OTServerResponse2* >(object);
-  (void)_this;
-}
-void OTServerResponse2::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void OTServerResponse2::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void OTServerResponse2::Clear() {
-// @@protoc_insertion_point(message_clear_start:otServicePB.OTServerResponse2)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  values_.Clear();
-  function_.ClearToEmpty();
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* OTServerResponse2::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // string function = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          auto str = _internal_mutable_function();
-          ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-          CHK_(::PROTOBUF_NAMESPACE_ID::internal::VerifyUTF8(str, "otServicePB.OTServerResponse2.function"));
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // repeated bytes values = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr -= 1;
-          do {
-            ptr += 1;
-            auto str = _internal_add_values();
-            ptr = ::PROTOBUF_NAMESPACE_ID::internal::InlineGreedyStringParser(str, ptr, ctx);
-            CHK_(ptr);
-            if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* OTServerResponse2::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:otServicePB.OTServerResponse2)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // string function = 1;
-  if (!this->_internal_function().empty()) {
-    ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
-      this->_internal_function().data(), static_cast<int>(this->_internal_function().length()),
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
-      "otServicePB.OTServerResponse2.function");
-    target = stream->WriteStringMaybeAliased(
-        1, this->_internal_function(), target);
-  }
-
-  // repeated bytes values = 2;
-  for (int i = 0, n = this->_internal_values_size(); i < n; i++) {
-    const auto& s = this->_internal_values(i);
-    target = stream->WriteBytes(2, s, target);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:otServicePB.OTServerResponse2)
-  return target;
-}
-
-size_t OTServerResponse2::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:otServicePB.OTServerResponse2)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // repeated bytes values = 2;
-  total_size += 1 *
-      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(values_.size());
-  for (int i = 0, n = values_.size(); i < n; i++) {
-    total_size += ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::BytesSize(
-      values_.Get(i));
-  }
-
-  // string function = 1;
-  if (!this->_internal_function().empty()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
-        this->_internal_function());
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData OTServerResponse2::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    OTServerResponse2::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*OTServerResponse2::GetClassData() const { return &_class_data_; }
-
-void OTServerResponse2::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<OTServerResponse2 *>(to)->MergeFrom(
-      static_cast<const OTServerResponse2 &>(from));
-}
-
-
-void OTServerResponse2::MergeFrom(const OTServerResponse2& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:otServicePB.OTServerResponse2)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  values_.MergeFrom(from.values_);
-  if (!from._internal_function().empty()) {
-    _internal_set_function(from._internal_function());
-  }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void OTServerResponse2::CopyFrom(const OTServerResponse2& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:otServicePB.OTServerResponse2)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool OTServerResponse2::IsInitialized() const {
-  return true;
-}
-
-void OTServerResponse2::InternalSwap(OTServerResponse2* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  values_.InternalSwap(&other->values_);
-  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::InternalSwap(
-      &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
-      &function_, GetArenaForAllocation(),
-      &other->function_, other->GetArenaForAllocation()
-  );
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata OTServerResponse2::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
-      file_level_metadata_mmdcotservicehttpbroker_2eproto[7]);
-}
-
-// ===================================================================
-
-class OTServerResponseWrapper2::_Internal {
- public:
-  static const ::otServicePB::Error& error(const OTServerResponseWrapper2* msg);
-  static const ::otServicePB::OTServerResponse2& result(const OTServerResponseWrapper2* msg);
-};
-
-const ::otServicePB::Error&
-OTServerResponseWrapper2::_Internal::error(const OTServerResponseWrapper2* msg) {
-  return *msg->error_;
-}
-const ::otServicePB::OTServerResponse2&
-OTServerResponseWrapper2::_Internal::result(const OTServerResponseWrapper2* msg) {
-  return *msg->result_;
-}
-OTServerResponseWrapper2::OTServerResponseWrapper2(::PROTOBUF_NAMESPACE_ID::Arena* arena,
-                         bool is_message_owned)
-  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned) {
-  SharedCtor();
-  if (!is_message_owned) {
-    RegisterArenaDtor(arena);
-  }
-  // @@protoc_insertion_point(arena_constructor:otServicePB.OTServerResponseWrapper2)
-}
-OTServerResponseWrapper2::OTServerResponseWrapper2(const OTServerResponseWrapper2& from)
-  : ::PROTOBUF_NAMESPACE_ID::Message() {
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-  if (from._internal_has_error()) {
-    error_ = new ::otServicePB::Error(*from.error_);
-  } else {
-    error_ = nullptr;
-  }
-  if (from._internal_has_result()) {
-    result_ = new ::otServicePB::OTServerResponse2(*from.result_);
-  } else {
-    result_ = nullptr;
-  }
-  // @@protoc_insertion_point(copy_constructor:otServicePB.OTServerResponseWrapper2)
-}
-
-inline void OTServerResponseWrapper2::SharedCtor() {
-::memset(reinterpret_cast<char*>(this) + static_cast<size_t>(
-    reinterpret_cast<char*>(&error_) - reinterpret_cast<char*>(this)),
-    0, static_cast<size_t>(reinterpret_cast<char*>(&result_) -
-    reinterpret_cast<char*>(&error_)) + sizeof(result_));
-}
-
-OTServerResponseWrapper2::~OTServerResponseWrapper2() {
-  // @@protoc_insertion_point(destructor:otServicePB.OTServerResponseWrapper2)
-  if (GetArenaForAllocation() != nullptr) return;
-  SharedDtor();
-  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-inline void OTServerResponseWrapper2::SharedDtor() {
-  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
-  if (this != internal_default_instance()) delete error_;
-  if (this != internal_default_instance()) delete result_;
-}
-
-void OTServerResponseWrapper2::ArenaDtor(void* object) {
-  OTServerResponseWrapper2* _this = reinterpret_cast< OTServerResponseWrapper2* >(object);
-  (void)_this;
-}
-void OTServerResponseWrapper2::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena*) {
-}
-void OTServerResponseWrapper2::SetCachedSize(int size) const {
-  _cached_size_.Set(size);
-}
-
-void OTServerResponseWrapper2::Clear() {
-// @@protoc_insertion_point(message_clear_start:otServicePB.OTServerResponseWrapper2)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  if (GetArenaForAllocation() == nullptr && error_ != nullptr) {
-    delete error_;
-  }
-  error_ = nullptr;
-  if (GetArenaForAllocation() == nullptr && result_ != nullptr) {
-    delete result_;
-  }
-  result_ = nullptr;
-  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
-}
-
-const char* OTServerResponseWrapper2::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
-#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
-  while (!ctx->Done(&ptr)) {
-    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
-    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
-    switch (tag >> 3) {
-      // .otServicePB.Error error = 1;
-      case 1:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
-          ptr = ctx->ParseMessage(_internal_mutable_error(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      // .otServicePB.OTServerResponse2 result = 2;
-      case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
-          ptr = ctx->ParseMessage(_internal_mutable_result(), ptr);
-          CHK_(ptr);
-        } else goto handle_unusual;
-        continue;
-      default: {
-      handle_unusual:
-        if ((tag == 0) || ((tag & 7) == 4)) {
-          CHK_(ptr);
-          ctx->SetLastTag(tag);
-          goto success;
-        }
-        ptr = UnknownFieldParse(tag,
-            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
-            ptr, ctx);
-        CHK_(ptr != nullptr);
-        continue;
-      }
-    }  // switch
-  }  // while
-success:
-  return ptr;
-failure:
-  ptr = nullptr;
-  goto success;
-#undef CHK_
-}
-
-::PROTOBUF_NAMESPACE_ID::uint8* OTServerResponseWrapper2::_InternalSerialize(
-    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
-  // @@protoc_insertion_point(serialize_to_array_start:otServicePB.OTServerResponseWrapper2)
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  // .otServicePB.Error error = 1;
-  if (this->_internal_has_error()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        1, _Internal::error(this), target, stream);
-  }
-
-  // .otServicePB.OTServerResponse2 result = 2;
-  if (this->_internal_has_result()) {
-    target = stream->EnsureSpace(target);
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::
-      InternalWriteMessage(
-        2, _Internal::result(this), target, stream);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
-        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
-  }
-  // @@protoc_insertion_point(serialize_to_array_end:otServicePB.OTServerResponseWrapper2)
-  return target;
-}
-
-size_t OTServerResponseWrapper2::ByteSizeLong() const {
-// @@protoc_insertion_point(message_byte_size_start:otServicePB.OTServerResponseWrapper2)
-  size_t total_size = 0;
-
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  // .otServicePB.Error error = 1;
-  if (this->_internal_has_error()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *error_);
-  }
-
-  // .otServicePB.OTServerResponse2 result = 2;
-  if (this->_internal_has_result()) {
-    total_size += 1 +
-      ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::MessageSize(
-        *result_);
-  }
-
-  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
-    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
-        _internal_metadata_, total_size, &_cached_size_);
-  }
-  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
-  SetCachedSize(cached_size);
-  return total_size;
-}
-
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData OTServerResponseWrapper2::_class_data_ = {
-    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
-    OTServerResponseWrapper2::MergeImpl
-};
-const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*OTServerResponseWrapper2::GetClassData() const { return &_class_data_; }
-
-void OTServerResponseWrapper2::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
-                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
-  static_cast<OTServerResponseWrapper2 *>(to)->MergeFrom(
-      static_cast<const OTServerResponseWrapper2 &>(from));
-}
-
-
-void OTServerResponseWrapper2::MergeFrom(const OTServerResponseWrapper2& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:otServicePB.OTServerResponseWrapper2)
-  GOOGLE_DCHECK_NE(&from, this);
-  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  if (from._internal_has_error()) {
-    _internal_mutable_error()->::otServicePB::Error::MergeFrom(from._internal_error());
-  }
-  if (from._internal_has_result()) {
-    _internal_mutable_result()->::otServicePB::OTServerResponse2::MergeFrom(from._internal_result());
-  }
-  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void OTServerResponseWrapper2::CopyFrom(const OTServerResponseWrapper2& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:otServicePB.OTServerResponseWrapper2)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool OTServerResponseWrapper2::IsInitialized() const {
-  return true;
-}
-
-void OTServerResponseWrapper2::InternalSwap(OTServerResponseWrapper2* other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  ::PROTOBUF_NAMESPACE_ID::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(OTServerResponseWrapper2, result_)
-      + sizeof(OTServerResponseWrapper2::result_)
-      - PROTOBUF_FIELD_OFFSET(OTServerResponseWrapper2, error_)>(
-          reinterpret_cast<char*>(&error_),
-          reinterpret_cast<char*>(&other->error_));
-}
-
-::PROTOBUF_NAMESPACE_ID::Metadata OTServerResponseWrapper2::GetMetadata() const {
-  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
-      &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
-      file_level_metadata_mmdcotservicehttpbroker_2eproto[8]);
 }
 
 // ===================================================================
@@ -2706,7 +2177,7 @@ void OTClientRequest_UinWithLabelMapEntry_DoNotUse::MergeFrom(const OTClientRequ
 ::PROTOBUF_NAMESPACE_ID::Metadata OTClientRequest_UinWithLabelMapEntry_DoNotUse::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
-      file_level_metadata_mmdcotservicehttpbroker_2eproto[9]);
+      file_level_metadata_mmdcotservicehttpbroker_2eproto[7]);
 }
 
 // ===================================================================
@@ -2967,6 +2438,254 @@ void OTClientRequest::InternalSwap(OTClientRequest* other) {
 ::PROTOBUF_NAMESPACE_ID::Metadata OTClientRequest::GetMetadata() const {
   return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
       &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
+      file_level_metadata_mmdcotservicehttpbroker_2eproto[8]);
+}
+
+// ===================================================================
+
+Fields_MsgEntry_DoNotUse::Fields_MsgEntry_DoNotUse() {}
+Fields_MsgEntry_DoNotUse::Fields_MsgEntry_DoNotUse(::PROTOBUF_NAMESPACE_ID::Arena* arena)
+    : SuperType(arena) {}
+void Fields_MsgEntry_DoNotUse::MergeFrom(const Fields_MsgEntry_DoNotUse& other) {
+  MergeFromInternal(other);
+}
+::PROTOBUF_NAMESPACE_ID::Metadata Fields_MsgEntry_DoNotUse::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
+      file_level_metadata_mmdcotservicehttpbroker_2eproto[9]);
+}
+
+// ===================================================================
+
+class Fields::_Internal {
+ public:
+};
+
+Fields::Fields(::PROTOBUF_NAMESPACE_ID::Arena* arena,
+                         bool is_message_owned)
+  : ::PROTOBUF_NAMESPACE_ID::Message(arena, is_message_owned),
+  msg_(arena) {
+  SharedCtor();
+  if (!is_message_owned) {
+    RegisterArenaDtor(arena);
+  }
+  // @@protoc_insertion_point(arena_constructor:otServicePB.Fields)
+}
+Fields::Fields(const Fields& from)
+  : ::PROTOBUF_NAMESPACE_ID::Message() {
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+  msg_.MergeFrom(from.msg_);
+  // @@protoc_insertion_point(copy_constructor:otServicePB.Fields)
+}
+
+inline void Fields::SharedCtor() {
+}
+
+Fields::~Fields() {
+  // @@protoc_insertion_point(destructor:otServicePB.Fields)
+  if (GetArenaForAllocation() != nullptr) return;
+  SharedDtor();
+  _internal_metadata_.Delete<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+inline void Fields::SharedDtor() {
+  GOOGLE_DCHECK(GetArenaForAllocation() == nullptr);
+}
+
+void Fields::ArenaDtor(void* object) {
+  Fields* _this = reinterpret_cast< Fields* >(object);
+  (void)_this;
+  _this->msg_. ~MapField();
+}
+inline void Fields::RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena) {
+  if (arena != nullptr) {
+    arena->OwnCustomDestructor(this, &Fields::ArenaDtor);
+  }
+}
+void Fields::SetCachedSize(int size) const {
+  _cached_size_.Set(size);
+}
+
+void Fields::Clear() {
+// @@protoc_insertion_point(message_clear_start:otServicePB.Fields)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  msg_.Clear();
+  _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
+}
+
+const char* Fields::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) {
+#define CHK_(x) if (PROTOBUF_PREDICT_FALSE(!(x))) goto failure
+  while (!ctx->Done(&ptr)) {
+    ::PROTOBUF_NAMESPACE_ID::uint32 tag;
+    ptr = ::PROTOBUF_NAMESPACE_ID::internal::ReadTag(ptr, &tag);
+    switch (tag >> 3) {
+      // map<string, string> msg = 1;
+      case 1:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 10)) {
+          ptr -= 1;
+          do {
+            ptr += 1;
+            ptr = ctx->ParseMessage(&msg_, ptr);
+            CHK_(ptr);
+            if (!ctx->DataAvailable(ptr)) break;
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<10>(ptr));
+        } else goto handle_unusual;
+        continue;
+      default: {
+      handle_unusual:
+        if ((tag == 0) || ((tag & 7) == 4)) {
+          CHK_(ptr);
+          ctx->SetLastTag(tag);
+          goto success;
+        }
+        ptr = UnknownFieldParse(tag,
+            _internal_metadata_.mutable_unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(),
+            ptr, ctx);
+        CHK_(ptr != nullptr);
+        continue;
+      }
+    }  // switch
+  }  // while
+success:
+  return ptr;
+failure:
+  ptr = nullptr;
+  goto success;
+#undef CHK_
+}
+
+::PROTOBUF_NAMESPACE_ID::uint8* Fields::_InternalSerialize(
+    ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const {
+  // @@protoc_insertion_point(serialize_to_array_start:otServicePB.Fields)
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  // map<string, string> msg = 1;
+  if (!this->_internal_msg().empty()) {
+    typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_pointer
+        ConstPtr;
+    typedef ConstPtr SortItem;
+    typedef ::PROTOBUF_NAMESPACE_ID::internal::CompareByDerefFirst<SortItem> Less;
+    struct Utf8Check {
+      static void Check(ConstPtr p) {
+        (void)p;
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->first.data(), static_cast<int>(p->first.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "otServicePB.Fields.MsgEntry.key");
+        ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::VerifyUtf8String(
+          p->second.data(), static_cast<int>(p->second.length()),
+          ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::SERIALIZE,
+          "otServicePB.Fields.MsgEntry.value");
+      }
+    };
+
+    if (stream->IsSerializationDeterministic() &&
+        this->_internal_msg().size() > 1) {
+      ::std::unique_ptr<SortItem[]> items(
+          new SortItem[this->_internal_msg().size()]);
+      typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::size_type size_type;
+      size_type n = 0;
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+          it = this->_internal_msg().begin();
+          it != this->_internal_msg().end(); ++it, ++n) {
+        items[static_cast<ptrdiff_t>(n)] = SortItem(&*it);
+      }
+      ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
+      for (size_type i = 0; i < n; i++) {
+        target = Fields_MsgEntry_DoNotUse::Funcs::InternalSerialize(1, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
+        Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
+      }
+    } else {
+      for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+          it = this->_internal_msg().begin();
+          it != this->_internal_msg().end(); ++it) {
+        target = Fields_MsgEntry_DoNotUse::Funcs::InternalSerialize(1, it->first, it->second, target, stream);
+        Utf8Check::Check(&(*it));
+      }
+    }
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormat::InternalSerializeUnknownFieldsToArray(
+        _internal_metadata_.unknown_fields<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(::PROTOBUF_NAMESPACE_ID::UnknownFieldSet::default_instance), target, stream);
+  }
+  // @@protoc_insertion_point(serialize_to_array_end:otServicePB.Fields)
+  return target;
+}
+
+size_t Fields::ByteSizeLong() const {
+// @@protoc_insertion_point(message_byte_size_start:otServicePB.Fields)
+  size_t total_size = 0;
+
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  // map<string, string> msg = 1;
+  total_size += 1 *
+      ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_msg_size());
+  for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
+      it = this->_internal_msg().begin();
+      it != this->_internal_msg().end(); ++it) {
+    total_size += Fields_MsgEntry_DoNotUse::Funcs::ByteSizeLong(it->first, it->second);
+  }
+
+  if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
+    return ::PROTOBUF_NAMESPACE_ID::internal::ComputeUnknownFieldsSize(
+        _internal_metadata_, total_size, &_cached_size_);
+  }
+  int cached_size = ::PROTOBUF_NAMESPACE_ID::internal::ToCachedSize(total_size);
+  SetCachedSize(cached_size);
+  return total_size;
+}
+
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData Fields::_class_data_ = {
+    ::PROTOBUF_NAMESPACE_ID::Message::CopyWithSizeCheck,
+    Fields::MergeImpl
+};
+const ::PROTOBUF_NAMESPACE_ID::Message::ClassData*Fields::GetClassData() const { return &_class_data_; }
+
+void Fields::MergeImpl(::PROTOBUF_NAMESPACE_ID::Message*to,
+                      const ::PROTOBUF_NAMESPACE_ID::Message&from) {
+  static_cast<Fields *>(to)->MergeFrom(
+      static_cast<const Fields &>(from));
+}
+
+
+void Fields::MergeFrom(const Fields& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:otServicePB.Fields)
+  GOOGLE_DCHECK_NE(&from, this);
+  ::PROTOBUF_NAMESPACE_ID::uint32 cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  msg_.MergeFrom(from.msg_);
+  _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void Fields::CopyFrom(const Fields& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:otServicePB.Fields)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool Fields::IsInitialized() const {
+  return true;
+}
+
+void Fields::InternalSwap(Fields* other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  msg_.InternalSwap(&other->msg_);
+}
+
+::PROTOBUF_NAMESPACE_ID::Metadata Fields::GetMetadata() const {
+  return ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(
+      &descriptor_table_mmdcotservicehttpbroker_2eproto_getter, &descriptor_table_mmdcotservicehttpbroker_2eproto_once,
       file_level_metadata_mmdcotservicehttpbroker_2eproto[10]);
 }
 
@@ -3009,11 +2728,13 @@ OTClientResponse::OTClientResponse(const OTClientResponse& from)
     function_.Set(::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr::EmptyDefault{}, from._internal_function(), 
       GetArenaForAllocation());
   }
+  reqtimemillis_ = from.reqtimemillis_;
   // @@protoc_insertion_point(copy_constructor:otServicePB.OTClientResponse)
 }
 
 inline void OTClientResponse::SharedCtor() {
 function_.UnsafeSetDefault(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited());
+reqtimemillis_ = 0;
 }
 
 OTClientResponse::~OTClientResponse() {
@@ -3050,6 +2771,7 @@ void OTClientResponse::Clear() {
 
   resmap_.Clear();
   function_.ClearToEmpty();
+  reqtimemillis_ = 0;
   _internal_metadata_.Clear<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>();
 }
 
@@ -3068,16 +2790,23 @@ const char* OTClientResponse::_InternalParse(const char* ptr, ::PROTOBUF_NAMESPA
           CHK_(ptr);
         } else goto handle_unusual;
         continue;
-      // map<string, string> resMap = 2;
+      // float reqTimeMillis = 2;
       case 2:
-        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 18)) {
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 21)) {
+          reqtimemillis_ = ::PROTOBUF_NAMESPACE_ID::internal::UnalignedLoad<float>(ptr);
+          ptr += sizeof(float);
+        } else goto handle_unusual;
+        continue;
+      // map<string, string> resMap = 3;
+      case 3:
+        if (PROTOBUF_PREDICT_TRUE(static_cast<::PROTOBUF_NAMESPACE_ID::uint8>(tag) == 26)) {
           ptr -= 1;
           do {
             ptr += 1;
             ptr = ctx->ParseMessage(&resmap_, ptr);
             CHK_(ptr);
             if (!ctx->DataAvailable(ptr)) break;
-          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<18>(ptr));
+          } while (::PROTOBUF_NAMESPACE_ID::internal::ExpectTag<26>(ptr));
         } else goto handle_unusual;
         continue;
       default: {
@@ -3119,7 +2848,13 @@ failure:
         1, this->_internal_function(), target);
   }
 
-  // map<string, string> resMap = 2;
+  // float reqTimeMillis = 2;
+  if (!(this->_internal_reqtimemillis() <= 0 && this->_internal_reqtimemillis() >= 0)) {
+    target = stream->EnsureSpace(target);
+    target = ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::WriteFloatToArray(2, this->_internal_reqtimemillis(), target);
+  }
+
+  // map<string, string> resMap = 3;
   if (!this->_internal_resmap().empty()) {
     typedef ::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_pointer
         ConstPtr;
@@ -3152,14 +2887,14 @@ failure:
       }
       ::std::sort(&items[0], &items[static_cast<ptrdiff_t>(n)], Less());
       for (size_type i = 0; i < n; i++) {
-        target = OTClientResponse_ResMapEntry_DoNotUse::Funcs::InternalSerialize(2, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
+        target = OTClientResponse_ResMapEntry_DoNotUse::Funcs::InternalSerialize(3, items[static_cast<ptrdiff_t>(i)]->first, items[static_cast<ptrdiff_t>(i)]->second, target, stream);
         Utf8Check::Check(&(*items[static_cast<ptrdiff_t>(i)]));
       }
     } else {
       for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
           it = this->_internal_resmap().begin();
           it != this->_internal_resmap().end(); ++it) {
-        target = OTClientResponse_ResMapEntry_DoNotUse::Funcs::InternalSerialize(2, it->first, it->second, target, stream);
+        target = OTClientResponse_ResMapEntry_DoNotUse::Funcs::InternalSerialize(3, it->first, it->second, target, stream);
         Utf8Check::Check(&(*it));
       }
     }
@@ -3181,7 +2916,7 @@ size_t OTClientResponse::ByteSizeLong() const {
   // Prevent compiler warnings about cached_has_bits being unused
   (void) cached_has_bits;
 
-  // map<string, string> resMap = 2;
+  // map<string, string> resMap = 3;
   total_size += 1 *
       ::PROTOBUF_NAMESPACE_ID::internal::FromIntSize(this->_internal_resmap_size());
   for (::PROTOBUF_NAMESPACE_ID::Map< std::string, std::string >::const_iterator
@@ -3195,6 +2930,11 @@ size_t OTClientResponse::ByteSizeLong() const {
     total_size += 1 +
       ::PROTOBUF_NAMESPACE_ID::internal::WireFormatLite::StringSize(
         this->_internal_function());
+  }
+
+  // float reqTimeMillis = 2;
+  if (!(this->_internal_reqtimemillis() <= 0 && this->_internal_reqtimemillis() >= 0)) {
+    total_size += 1 + 4;
   }
 
   if (PROTOBUF_PREDICT_FALSE(_internal_metadata_.have_unknown_fields())) {
@@ -3229,6 +2969,9 @@ void OTClientResponse::MergeFrom(const OTClientResponse& from) {
   if (!from._internal_function().empty()) {
     _internal_set_function(from._internal_function());
   }
+  if (!(from._internal_reqtimemillis() <= 0 && from._internal_reqtimemillis() >= 0)) {
+    _internal_set_reqtimemillis(from._internal_reqtimemillis());
+  }
   _internal_metadata_.MergeFrom<::PROTOBUF_NAMESPACE_ID::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -3252,6 +2995,7 @@ void OTClientResponse::InternalSwap(OTClientResponse* other) {
       &function_, GetArenaForAllocation(),
       &other->function_, other->GetArenaForAllocation()
   );
+  swap(reqtimemillis_, other->reqtimemillis_);
 }
 
 ::PROTOBUF_NAMESPACE_ID::Metadata OTClientResponse::GetMetadata() const {
@@ -3504,6 +3248,9 @@ template<> PROTOBUF_NOINLINE ::otServicePB::Error* Arena::CreateMaybeMessage< ::
 template<> PROTOBUF_NOINLINE ::otServicePB::OTServiceData* Arena::CreateMaybeMessage< ::otServicePB::OTServiceData >(Arena* arena) {
   return Arena::CreateMessageInternal< ::otServicePB::OTServiceData >(arena);
 }
+template<> PROTOBUF_NOINLINE ::otServicePB::Bytes* Arena::CreateMaybeMessage< ::otServicePB::Bytes >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::otServicePB::Bytes >(arena);
+}
 template<> PROTOBUF_NOINLINE ::otServicePB::OTServerRequest* Arena::CreateMaybeMessage< ::otServicePB::OTServerRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::otServicePB::OTServerRequest >(arena);
 }
@@ -3513,20 +3260,17 @@ template<> PROTOBUF_NOINLINE ::otServicePB::OTServerResponse* Arena::CreateMaybe
 template<> PROTOBUF_NOINLINE ::otServicePB::OTServerResponseWrapper* Arena::CreateMaybeMessage< ::otServicePB::OTServerResponseWrapper >(Arena* arena) {
   return Arena::CreateMessageInternal< ::otServicePB::OTServerResponseWrapper >(arena);
 }
-template<> PROTOBUF_NOINLINE ::otServicePB::OTServerRequest2* Arena::CreateMaybeMessage< ::otServicePB::OTServerRequest2 >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::otServicePB::OTServerRequest2 >(arena);
-}
-template<> PROTOBUF_NOINLINE ::otServicePB::OTServerResponse2* Arena::CreateMaybeMessage< ::otServicePB::OTServerResponse2 >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::otServicePB::OTServerResponse2 >(arena);
-}
-template<> PROTOBUF_NOINLINE ::otServicePB::OTServerResponseWrapper2* Arena::CreateMaybeMessage< ::otServicePB::OTServerResponseWrapper2 >(Arena* arena) {
-  return Arena::CreateMessageInternal< ::otServicePB::OTServerResponseWrapper2 >(arena);
-}
 template<> PROTOBUF_NOINLINE ::otServicePB::OTClientRequest_UinWithLabelMapEntry_DoNotUse* Arena::CreateMaybeMessage< ::otServicePB::OTClientRequest_UinWithLabelMapEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::otServicePB::OTClientRequest_UinWithLabelMapEntry_DoNotUse >(arena);
 }
 template<> PROTOBUF_NOINLINE ::otServicePB::OTClientRequest* Arena::CreateMaybeMessage< ::otServicePB::OTClientRequest >(Arena* arena) {
   return Arena::CreateMessageInternal< ::otServicePB::OTClientRequest >(arena);
+}
+template<> PROTOBUF_NOINLINE ::otServicePB::Fields_MsgEntry_DoNotUse* Arena::CreateMaybeMessage< ::otServicePB::Fields_MsgEntry_DoNotUse >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::otServicePB::Fields_MsgEntry_DoNotUse >(arena);
+}
+template<> PROTOBUF_NOINLINE ::otServicePB::Fields* Arena::CreateMaybeMessage< ::otServicePB::Fields >(Arena* arena) {
+  return Arena::CreateMessageInternal< ::otServicePB::Fields >(arena);
 }
 template<> PROTOBUF_NOINLINE ::otServicePB::OTClientResponse_ResMapEntry_DoNotUse* Arena::CreateMaybeMessage< ::otServicePB::OTClientResponse_ResMapEntry_DoNotUse >(Arena* arena) {
   return Arena::CreateMessageInternal< ::otServicePB::OTClientResponse_ResMapEntry_DoNotUse >(arena);

@@ -19,38 +19,27 @@ message OTServiceData {
   string value = 1;
 }
 
+message Bytes {
+  repeated uint32 bts = 1;
+}
+
 message OTServerRequest {
   string function = 1;
-  string sessionToken = 2;
+  uint32 sessionToken = 2;
   uint32 k = 3;
-  repeated string params = 4;
+  repeated string keys = 4;
+  repeated Bytes bytes = 5;
 }
 
 message OTServerResponse {
   string function = 1;
   repeated string values = 2;
+  repeated Bytes bytes = 3;
 }
 
 message OTServerResponseWrapper {
   Error error = 1;
   OTServerResponse result = 2;
-}
-
-message OTServerRequest2 {
-  string function = 1;
-  string sessionToken = 2;
-  uint32 k = 3;
-  repeated bytes params = 4;
-}
-
-message OTServerResponse2 {
-  string function = 1;
-  repeated bytes values = 2;
-}
-
-message OTServerResponseWrapper2 {
-  Error error = 1;
-  OTServerResponse2 result = 2;
 }
 
 /*message UinWithLabel {
@@ -64,9 +53,14 @@ message OTClientRequest {
   map<uint32, uint32> uinWithLabelMap = 2;
 }
 
+message Fields {
+  map<string, string> msg = 1;
+}
+
 message OTClientResponse {
   string function = 1;
-  map<string, string> resMap = 2;
+  float reqTimeMillis = 2;
+  map<string, string> resMap = 3;
 }
 
 message OTClientResponseWrapper {
