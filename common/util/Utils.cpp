@@ -203,6 +203,17 @@ vector<int> str2int_vector(const string &in) {
     return res;
 }
 
+bool str_escape_contains(string &s, const char c) {
+    char p = ' ';
+    for (char a: s) {
+        if (a == c && p != '\\') {
+            return true;
+        }
+        p = a;
+    }
+    return false;
+}
+
 inline void split(const string &in, vector<string> &out, const string &sep) {
     auto i = in.find_first_not_of(sep, 0);
     auto j = in.find_first_of(sep, i);

@@ -49,6 +49,16 @@ void test() {
     string otServerResStr;
     MessageToJsonString(otServerRes, &otServerResStr);
     cout << "otServerResStr: \n" << otServerResStr << endl;
+    string msg = "key\\:value1\\:value2";
+    string sub(1, (char)26);
+    boost::replace_all(msg, "\\:", sub);
+    boost::replace_all(msg, ":", ": ");
+    boost::replace_all(msg, sub, ":");
+    cout << "sub--> " << sub << endl;
+    cout << "msg--> " << msg << endl;
+    msg = "key:value1\\:value2";
+    bool msg_escape_contains = str_escape_contains(msg, ':');
+    cout << "msg str_escape_contains--> " << msg_escape_contains << endl;
 }
 
 string ot_test() {

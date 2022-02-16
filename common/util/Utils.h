@@ -48,6 +48,8 @@ string gen_random_str(const int &len, const unsigned int &seed = 0, const bool &
 
 vector<int> str2int_vector(const string &in);
 
+bool str_escape_contains(string &s, const char c);
+
 inline void split(const string &in, vector<string> &out, const string &sep = " ");
 
 inline vector<string> regex_split(const string &in, const string &reg_sep);
