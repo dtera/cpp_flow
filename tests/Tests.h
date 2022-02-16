@@ -43,11 +43,11 @@ void test() {
     println_vector(rs, "rs");
 
     string content = R"({"error": {"code":0,"message":"ok"},"result": {"function":"OT_GetDecryptedYOps"}})";
-    OTServerResponseWrapper otServerRes2;
-    JsonStringToMessage(content, &otServerRes2);
+    OTServerResponseWrapper otServerRes;
+    JsonStringToMessage(content, &otServerRes);
 
     string otServerResStr;
-    MessageToJsonString(otServerRes2, &otServerResStr);
+    MessageToJsonString(otServerRes, &otServerResStr);
     cout << "otServerResStr: \n" << otServerResStr << endl;
 }
 
