@@ -2,8 +2,10 @@
 // Created by zhaohuiqiang on 2021/12/12.
 //
 #pragma once
+#pragma ide diagnostic ignored "UnusedParameter"
 #pragma ide diagnostic ignored "google-default-arguments"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
+#pragma ide diagnostic ignored "readability-avoid-const-params-in-decls"
 
 #include <vector>
 //#include <openssl/md5.h>
@@ -50,7 +52,7 @@ public:
 
     static char *get_pub_key();
 
-    static void gen_keypair();
+    static void gen_keypair(const string &rsa_keys_path = RSA_KEYS_PATH);
 
 };
 
@@ -106,8 +108,8 @@ char *BaseOTSender<M>::get_pub_key() {
 }
 
 template<class M>
-void BaseOTSender<M>::gen_keypair() {
-    gen_rsa_keypair(pub_key, pri_key, true);
+void BaseOTSender<M>::gen_keypair(const string &rsa_keys_path) {
+    gen_rsa_keypair(pub_key, pri_key, true, DEFAULT_KEY_SIZE, rsa_keys_path);
 }
 //================public end==================
 
