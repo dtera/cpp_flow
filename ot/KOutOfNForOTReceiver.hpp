@@ -34,6 +34,7 @@ void KOutOfNForOTReceiver::encrypt(vector<string> &rs, vector<string> &encrypted
                    char_255, char_self);
     encrypted_y_ops.push_back(t1);
     encrypted_y_ops.push_back(t2);
+    encrypted_y_ops.push_back(to_string(choices.size()));
     //encrypted_y_ops.push_back(str_or(encrypted_y_not, co_and_rs_not));
 
     /*println_vector(rs, "encrypt::rs");

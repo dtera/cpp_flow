@@ -44,59 +44,39 @@ public:
 
     ENDPOINT("POST", "/getMessages", getMessages,
              BODY_DTO(Fields<UInt8>, uinWithLabelMap)) {
-        clock_t start_time = clock();
-        try {
-            /*auto resDto = ResponseDTO<Vector<String>>::createShared();
-            Vector<String> messages;*/
-            auto resDto = ResponseDTO<Vector<Fields<String>>>::createShared();
-            Vector<Fields<String>> messages;
-            oTClientService->setMessages(uinWithLabelMap, messages, false);
-            clock_t end_time = clock();
-            auto reqTimeMillis = (float) (end_time - start_time) / CLOCKS_PER_SEC * 1000;
-            resDto->reqTimeMillis = reqTimeMillis;
-            return createDtoResponse(Status::CODE_200, success(resDto, messages));
-        } catch (OTError &e) {
-            OATPP_LOGE("OTServerController", " OTError ==> %s", e.what().data());
-            auto errDto = ResponseDTO<String>::createShared();
-            return createDtoResponse(Status::CODE_503, error(errDto, 503, e.what()));
-        } catch (const exception &e) {
-            String err = e.what();
-            OATPP_LOGE("OTServerService", " exception ==> %s", err->data());
-            auto errDto = ResponseDTO<String>::createShared();
-
-            clock_t end_time = clock();
-            auto reqTimeMillis = (float) (end_time - start_time) / CLOCKS_PER_SEC * 1000;
-            errDto->reqTimeMillis = reqTimeMillis;
-            return createDtoResponse(Status::CODE_500, error(errDto, err));
-        }
+        return setMessages(uinWithLabelMap, false);
     }
 
     ENDPOINT("POST", "/getMessagesOfChosen", getMessagesOfChosen,
              BODY_DTO(Fields<UInt8>, uinWithLabelMap)) {
+        return setMessages(uinWithLabelMap, true);
+    }
+
+    shared_ptr<protocol::http::outgoing::Response> setMessages(const Fields<UInt8> &uinWithLabelMap,
+                                                               const bool &onlyGetChosen) {
         clock_t start_time = clock();
         try {
             /*auto resDto = ResponseDTO<Vector<String>>::createShared();
             Vector<String> messages;*/
             auto resDto = ResponseDTO<Vector<Fields<String>>>::createShared();
             Vector<Fields<String>> messages;
-            oTClientService->setMessages(uinWithLabelMap, messages, true);
-
+            oTClientService->setMessages(uinWithLabelMap, messages, onlyGetChosen);
             clock_t end_time = clock();
             auto reqTimeMillis = (float) (end_time - start_time) / CLOCKS_PER_SEC * 1000;
             resDto->reqTimeMillis = reqTimeMillis;
             return createDtoResponse(Status::CODE_200, success(resDto, messages));
         } catch (OTError &e) {
-            OATPP_LOGE("OTServerController", " OTError ==> %s", e.what().data());
+            OATPP_LOGE("OTClientController", " OTError ==> %s", e.what().data());
+            auto errDto = ResponseDTO<String>::createShared();
+            return createDtoResponse(Status::CODE_200, error(errDto, 503, e.what()));
+        } catch (const exception &e) {
+            String err = e.what();
+            OATPP_LOGE("OTClientController", " exception ==> %s", err->data());
             auto errDto = ResponseDTO<String>::createShared();
 
             clock_t end_time = clock();
             auto reqTimeMillis = (float) (end_time - start_time) / CLOCKS_PER_SEC * 1000;
             errDto->reqTimeMillis = reqTimeMillis;
-            return createDtoResponse(Status::CODE_503, error(errDto, 503, e.what()));
-        } catch (const exception &e) {
-            String err = e.what();
-            OATPP_LOGE("OTServerController", " exception ==> %s", err->data());
-            auto errDto = ResponseDTO<String>::createShared();
             return createDtoResponse(Status::CODE_500, error(errDto, err));
         }
     }

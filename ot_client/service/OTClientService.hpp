@@ -84,7 +84,7 @@ void OTClientService::setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<F
         otServerReqDTO->params->push_back(pair.first);
         i++;
     }
-    otServerReqDTO->k = choices.size();
+    //otServerReqDTO->k = choices.size();
 
     // 1. get random messages from ot sender
     auto reply = otServer->getRandomMsgs(otServerReqDTO);
@@ -104,8 +104,12 @@ void OTClientService::setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<F
     otServerReqDTO2->sessionToken = sessionToken;
     vector_str2int_Vector_Vector(encrypted_y_ops, otServerReqDTO2->params);
     // 3. otSender decrypt the encrypted key and send the decryptedYXorMs to otReceiver
-    auto decryptedYOps = otServer->getDecryptedYOps(otServerReqDTO2)->
-            readBodyToDto<Vector<Vector<Int8>>>(objectMapper);
+    reply = otServer->getDecryptedYOps(otServerReqDTO2);
+    if (reply->getStatusCode() == oatpp::web::protocol::http::Status::CODE_503.code) {
+        auto err = reply->readBodyToDto<Object<ResponseDTO<String>>>(objectMapper);
+        throw OTError(err->message->data());
+    }
+    auto decryptedYOps = reply->readBodyToDto<Vector<Vector<Int8>>>(objectMapper);
     vector<string> decrypted_y_ops;
     //oatppVector_to_vector(decryptedYOps, decrypted_y_ops);
     int_Vector_Vector2vector_str(decryptedYOps, decrypted_y_ops);

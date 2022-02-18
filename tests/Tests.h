@@ -14,6 +14,8 @@
 #include "ot/Message.hpp"
 #include "tests/HttpTest.h"
 
+void pb_test();
+
 void test() {
     //random_str_test();
     //rsa_test();
@@ -26,13 +28,16 @@ void test() {
     /*BaseOTSender<string>::gen_keypair();
     cout << BaseOTSender<string>::get_pub_key() << endl;*/
 
-    //httpClientOldTest();
+    httpClientOldTest();
     //httpClientTest();
     //httpServerTest();
 
     //oTTest();
-    //auto sessionToken = gen_random_str(32);
+    //pb_test();
 
+}
+
+void pb_test() {
     cout << "arc4random: " << arc4random() << endl;
     cout << "arc4random: " << arc4random() << endl;
     cout << "sessionToken: " << gen_random_str(32) << endl;

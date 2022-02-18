@@ -2,6 +2,7 @@
 // Created by zhaohuiqiang on 2021/12/12.
 //
 #pragma once
+#pragma ide diagnostic ignored "google-default-arguments"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include <vector>
@@ -45,7 +46,7 @@ public:
 
     vector<string> &get_rs();
 
-    virtual void decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops) = 0;
+    virtual void decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops, int reqLimitNum = 0) = 0;
 
     static char *get_pub_key();
 

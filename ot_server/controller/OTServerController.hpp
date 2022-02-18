@@ -71,7 +71,7 @@ public:
         } catch (OTError &e) {
             OATPP_LOGE("OTServerController", " OTError ==> %s", e.what().data());
             auto errDto = ResponseDTO<String>::createShared();
-            return createDtoResponse(Status::CODE_503, error(errDto, 501, e.what()));
+            return createDtoResponse(Status::CODE_503, error(errDto, 503, e.what()));
         } catch (const std::exception &e) {
             String err = e.what();
             OATPP_LOGE("OTServerController", " exception ==> %s", err->data());
@@ -88,6 +88,10 @@ public:
             otServerService.setDecryptedYOps(reqDTO, decryptedYOps);
             return createDtoResponse(Status::CODE_200, decryptedYOps);
             //return createDtoResponse(Status::CODE_200, success(resDto, decryptedYOps));
+        } catch (OTError &e) {
+            OATPP_LOGE("OTServerController", " OTError ==> %s", e.what().data());
+            auto errDto = ResponseDTO<String>::createShared();
+            return createDtoResponse(Status::CODE_503, error(errDto, 503, e.what()));
         } catch (const std::exception &e) {
             String err = e.what();
             OATPP_LOGE("OTServerController", " exception ==> %s", err->data());

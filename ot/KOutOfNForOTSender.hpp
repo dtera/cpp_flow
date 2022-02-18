@@ -2,11 +2,14 @@
 // Created by zhaohuiqiang on 2021/12/12.
 //
 #pragma once
+#pragma ide diagnostic ignored "cert-err34-c"
+#pragma ide diagnostic ignored "google-default-arguments"
 #pragma ide diagnostic ignored "OCUnusedStructInspection"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include "BaseOTSender.hpp"
-#include "../common/util/BitOp.hpp"
+#include "common/exceptions/OTError.hpp"
+#include "common/util/BitOp.hpp"
 
 template<class M>
 class KOutOfNForOTSender : public BaseOTSender<M> {
@@ -15,7 +18,7 @@ public:
 
     explicit KOutOfNForOTSender(vector<M> &ms, const unsigned int &seed);
 
-    void decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops) override;
+    void decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops, int reqLimitNum = 0) override;
 };
 
 
@@ -30,10 +33,15 @@ KOutOfNForOTSender<M>::KOutOfNForOTSender(vector<M> &ms, const unsigned int &see
 }
 
 template<class M>
-void KOutOfNForOTSender<M>::decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops) {
+void KOutOfNForOTSender<M>::decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops, int reqLimitNum) {
     //cout << "decrypt::publicKey: \n" << this->pub_key << endl;
     //cout << "decrypt::privateKey: \n" << this->pri_key << endl;
     //println_str2int_vector_vector(encrypted_y_ops, "decrypt::encrypted_y_ops");
+    if (atoi(encrypted_y_ops[2].data()) > reqLimitNum) {
+        auto err = "The Number " + encrypted_y_ops[2] + " of requested data exceeds the limit " +
+                   to_string(reqLimitNum);
+        throw OTError(err);
+    }
 
     for (int i = 0; i < this->n; i++) {
         auto t1 = str_and_not(encrypted_y_ops[0], this->rbs[i]);

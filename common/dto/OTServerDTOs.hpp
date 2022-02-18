@@ -12,7 +12,7 @@ class OTServerReqDTO : public oatpp::DTO {
     DTO_INIT(OTServerReqDTO, DTO)
 
     DTO_FIELD(String, sessionToken);
-    DTO_FIELD(UInt16, k);
+    //DTO_FIELD(UInt16, k);
     DTO_FIELD(Vector<T>, params);
 };
 
