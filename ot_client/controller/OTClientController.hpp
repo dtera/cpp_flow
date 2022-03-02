@@ -9,9 +9,8 @@
 #include "oatpp/core/macro/component.hpp"
 
 
-#include "../../common/dto/DTOs.hpp"
-
-#include "../service/OTClientService.hpp"
+#include "common/dto/DTOs.hpp"
+#include "ot_client/service/OTClientService.hpp"
 
 
 #include OATPP_CODEGEN_BEGIN(ApiController) //<-- Begin Codegen

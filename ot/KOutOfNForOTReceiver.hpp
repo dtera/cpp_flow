@@ -6,7 +6,7 @@
 #pragma ide diagnostic ignored "OCUnusedStructInspection"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
-#include "BaseOTReceiver.hpp"
+#include "ot/BaseOTReceiver.hpp"
 
 class KOutOfNForOTReceiver : public BaseOTReceiver {
 public:

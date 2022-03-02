@@ -8,7 +8,7 @@
 #include "oatpp/parser/json/mapping/ObjectMapper.hpp"
 #include "oatpp/web/server/HttpConnectionHandler.hpp"
 
-#include "../common/ParamsTool.hpp"
+#include "common/ParamsTool.hpp"
 
 /**
  *  Class which creates and holds Application components and registers components in oatpp::base::Environment

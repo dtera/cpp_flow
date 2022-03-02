@@ -5,15 +5,21 @@
 #pragma once
 #pragma ide diagnostic ignored "OCUnusedStructInspection"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
+#pragma ide diagnostic ignored "performance-inefficient-string-concatenation"
 
-#include <string>
 #include <hiredis/hiredis.h>
-#include "util/Utils.h"
+#include <string>
+#include <vector>
 
-using namespace oatpp;
+#include "common/cli/KVCli.h"
+#include "common/util/Utils.h"
+#include "ot/Message.hpp"
+
 using namespace std;
+using namespace oatpp;
 
-class RedisCli {
+template<typename M>
+class RedisCli : public KVCli<M> {
 private:
     redisContext *pRedisContext{};
     redisReply *pRedisReply{};
@@ -26,13 +32,12 @@ public:
 
     void get(string &key, string &value);
 
-    void mGet(vector<string> &keys, vector<string> &values);
+    void mGet(std::vector<std::string> &keys, std::vector<std::string> &values);
 
-    template<typename M, typename F>
-    void mGet(oatpp::Vector<oatpp::String> &keys, vector<M> &values, F f);
+    template<typename F>
+    void mGet(std::vector<std::string> &keys, vector<M> &values, F f);
 
-    template<typename M>
-    void hGetAll(oatpp::Vector<oatpp::String> &keys, vector<M> &values);
+    void hGetAll(std::vector<std::string> &keys, vector<M> &values);
 
     void set(string &key, string &value);
 
@@ -40,7 +45,8 @@ public:
 
 };
 
-RedisCli::RedisCli(const string &host, const int &port, const string &password) {
+template<typename M>
+RedisCli<M>::RedisCli(const string &host, const int &port, const string &password) {
     this->connect(host, port);
     // AUTH with password
     this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, "AUTH %s", password.c_str());
@@ -48,12 +54,14 @@ RedisCli::RedisCli(const string &host, const int &port, const string &password) 
     freeReplyObject(this->pRedisReply);
 }
 
-RedisCli::~RedisCli() {
+template<typename M>
+RedisCli<M>::~RedisCli() {
     delete pRedisContext;
     delete pRedisReply;
 }
 
-void RedisCli::connect(const string &host, const int &port) {
+template<typename M>
+void RedisCli<M>::connect(const string &host, const int &port) {
     this->pRedisContext = redisConnect(host.c_str(), port);
     if (this->pRedisContext != nullptr && this->pRedisContext->err) {
         string err = "connect error: ";
@@ -63,7 +71,8 @@ void RedisCli::connect(const string &host, const int &port) {
     }
 }
 
-void RedisCli::get(string &key, string &value) {
+template<typename M>
+void RedisCli<M>::get(string &key, string &value) {
     this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, "GET %s", key.c_str());
     if (this->pRedisReply->str != nullptr) {
         value = this->pRedisReply->str;
@@ -71,7 +80,8 @@ void RedisCli::get(string &key, string &value) {
     freeReplyObject(this->pRedisReply);
 }
 
-void RedisCli::mGet(vector<string> &keys, vector<string> &values) {
+template<typename M>
+void RedisCli<M>::mGet(std::vector<std::string> &keys, std::vector<std::string> &values) {
     auto ks = join_vector(keys, " ");
     this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, "MGET %s", ks.c_str());
     auto items = this->pRedisReply->element;
@@ -81,9 +91,10 @@ void RedisCli::mGet(vector<string> &keys, vector<string> &values) {
     freeReplyObject(this->pRedisReply);
 }
 
-template<typename M, typename F>
-void RedisCli::mGet(oatpp::Vector<oatpp::String> &keys, vector<M> &values, F f) {
-    auto cmd = "MGET " + join_Vector(keys, " ");
+template<typename M>
+template<typename F>
+void RedisCli<M>::mGet(std::vector<std::string> &keys, vector<M> &values, F f) {
+    auto cmd = "MGET " + join_vector(keys, " ");
     this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, cmd.c_str());
     auto items = this->pRedisReply->element;
     for (int i = 0; i < this->pRedisReply->elements; ++i) {
@@ -98,10 +109,10 @@ void RedisCli::mGet(oatpp::Vector<oatpp::String> &keys, vector<M> &values, F f) 
 }
 
 template<typename M>
-void RedisCli::hGetAll(Vector<String> &keys, vector<M> &values) {
-    for (int i = 0; i < keys->size(); ++i) {
-        auto cmd = "HGETALL %s" + join_Vector(keys, " ");
-        this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, "HGETALL %s", keys[i]->c_str());
+void RedisCli<M>::hGetAll(std::vector<std::string> &keys, std::vector<M> &values) {
+    for (int i = 0; i < keys.size(); ++i) {
+        auto cmd = "HGETALL %s" + join_vector(keys, " ");
+        this->pRedisReply = (redisReply *) redisCommand(this->pRedisContext, "HGETALL %s", keys[i].c_str());
         auto items = this->pRedisReply->element;
         Fields<String> fs;
         fs = {};
@@ -124,11 +135,13 @@ void RedisCli::hGetAll(Vector<String> &keys, vector<M> &values) {
     }
 }
 
-void RedisCli::set(string &key, string &value) {
+template<typename M>
+void RedisCli<M>::set(string &key, string &value) {
     redisCommand(this->pRedisContext, "SET %s %s", key.c_str(), value.c_str());
 }
 
-void RedisCli::setEx(string &key, string &value, const int &expiredSeconds) {
+template<typename M>
+void RedisCli<M>::setEx(string &key, string &value, const int &expiredSeconds) {
     redisCommand(this->pRedisContext, "SET %s %s EX %d", key.c_str(), value.c_str(), expiredSeconds);
 }
 

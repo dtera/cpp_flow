@@ -7,7 +7,7 @@
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
 #include <string>
-#include "../../ot/Message.hpp"
+#include "ot/Message.hpp"
 
 using namespace std;
 

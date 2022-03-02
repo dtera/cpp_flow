@@ -4,7 +4,8 @@
 
 #include "oatpp/web/client/ApiClient.hpp"
 #include "oatpp/core/macro/codegen.hpp"
-#include "../dto/OTServerDTOs.hpp"
+
+#include "common/dto/OTServerDTOs.hpp"
 
 using namespace oatpp;
 

@@ -5,9 +5,9 @@
 #include <iostream>
 #include <oatpp/network/Server.hpp>
 
-#include "./controller/OTServerController.hpp"
-#include "./AppComponent.hpp"
-#include "../common/ParamsTool.hpp"
+#include "common/ParamsTool.hpp"
+#include "ot_server/AppComponent.hpp"
+#include "ot_server/controller/OTServerController.hpp"
 
 void run() {
 

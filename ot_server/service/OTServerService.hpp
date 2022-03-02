@@ -10,14 +10,15 @@
 #include <map>
 #include <oatpp/core/Types.hpp>
 
-#include "../../common/dto/OTServerDTOs.hpp"
-#include "../../common/exceptions/OTError.hpp"
-#include "../../common/util/OatppUtils.hpp"
-#include "../../common/util/Func.h"
-#include "../../common/ParamsTool.hpp"
-#include "../../common/RedisCli.hpp"
-#include "../../ot/KOutOfNForOTSender.hpp"
-#include "../../ot/Message.hpp"
+#include "common/cli/RedisCli.hpp"
+#include "common/dto/OTServerDTOs.hpp"
+#include "common/exceptions/OTError.hpp"
+#include "common/util/DBUtils.hpp"
+#include "common/util/Func.h"
+#include "common/util/OatppUtils.hpp"
+#include "common/ParamsTool.hpp"
+#include "ot/KOutOfNForOTSender.hpp"
+#include "ot/Message.hpp"
 
 using namespace oatpp;
 
@@ -26,11 +27,12 @@ private:
     String publicKey;
     //map<string, KOutOfNForOTSender<StrMessage>> otSenderMap;
     map<string, KOutOfNForOTSender<FieldsMessage>> otSenderMap;
-    RedisCli *redisCli;
+    //RedisCli *redisCli;
+    KVCli<FieldsMessage> *kvCli;
 public:
     OTServerService();
 
-    ~OTServerService();
+    ~OTServerService() = default;
 
     String &getPublicKey();
 
@@ -39,18 +41,21 @@ public:
     void setDecryptedYOps(const Object<OTServerReqDTO<Vector<Int8>>> &reqDTO, Vector<Vector<Int8>> &decryptedYOps);
 };
 
-OTServerService::OTServerService() : redisCli(nullptr) {
-    redisCli = new RedisCli(ParamsTool::get("redisHost", "localhost"),
-                            ParamsTool::getInt("redisPort", 6379),
-                            ParamsTool::get("redisPassword", ""));
-    BaseOTSender<StrMessage>::gen_keypair();
-    publicKey = BaseOTSender<StrMessage>::get_pub_key();
+OTServerService::OTServerService() : kvCli(nullptr) {
+    kvCli = getKVCli<FieldsMessage>(ParamsTool::get("kvType", "redis"));
+    auto workdir = ParamsTool::get("workdir", "");
+    auto rsa_keys_path = ParamsTool::get("rsa_keys_path", "rsa_keys");
+    if (!boost::starts_with(rsa_keys_path, "/")) {
+        rsa_keys_path = workdir + rsa_keys_path;
+    }
+    KOutOfNForOTSender<FieldsMessage>::gen_keypair(rsa_keys_path);
+    publicKey = KOutOfNForOTSender<FieldsMessage>::get_pub_key();
     OATPP_LOGD("OTServerService", " publicKey \n%s", publicKey->data());
 }
 
-OTServerService::~OTServerService() {
+/*OTServerService::~OTServerService() {
     delete redisCli;
-}
+}*/
 
 String &OTServerService::getPublicKey() {
     return publicKey;
@@ -72,7 +77,9 @@ void OTServerService::setRandomMsgs(const Object<OTServerReqDTO<String>> &reqDTO
     redisCli.mGet(reqDTO->params, ms, f);
     KOutOfNForOTSender<StrMessage> otSender(ms);*/
     vector<FieldsMessage> ms;
-    redisCli->hGetAll(reqDTO->params, ms);
+    vector<string> keys;
+    oatppVector_to_vector(reqDTO->params, keys);
+    kvCli->hGetAll(keys, ms);
     KOutOfNForOTSender<FieldsMessage> otSender(ms);
     otSenderMap.insert(make_pair(reqDTO->sessionToken, otSender));
     vector_to_oatppVector(otSender.get_rs(), rms);

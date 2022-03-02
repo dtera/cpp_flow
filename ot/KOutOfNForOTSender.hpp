@@ -7,9 +7,9 @@
 #pragma ide diagnostic ignored "OCUnusedStructInspection"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 
-#include "BaseOTSender.hpp"
 #include "common/exceptions/OTError.hpp"
 #include "common/util/BitOp.hpp"
+#include "ot/BaseOTSender.hpp"
 
 template<class M>
 class KOutOfNForOTSender : public BaseOTSender<M> {

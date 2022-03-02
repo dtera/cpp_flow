@@ -3,6 +3,7 @@
 //
 #pragma once
 #pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-err58-cpp"
 #pragma ide diagnostic ignored "OCUnusedStructInspection"
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #pragma ide diagnostic ignored "readability-convert-member-functions-to-static"
@@ -10,7 +11,7 @@
 #include <vector>
 
 #include "Constant.h"
-#include "../common/util/Utils.h"
+#include "common/util/Utils.h"
 
 using namespace std;
 
@@ -18,9 +19,10 @@ using namespace std;
 class FieldsMessage {
 private:
     oatpp::Fields<oatpp::String> fields;
-    string fieldSep = ",";
-    string kvSep = ":";
 public:
+    static const string FIELD_SEP;
+    static const string KV_SEP;
+
     explicit FieldsMessage() : fields({}) {}
 
     explicit FieldsMessage(oatpp::Fields<oatpp::String> &fields) : fields(fields) {}
@@ -29,12 +31,12 @@ public:
         string k, v;
         bool isTurnOfKey = true;
         for (auto c: str) {
-            if (c == fieldSep[0]) {
+            if (c == FIELD_SEP[0]) {
                 fields->push_back({k, v});
                 isTurnOfKey = true;
                 k = "";
                 v = "";
-            } else if (c == kvSep[0]) {
+            } else if (c == KV_SEP[0]) {
                 isTurnOfKey = false;
             } else {
                 if (isTurnOfKey) {
@@ -48,7 +50,7 @@ public:
     }
 
     string to_str() {
-        return join_Fields(fields, fieldSep, kvSep);
+        return join_Fields(fields, FIELD_SEP, KV_SEP);
     }
 
     oatpp::Fields<oatpp::String> &getFields() {
@@ -59,6 +61,9 @@ public:
 
 };
 
+const string FieldsMessage::FIELD_SEP = ",";
+
+const string FieldsMessage::KV_SEP = ":";
 
 ostream &operator<<(ostream &out, FieldsMessage &fieldsMessage) {
     out << fieldsMessage.to_str();

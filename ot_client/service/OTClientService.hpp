@@ -11,15 +11,15 @@
 #include <oatpp/core/Types.hpp>
 #include "oatpp/web/server/api/ApiController.hpp"
 
-#include "../../ot/Message.hpp"
-#include "../../ot/KOutOfNForOTReceiver.hpp"
-#include "../../common/api/OTServerApiClient.hpp"
-#include "../../common/dto/DTOs.hpp"
-#include "../../common/dto/OTClientDTOs.hpp"
-#include "../../common/exceptions/OTError.hpp"
-#include "../../common/util/OatppUtils.hpp"
-#include "../../common/util/Func.h"
-#include "../../common/ParamsTool.hpp"
+#include "ot/KOutOfNForOTReceiver.hpp"
+#include "ot/Message.hpp"
+#include "common/api/OTServerApiClient.hpp"
+#include "common/dto/DTOs.hpp"
+#include "common/dto/OTClientDTOs.hpp"
+#include "common/exceptions/OTError.hpp"
+#include "common/util/Func.h"
+#include "common/util/OatppUtils.hpp"
+#include "common/ParamsTool.hpp"
 
 using namespace oatpp;
 

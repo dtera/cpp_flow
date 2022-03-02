@@ -11,9 +11,9 @@
 #include "oatpp/core/macro/codegen.hpp"
 #include "oatpp/core/macro/component.hpp"
 
-#include "../../common/dto/DTOs.hpp"
-#include "../../common/exceptions/OTError.hpp"
-#include "../service/OTServerService.hpp"
+#include "common/dto/DTOs.hpp"
+#include "common/exceptions/OTError.hpp"
+#include "ot_server/service/OTServerService.hpp"
 
 
 #include OATPP_CODEGEN_BEGIN(ApiController) //<-- Begin Codegen
