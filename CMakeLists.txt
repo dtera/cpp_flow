@@ -8,7 +8,7 @@ set(LIB_SUFFIX so)
 set(INC_DIR /usr/local/include)
 set(LINK_DIR /usr/local/lib)
 set(LINK_LIB libboost_filesystem.${LIB_SUFFIX} libboost_system.${LIB_SUFFIX} libboost_thread-mt.${LIB_SUFFIX}
-        libhiredis.${LIB_SUFFIX} libprotobuf.${LIB_SUFFIX})
+        libhiredis.${LIB_SUFFIX} libprotobuf.${LIB_SUFFIX} libjsoncpp.${LIB_SUFFIX})
 
 set(PROJECT_INC_DIR . ./include ./proto/gen ./proto/src)
 set(PROJECT_LINK_DIR ./lib)

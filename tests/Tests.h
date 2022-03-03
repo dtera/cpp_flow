@@ -5,66 +5,17 @@
 
 #include <functional>
 #include <iostream>
+#include <json/reader.h>
+#include <json/value.h>
 #include <string>
 
 #include "common/util/Utils.h"
 #include "common/util/Func.h"
+#include "mmdcotservicehttpbroker.pb.h"
 #include "ot/KOutOfNForOTSender.hpp"
 #include "ot/KOutOfNForOTReceiver.hpp"
 #include "ot/Message.hpp"
 #include "tests/HttpTest.h"
-
-void pb_test();
-
-void test() {
-    //random_str_test();
-    //rsa_test();
-    //bit_op_test();
-    /*string res;
-    do {
-    res = ot_test();
-    } while(res == "def");*/
-    //ot_test();
-    /*BaseOTSender<string>::gen_keypair();
-    cout << BaseOTSender<string>::get_pub_key() << endl;*/
-
-    httpClientOldTest();
-    //httpClientTest();
-    //httpServerTest();
-
-    //oTTest();
-    //pb_test();
-
-}
-
-void pb_test() {
-    cout << "arc4random: " << arc4random() << endl;
-    cout << "arc4random: " << arc4random() << endl;
-    cout << "sessionToken: " << gen_random_str(32) << endl;
-    cout << "sessionToken: " << gen_random_str(32) << endl;
-
-    vector<string> rs;
-    gen_n_random_str(32, 1361272876, rs, 5);
-    println_vector(rs, "rs");
-
-    string content = R"({"error": {"code":0,"message":"ok"},"result": {"function":"OT_GetDecryptedYOps"}})";
-    OTServerResponseWrapper otServerRes;
-    JsonStringToMessage(content, &otServerRes);
-
-    string otServerResStr;
-    MessageToJsonString(otServerRes, &otServerResStr);
-    cout << "otServerResStr: \n" << otServerResStr << endl;
-    string msg = "key\\:value1\\:value2";
-    string sub(1, (char)26);
-    boost::replace_all(msg, "\\:", sub);
-    boost::replace_all(msg, ":", ": ");
-    boost::replace_all(msg, sub, ":");
-    cout << "sub--> " << sub << endl;
-    cout << "msg--> " << msg << endl;
-    msg = "key:value1\\:value2";
-    bool msg_escape_contains = str_escape_contains(msg, ':');
-    cout << "msg str_escape_contains--> " << msg_escape_contains << endl;
-}
 
 string ot_test() {
     string s1 = "abc", s2 = "def", s3 = "ghi", s4 = "jkl", s5 = "mno";
@@ -148,3 +99,87 @@ void random_str_test() {
     cout << s4 << endl;
 }
 
+void random_test() {
+    cout << "arc4random: " << arc4random() << endl;
+    cout << "arc4random: " << arc4random() << endl;
+    cout << "sessionToken: " << gen_random_str(32) << endl;
+    cout << "sessionToken: " << gen_random_str(32) << endl;
+
+    vector<string> rs;
+    gen_n_random_str(32, 1361272876, rs, 5);
+    println_vector(rs, "rs");
+}
+
+void str_test() {
+    string msg = "key\\:value1\\:value2";
+    string sub(1, (char)26);
+    boost::replace_all(msg, "\\:", sub);
+    boost::replace_all(msg, ":", ": ");
+    boost::replace_all(msg, sub, ":");
+    cout << "sub--> " << sub << endl;
+    cout << "msg--> " << msg << endl;
+    msg = "key:value1\\:value2";
+    bool msg_escape_contains = str_escape_contains(msg, ':');
+    cout << "msg str_escape_contains--> " << msg_escape_contains << endl;
+}
+
+void json_test() {
+    //string content = R"({"error": {"code": 0, "message": "ok"}, "result": {"function": "OT_GetDecryptedYOps"}})";
+    string content = R"({"value":"uin:1557660545,score:91.0"})";
+    Json::Value rootValue;
+    Json::Reader reader;
+    bool isJson = reader.parse(content, rootValue);
+
+    vector<string> v;
+    string s;
+    v.emplace_back("aaa");
+    try {
+        s = v.at(0);
+    } catch(std::out_of_range &e) {}
+
+    cout << "content: " << content << endl;
+    cout << "isJson: " << isJson << endl;
+    cout << "vector.front(): " << s << endl;
+
+}
+
+void pb_test() {
+    string content = R"({"error": {"code":0,"message":"ok"},"result": {"function":"OT_GetDecryptedYOps"}})";
+    OTServerResponseWrapper otServerRes;
+    JsonStringToMessage(content, &otServerRes);
+    auto message = otServerRes.New();
+    message->CopyFrom(otServerRes);
+    otServerRes.mutable_error()->set_message("success");
+    message->mutable_error()->set_message("OK");
+
+    string otServerResStr;
+    MessageToJsonString(*message, &otServerResStr);
+    cout << "otServerResStr: \n" << otServerResStr << endl;
+    cout << "otServerRes.message(): " << otServerRes.error().message() << endl;
+
+}
+
+void test() {
+    pb_test();
+    //json_test();
+    //str_test();
+    //random_test();
+
+    //oTTest();
+
+    //random_str_test();
+    //rsa_test();
+    //bit_op_test();
+    /*string res;
+    do {
+    res = ot_test();
+    } while(res == "def");*/
+    //ot_test();
+    /*BaseOTSender<string>::gen_keypair();
+    cout << BaseOTSender<string>::get_pub_key() << endl;*/
+
+    //httpClientOldTest();
+    //httpClientTest();
+    //httpServerTest();
+
+}
