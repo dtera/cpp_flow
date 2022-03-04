@@ -47,7 +47,8 @@ public:
 
     vector<string> &get_rs();
 
-    virtual void decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops, int reqLimitNum = 0) = 0;
+    virtual void decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops,
+                         int reqLimitNum = 0, const bool &secureMode = true) = 0;
 
     static char *get_pub_key();
 

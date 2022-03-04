@@ -38,6 +38,18 @@ inline char c_xor_not(const char &a, const char &b) {
     return a ^ (~b);
 }
 
+inline char c_not_and_not(const char &a, const char &b) {
+    return (~a) & (~b);
+}
+
+inline char c_not_or_not(const char &a, const char &b) {
+    return (~a) | (~b);
+}
+
+inline char c_not_xor_not(const char &a, const char &b) {
+    return (~a) ^ (~b);
+}
+
 inline const char &char_self(const char &c) {
     return c;
 }
@@ -140,6 +152,24 @@ string str_or_not(const string &a, const string &b) {
 string str_xor_not(const string &a, const string &b) {
     string res;
     str_bit_bin_op(a, b, res, c_xor_not, true, true, char_not, char_self);
+    return res;
+}
+
+string str_not_and_not(const string &a, const string &b) {
+    string res;
+    str_bit_bin_op(a, b, res, c_not_and_not);
+    return res;
+}
+
+string str_not_or_not(const string &a, const string &b) {
+    string res;
+    str_bit_bin_op(a, b, res, c_not_or_not, true, true, char_255, char_255);
+    return res;
+}
+
+string str_not_xor_not(const string &a, const string &b) {
+    string res;
+    str_bit_bin_op(a, b, res, c_not_xor_not, true, true, char_not, char_not);
     return res;
 }
 

@@ -18,7 +18,8 @@ public:
 
     explicit KOutOfNForOTSender(vector<M> &ms, const unsigned int &seed);
 
-    void decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops, int reqLimitNum = 0) override;
+    void decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops,
+                 int reqLimitNum = 0, const bool &secureMode = true) override;
 };
 
 
@@ -33,19 +34,33 @@ KOutOfNForOTSender<M>::KOutOfNForOTSender(vector<M> &ms, const unsigned int &see
 }
 
 template<class M>
-void KOutOfNForOTSender<M>::decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops, int reqLimitNum) {
+void KOutOfNForOTSender<M>::decrypt(vector<string> &encrypted_y_ops, vector<string> &decrypted_y_ops,
+                                    int reqLimitNum, const bool &secureMode) {
     //cout << "decrypt::publicKey: \n" << this->pub_key << endl;
     //cout << "decrypt::privateKey: \n" << this->pri_key << endl;
     //println_str2int_vector_vector(encrypted_y_ops, "decrypt::encrypted_y_ops");
-    if (atoi(encrypted_y_ops[2].data()) > reqLimitNum) {
-        auto err = "The Number " + encrypted_y_ops[2] + " of requested data exceeds the limit " +
-                   to_string(reqLimitNum);
+    if ((secureMode && encrypted_y_ops.size() > 2 * reqLimitNum) || encrypted_y_ops.size() < 2 ||
+        atoi(encrypted_y_ops[2].data()) > reqLimitNum) {
+        auto reqNum = secureMode ? to_string(encrypted_y_ops.size() / 2) : encrypted_y_ops[2];
+        auto err = "The Number " + reqNum + " of requested data must be between 1 and " +
+                to_string(reqLimitNum);
         throw OTError(err);
     }
 
+    auto op1 = encrypted_y_ops[0];
+    auto op2 = encrypted_y_ops[1];
+    if (secureMode) {
+        for (int i = 1; i < encrypted_y_ops.size() / 2; ++i) {
+            op1 = str_and(op1, encrypted_y_ops[2 * i]);
+            op2 = str_and(op2, encrypted_y_ops[2 * i + 1]);
+        }
+    }
+    //cout << "decrypt::op1: " << op1 << endl;
+    //cout << "decrypt::op2: " << op2 << endl;
+
     for (int i = 0; i < this->n; i++) {
-        auto t1 = str_and_not(encrypted_y_ops[0], this->rbs[i]);
-        auto t2 = str_and(encrypted_y_ops[1], this->rbs[i]);
+        auto t1 = str_and_not(op1, this->rbs[i]);
+        auto t2 = str_and(op2, this->rbs[i]);
         auto t3 = str_or(t1, t2);
         auto encrypted_y = str_xor(t3, this->rbs[i]);
 

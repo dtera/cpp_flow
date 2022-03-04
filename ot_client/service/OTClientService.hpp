@@ -98,7 +98,8 @@ void OTClientService::setMessages(const Fields<UInt8> &uinWithLabelMap, Vector<F
     // 2. otReceiver encrypt key y with publicKey and random msg
     vector<string> encrypted_y_ops;
     KOutOfNForOTReceiver otReceiver(choices);
-    otReceiver.encrypt(rms, encrypted_y_ops);
+    otReceiver.encrypt(rms, encrypted_y_ops, "",
+                       ParamsTool::getBool("secureMode", true));
     //vector_to_oatppVector(encrypted_y_ops, otServerReqDTO->params);
     auto otServerReqDTO2 = OTServerReqDTO<Vector<Int8>>::createShared();
     otServerReqDTO2->sessionToken = sessionToken;

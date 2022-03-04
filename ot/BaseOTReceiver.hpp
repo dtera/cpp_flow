@@ -45,7 +45,8 @@ public:
     template<typename M, typename F>
     void get_messages_of_chosen(vector<string> &decrypted_y_ops, vector<M> &decrypted_ms, F f = nullptr);
 
-    virtual void encrypt(vector<string> &rs, vector<string> &encrypted_y_ops, const string &publicKey = "") = 0;
+    virtual void encrypt(vector<string> &rs, vector<string> &encrypted_y_ops,
+                         const string &publicKey = "", const bool &secureMode = true) = 0;
 
     static void set_pub_key(char *pk);
 
@@ -85,7 +86,7 @@ template<typename M, typename F>
 void BaseOTReceiver::get_messages(vector<string> &decrypted_y_ops, vector<M> &decrypted_ms, F f, bool only_chosen) {
     auto y = ybs[0];
     if (only_chosen) {
-        for (int choice : choices) {
+        for (int choice: choices) {
             auto t = str_xor(decrypted_y_ops[choice], y);
             M m(t);
             if (f != nullptr) {

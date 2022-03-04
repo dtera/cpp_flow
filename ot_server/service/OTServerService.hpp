@@ -94,7 +94,9 @@ void OTServerService::setDecryptedYOps(const Object<OTServerReqDTO<Vector<Int8>>
     //oatppVector_to_vector(reqDTO->params, encrypted_y_ops);
     int_Vector_Vector2vector_str(reqDTO->params, encrypted_y_ops);
 
-    otSender.decrypt(encrypted_y_ops, decrypted_y_ops, ParamsTool::getInt("reqLimitNum", 5));
+    otSender.decrypt(encrypted_y_ops, decrypted_y_ops,
+                     ParamsTool::getInt("reqLimitNum", 5),
+                     ParamsTool::getBool("secureMode", true));
     //vector_to_oatppVector(decrypted_y_ops, decryptedYOps);
     vector_str2int_Vector_Vector(decrypted_y_ops, decryptedYOps);
 
