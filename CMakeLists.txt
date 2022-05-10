@@ -62,6 +62,3 @@ set_target_properties(${PROJECT_NAME}-lib ${PROJECT_NAME}-exe PROPERTIES
         CXX_EXTENSIONS OFF
         CXX_STANDARD_REQUIRED ON
         )
-
-
-
