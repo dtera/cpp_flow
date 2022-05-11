@@ -10,7 +10,7 @@
 
 #include <vector>
 
-#include "Constant.h"
+#include "common/Constant.h"
 #include "common/util/Utils.h"
 
 using namespace std;

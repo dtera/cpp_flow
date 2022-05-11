@@ -10,8 +10,8 @@
 #include <vector>
 //#include <openssl/md5.h>
 
+#include "common/Constant.h"
 #include "common/util/Utils.h"
-#include "ot/Constant.h"
 
 using namespace std;
 

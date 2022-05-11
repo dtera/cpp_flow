@@ -28,7 +28,7 @@
 #include <unistd.h>
 #include <vector>
 
-#include "ot/Constant.h"
+#include "common/Constant.h"
 
 string rsa_pri_decrypt(const string &in, const string &pri_key);
 
