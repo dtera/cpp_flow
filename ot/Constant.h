@@ -3,8 +3,6 @@
 //
 #pragma once
 #pragma clang diagnostic push
-#pragma clang diagnostic push
-#pragma clang diagnostic push
 #pragma ide diagnostic ignored "OCUnusedGlobalDeclarationInspection"
 #pragma clang diagnostic ignored "-Wunknown-pragmas"
 #pragma ide diagnostic ignored "cert-err58-cpp"
@@ -20,5 +18,3 @@ const string RSA_PUBLIC_KEY_FILE_NAME = "id_rsa.pub";
 const string RSA_PRIVATE_KEY_FILE_NAME = "id_rsa";
 
 //typedef unsigned char byte;
-
-#pragma clang diagnostic pop
