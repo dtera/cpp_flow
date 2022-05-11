@@ -7,11 +7,11 @@ add_library(${PROJECT_NAME}-lib common/util/Utils.cpp proto/gen/mmdcotservicehtt
         common/http/request_parser.cpp common/http/server.cpp
         )
 
+set(SOURCE_FILES main.cpp)
+
 set(CMAKE_CXX_STANDARD 17)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
-
-set(SOURCE_FILES main.cpp)
 
 #set(LIB_SUFFIX dylib)
 set(LIB_SUFFIX so)
@@ -22,9 +22,7 @@ set(OPENSSL_LIBRARIES ${OPENSSL_ROOT_DIR}/lib)
 set(INC_DIR . ./include ./proto/gen ./proto/src /usr/local/include /opt/homebrew/include
         ${OPENSSL_ROOT_DIR}/include ${LOCAL_OPT_DIR}/jsoncpp/include ${BREW_OPT_DIR}/jsoncpp/include
         )
-set(LINK_DIR ./lib ${LOCAL_DIR}/lib /opt/homebrew/lib
-        ${LOCAL_OPT_DIR}/jsoncpp/lib ${BREW_OPT_DIR}/jsoncpp/lib
-        )
+set(LINK_DIR ./lib /usr/local/lib /opt/homebrew/lib ${LOCAL_OPT_DIR}/jsoncpp/lib ${BREW_OPT_DIR}/jsoncpp/lib)
 set(LINK_LIB libjsoncpp.${LIB_SUFFIX})
 
 include_directories(${INC_DIR})
