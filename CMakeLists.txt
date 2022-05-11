@@ -59,7 +59,7 @@ target_link_libraries(${PROJECT_NAME}-exe ${PROJECT_NAME}-lib)
 #add_dependencies(${PROJECT_NAME}-exe ${PROJECT_NAME}-lib)
 
 set_target_properties(${PROJECT_NAME}-lib ${PROJECT_NAME}-exe PROPERTIES
-        CXX_STANDARD 17
+        CXX_STANDARD ${CMAKE_CXX_STANDARD}
         CXX_EXTENSIONS OFF
         CXX_STANDARD_REQUIRED ON
         )
