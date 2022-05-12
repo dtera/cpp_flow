@@ -17,13 +17,16 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 set(LIB_SUFFIX so)
 set(LOCAL_OPT_DIR /usr/local/opt)
 set(BREW_OPT_DIR /opt/homebrew/opt)
-set(OPENSSL_ROOT_DIR ${BREW_OPT_DIR}/openssl)
-set(OPENSSL_LIBRARIES ${OPENSSL_ROOT_DIR}/lib)
-set(INC_DIR . ./include ./proto/gen ./proto/src /usr/local/include /opt/homebrew/include
-        ${OPENSSL_ROOT_DIR}/include ${LOCAL_OPT_DIR}/jsoncpp/include ${BREW_OPT_DIR}/jsoncpp/include
+set(INC_DIR . ./include ./proto/gen ./proto/src /usr/include /usr/local/include /opt/homebrew/include
+        ${OPENSSL_ROOT_DIR}/include
+        ${LOCAL_OPT_DIR}/openssl/include ${BREW_OPT_DIR}/openssl/include
+        ${LOCAL_OPT_DIR}/jsoncpp/include ${BREW_OPT_DIR}/jsoncpp/include
         )
-set(LINK_DIR ./lib /usr/local/lib /opt/homebrew/lib ${LOCAL_OPT_DIR}/jsoncpp/lib ${BREW_OPT_DIR}/jsoncpp/lib)
-set(LINK_LIB libjsoncpp.${LIB_SUFFIX})
+set(LINK_DIR ./lib /usr/lib /usr/local/lib /opt/homebrew/lib
+        ${LOCAL_OPT_DIR}/openssl/lib ${BREW_OPT_DIR}/openssl/lib
+        ${LOCAL_OPT_DIR}/jsoncpp/lib ${BREW_OPT_DIR}/jsoncpp/lib
+        )
+set(LINK_LIB libcrypto.${LIB_SUFFIX} libssl.${LIB_SUFFIX} libjsoncpp.${LIB_SUFFIX})
 
 include_directories(${INC_DIR})
 link_directories(${LINK_DIR})
@@ -40,7 +43,7 @@ find_package(Protobuf REQUIRED)
 
 find_package(Hiredis REQUIRED)
 
-find_package(OpenSSL REQUIRED)
+#find_package(OpenSSL REQUIRED)
 
 find_package(oatpp REQUIRED)
 
