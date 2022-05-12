@@ -51,7 +51,6 @@ target_link_libraries(${PROJECT_NAME}-lib
         PUBLIC ${Boost_LIBRARIES}
         PUBLIC ${Protobuf_LIBRARIES}
         PUBLIC ${Hiredis_LIBRARIES}
-        PUBLIC ${OPENSSL_LIBRARIES}
         PUBLIC oatpp::oatpp;oatpp::oatpp-test
         )
 
