@@ -2,11 +2,6 @@ cmake_minimum_required(VERSION 3.18)
 
 project(cpp_flow)
 
-add_library(${PROJECT_NAME}-lib common/util/Utils.cpp proto/gen/mmdcotservicehttpbroker.pb.cc
-        common/http/connection.cpp common/http/mime_types.cpp common/http/reply.cpp common/http/request_handler.cpp
-        common/http/request_parser.cpp common/http/server.cpp
-        )
-
 set(SOURCE_FILES main.cpp)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -31,6 +26,10 @@ set(LINK_LIB libcrypto.${LIB_SUFFIX} libssl.${LIB_SUFFIX} libjsoncpp.${LIB_SUFFI
 include_directories(${INC_DIR})
 link_directories(${LINK_DIR})
 link_libraries(${LINK_LIB})
+
+file(GLOB ${PROJECT_NAME}-src *.cpp *.cc ./**/**/*.cpp ./**/**/*.cc)
+message(STATUS "${PROJECT_NAME}-src: ${${PROJECT_NAME}-src}")
+add_library(${PROJECT_NAME}-lib ${${PROJECT_NAME}-src})
 
 find_package(Boost COMPONENTS system filesystem thread REQUIRED)
 if(Boost_FOUND)
