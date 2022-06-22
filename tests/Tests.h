@@ -9,6 +9,7 @@
 #include <json/value.h>
 #include <string>
 
+#include "common/stopwatch.hpp"
 #include "common/util/Utils.h"
 #include "common/util/Func.h"
 #include "mmdcotservicehttpbroker.pb.h"
@@ -112,7 +113,7 @@ void random_test() {
 
 void str_test() {
     string msg = "key\\:value1\\:value2";
-    string sub(1, (char)26);
+    string sub(1, (char) 26);
     boost::replace_all(msg, "\\:", sub);
     boost::replace_all(msg, ":", ": ");
     boost::replace_all(msg, sub, ":");
@@ -135,7 +136,7 @@ void json_test() {
     v.emplace_back("aaa");
     try {
         s = v.at(0);
-    } catch(std::out_of_range &e) {}
+    } catch (std::out_of_range &e) {}
 
     cout << "content: " << content << endl;
     cout << "isJson: " << isJson << endl;
