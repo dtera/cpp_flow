@@ -13,10 +13,16 @@
 #pragma comment(lib, "ws2_32.lib")
 */
 #include <boost/algorithm/string.hpp>
-#include <boost/property_tree/ptree.hpp>
+#include <boost/filesystem.hpp>
+#include <boost/lexical_cast.hpp>
 #include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/tokenizer.hpp>
 #include <cstdio>
 #include <ctime>
+#include <google/protobuf/repeated_field.h>
+#include <google/protobuf/util/json_util.h>
 #include <iostream>
 #include <oatpp/core/Types.hpp>
 #include <openssl/pem.h>
@@ -29,6 +35,9 @@
 #include <vector>
 
 #include "common/Constant.h"
+
+using namespace google::protobuf;
+using namespace boost::property_tree;
 
 string rsa_pri_decrypt(const string &in, const string &pri_key);
 
@@ -60,6 +69,60 @@ void ini_to_map(boost::property_tree::ptree &pt, map<string, string> &data,
 void println_str2int_vector(const string &s, const string &name, const string &sep = ", ");
 
 void println_str2int_vector_vector(const vector<string> &vs, const string &name, const string &sep = ", ");
+
+void read_json2pb(const string &path, Message &msg);
+
+double sigmoid(double x, double max_x = 8);
+
+void pb_softmax(RepeatedField<double> *values);
+
+int pb_argmax(RepeatedField<double> *values);
+
+void load_dir_names_from_path(string &path, vector<string> &dir_names);
+
+[[maybe_unused]] string msg_to_json_str(Message &message);
+
+[[maybe_unused]] int read_csv(const string &path,
+                              const function<void(vector<string>)> consumer);
+
+[[maybe_unused]] int read_csv(const string &path, vector<vector<string>> *out);
+
+[[maybe_unused]] int read_csv(const string &path,
+                              unordered_map<string, vector<string>> *out);
+
+[[maybe_unused]] int read_csv(const string &path,
+                              unordered_map<uint32_t, float> *out);
+
+template<typename T>
+void softmax(T *src, T *dst, int len) {
+    const T alpha = *max_element(src, src + len);
+    T denominator = 0;
+
+    for (int i = 0; i < len; ++i) {
+        dst[i] = exp(src[i] - alpha);
+        denominator += dst[i];
+    }
+
+    for (int i = 0; i < len; ++i) {
+        dst[i] /= denominator;
+    }
+}
+
+template<typename T>
+void softmax(T *src, int len) { softmax(src, src, len); }
+
+template<typename T>
+int argmax(const T *src, int len) {
+    int maxIndex = 0;
+    double max = src[maxIndex];
+    for (int i = 1; i < len; i++) {
+        if (src[i] > max) {
+            maxIndex = i;
+            max = src[i];
+        }
+    }
+    return maxIndex;
+}
 
 template<typename T>
 int index_of(const T *ts, const int &len, const T &t) {

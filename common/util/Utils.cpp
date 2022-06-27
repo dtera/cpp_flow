@@ -253,3 +253,106 @@ void println_str2int_vector_vector(const vector<string> &vs, const string &name,
         println_vector(str2int_vector(vs[i]), name + "[" + to_string(i) + "]");
     }
 }
+
+void read_json2pb(const string &path, Message &msg) {
+    ptree tree;
+    json_parser::read_json(path, tree);
+    stringstream ss;
+    json_parser::write_json(ss, tree);
+
+    util::JsonStringToMessage(ss.str(), &msg);
+}
+
+double sigmoid(double x, double max_x) {
+    if (x < -max_x) {
+        return 0.0;
+    } else if (x > max_x) {
+        return 1.0;
+    } else {
+        return 1.0 / (1.0 + exp(-x));
+    }
+}
+
+void pb_softmax(RepeatedField<double> *values) {
+    auto len = values->size();
+    auto alpha = *max_element(values->begin(), values->end());
+    double denominator = 0;
+
+    for (int i = 0; i < len; ++i) {
+        values->Set(i, exp(values->Get(i) - alpha));
+        denominator += values->Get(i);
+    }
+
+    for (int i = 0; i < len; ++i) {
+        values->Set(i, values->Get(i) / denominator);
+    }
+}
+
+int pb_argmax(RepeatedField<double> *values) {
+    int maxIndex = 0;
+    double max = values->Get(maxIndex);
+    for (int i = 1; i < values->size(); i++) {
+        if (values->Get(i) > max) {
+            maxIndex = i;
+            max = values->Get(i);
+        }
+    }
+    return maxIndex;
+}
+
+void load_dir_names_from_path(string &path, vector<string> &dir_names) {
+    dir_names.clear();
+    boost::filesystem::path f_path(path);
+    boost::filesystem::directory_iterator iter(f_path);
+    while (iter != boost::filesystem::directory_iterator()) {
+        if (boost::filesystem::is_directory(iter->path())) {
+            string stem = iter->path().stem().string();
+            string extension = iter->path().extension().string();
+            dir_names.emplace_back(stem + extension);
+        }
+        ++iter;
+    }
+}
+
+[[maybe_unused]] string msg_to_json_str(Message &message) {
+    string output;
+    google::protobuf::util::MessageToJsonString(message, &output);
+    return output;
+}
+
+[[maybe_unused]] int read_csv(const string &path,
+                              const function<void(vector<string>)> consumer) { // NOLINT
+    ifstream in(path.c_str());
+    if (!in.is_open())
+        return -1;
+
+    vector<string> vec;
+    string line;
+    while (getline(in, line)) {
+        boost::tokenizer<boost::escaped_list_separator<char>> tok(line);
+        vec.assign(tok.begin(), tok.end());
+        if (consumer != nullptr) {
+            consumer(vec);
+        }
+    }
+    return 0;
+}
+
+[[maybe_unused]] int read_csv(const string &path, vector<vector<string>> *out) {
+    return read_csv(path, [out](vector<string> vec) { out->emplace_back(vec); }); // NOLINT
+}
+
+[[maybe_unused]] int read_csv(const string &path,
+                              unordered_map<string, vector<string>> *out) {
+    return read_csv(path, [out](vector<string> vec) {
+        out->insert({vec[0], vec});
+    });
+}
+
+[[maybe_unused]] int read_csv(const string &path,
+                              unordered_map<uint32_t, float> *out) {
+    return read_csv(path, [out](vector<string> vec) {
+        out->insert({boost::lexical_cast<uint32_t>(vec[0]),
+                     boost::lexical_cast<float>(vec[1])});
+    });
+}
